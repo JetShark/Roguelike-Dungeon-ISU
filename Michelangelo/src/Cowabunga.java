@@ -68,8 +68,8 @@ public class Cowabunga extends JPanel {
     public static void main(String[] args) throws Exception {
         JFrame frame = new JFrame("Michelangelo");
         //Add our JPanel to the frame
-        Cowabunga p = new Cowabunga();
-        frame.add(p);
+        Cowabunga cb = new Cowabunga();
+        frame.add(cb);
         frame.setSize(1020 ,640);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,9 +77,9 @@ public class Cowabunga extends JPanel {
         long accumulatedTimeMs = 0;
         while(true){
             long startTime =  System.currentTimeMillis();
-            p.repaint();
+            cb.repaint();
             while(accumulatedTimeMs >= 10){
-                p.move();
+                cb.move();
                 accumulatedTimeMs -= 10;
             }
             long endTime = System.currentTimeMillis();

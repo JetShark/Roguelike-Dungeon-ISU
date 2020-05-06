@@ -5,9 +5,9 @@ import java.io.IOException;
 
 public class SpriteRetrival {
 
-    private static BufferedImage projectileSprites;
+    private static BufferedImage projectileSprites; //creates the img.
     private static BufferedImage enemySprites;
-    private static final int TILE_SIZE = 32;
+    private static final int TILE_SIZE = 32; //tile size of the tiles on the spread sheet.
 
     private static BufferedImage loadSprite(String file){
 
@@ -20,6 +20,7 @@ public class SpriteRetrival {
             return sprite;
         }
     public static BufferedImage getSprite(int xGrid, int yGrid, int spriteNumber){
+        //Takes the x and y quartents that are given and pass them on to the right method based on what number they are acssesing.
         if(spriteNumber == 1) {
             return getProjectileSprites(xGrid, yGrid);
         }
@@ -30,9 +31,9 @@ public class SpriteRetrival {
     }
     private static BufferedImage getProjectileSprites(int xGrid, int yGrid){
         if(projectileSprites == null){
-            projectileSprites = loadSprite("Projectile-SpriteSheet");
+            projectileSprites = loadSprite("Projectile-SpriteSheet"); // sets projectileSprites to the spritesheet if it does not have on yet
         }
-        return projectileSprites.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        return projectileSprites.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE); // returns the sub images based on the x,y values given.
     }
     private static BufferedImage getEnemySprites(int xGrid, int yGrid){
         if(enemySprites == null){
