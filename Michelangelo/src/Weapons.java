@@ -4,10 +4,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class WeaponTest {
+public class Weapons {
     private int x = 800, y = 200;
     private BufferedImage img = null;
-    public WeaponTest(){
+    public Weapons(){
         try {
             img = ImageIO.read(new File("src/SpriteSheets/Produce.png"));
         } catch (IOException e) {
