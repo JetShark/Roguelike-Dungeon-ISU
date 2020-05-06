@@ -65,6 +65,7 @@ public class Cowabunga extends JPanel {
         wt.paint(g2d);
     }
 
+
     public static void main(String[] args) throws Exception {
         JFrame frame = new JFrame("Michelangelo");
         //Add our JPanel to the frame
@@ -88,11 +89,12 @@ public class Cowabunga extends JPanel {
 
         /*while (true)
         {
-            p.move(); //Updates the coordinates
-            p.repaint(); //Calls the paint method
+            cb.move(); //Updates the coordinates
+            cb.repaint(); //Calls the paint method
             Thread.sleep(10); //Pauses for a moment
             //Thread.sleep(1); //Pauses for a moment
         }
          */
     }
+
 }
