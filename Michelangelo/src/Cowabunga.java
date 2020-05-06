@@ -57,21 +57,23 @@ public class Cowabunga extends JPanel {
 
     }
 
+
     public static void main(String[] args) throws Exception {
         JFrame frame = new JFrame("Michelangelo");
         //Add our JPanel to the frame
-        Cowabunga p = new Cowabunga();
-        frame.add(p);
+        Cowabunga cb = new Cowabunga();
+        frame.add(cb);
         frame.setSize(1020 ,640);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         while (true)
         {
-            p.move(); //Updates the coordinates
-            p.repaint(); //Calls the paint method
+            cb.move(); //Updates the coordinates
+            cb.repaint(); //Calls the paint method
             Thread.sleep(10); //Pauses for a moment
             //Thread.sleep(1); //Pauses for a moment
         }
     }
+
 }
