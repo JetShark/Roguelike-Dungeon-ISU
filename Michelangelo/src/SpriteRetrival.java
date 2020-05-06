@@ -6,7 +6,7 @@ import java.io.IOException;
 public class SpriteRetrival {
 
     private static BufferedImage projectileSprites;
-    private static BufferedImage skeleton;
+    private static BufferedImage enemySprites;
     private static final int TILE_SIZE = 32;
 
     private static BufferedImage loadSprite(String file){
@@ -24,7 +24,7 @@ public class SpriteRetrival {
             return getProjectileSprites(xGrid, yGrid);
         }
         if(spriteNumber == 2){
-            //return getSkeletonSprite(xGrid, yGrid);
+            //return getEnemySprites(xGrid, yGrid);
         }
         return null;
     }
@@ -34,10 +34,10 @@ public class SpriteRetrival {
         }
         return projectileSprites.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }
-    private static BufferedImage getSkeletonSprite(int xGrid, int yGrid){
-        if(skeleton == null){
-            skeleton = loadSprite("Skeleton");
+    private static BufferedImage getEnemySprites(int xGrid, int yGrid){
+        if(enemySprites == null){
+            enemySprites = loadSprite("Skeleton");
         }
-        return skeleton.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        return enemySprites.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }
 }

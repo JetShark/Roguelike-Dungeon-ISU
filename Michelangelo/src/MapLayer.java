@@ -71,7 +71,7 @@ public class MapLayer {
             for (int x = 0; x < width; x++) {
                 int i = (level[x][y])%tilesAcross;
                 int j = (level[x][y])/tilesAcross;
-                g.drawImage(img.getSubimage(i*tileWidth, j*tileHeight, tileWidth,tileHeight), x*tileWidth*2, y*tileHeight*2, tileWidth*2, tileHeight*2, null);
+                g.drawImage(img.getSubimage(i*tileWidth, j*tileHeight, tileWidth,tileHeight), x*tileWidth*3, y*tileHeight*3, tileWidth*3, tileHeight*3, null);
             }
         }
     }

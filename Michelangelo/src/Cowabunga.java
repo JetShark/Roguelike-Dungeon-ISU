@@ -4,15 +4,16 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class Cowabunga extends JPanel {
+    private Enemies et = new Enemies(this);
+    private Player pt = new Player(this);
+    private Bone b = new Bone();
+    private Weapons wt = new Weapons();
     //@Override
 
     MapLayer currentMap;
 
     public Cowabunga() throws Exception {
-
         currentMap = new MapLayer("Map System/Test Map_Map.csv", "Map System/DawnLike/Objects/floor.png");
-
-
 
         //This adds the KeyListener to the BallWorld. It’s in this section that
         //you HAVE to have all three key listener methods whether they are used
@@ -29,11 +30,13 @@ public class Cowabunga extends JPanel {
             public void keyReleased(KeyEvent e) {
                 //Passes the KeyEvent e to the ball instance
                 //list[0].keyReleased(e);
+                pt.keyReleased(e);
             }
             @Override
             public void keyPressed(KeyEvent e) {
                 //Passes the KeyEvent e to the ball instance
                 //list[0].keyPressed(e);
+                pt.keyPressed(e);
             }
         }); //NOTE THE SEMI-COLON!!!!
 
@@ -43,8 +46,11 @@ public class Cowabunga extends JPanel {
     }
 
 
-    private void move() { //Have the ball move
+    private void move() throws InterruptedException { //Have the ball move
         // FIXME: 2020-05-05 need to have the player move function
+        et.move();
+        pt.move();
+        b.move();
     }
 
     public void paint(Graphics g) {
@@ -52,9 +58,11 @@ public class Cowabunga extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(Color.RED);
         g2d.setBackground(Color.black);
-
         currentMap.paint(g2d);
-
+        pt.paint(g2d);
+        et.paint(g2d);
+        b.paint(g2d);
+        wt.paint(g2d);
     }
 
     public static void main(String[] args) throws Exception {
@@ -66,12 +74,25 @@ public class Cowabunga extends JPanel {
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        while (true)
+        long accumulatedTimeMs = 0;
+        while(true){
+            long startTime =  System.currentTimeMillis();
+            p.repaint();
+            while(accumulatedTimeMs >= 10){
+                p.move();
+                accumulatedTimeMs -= 10;
+            }
+            long endTime = System.currentTimeMillis();
+            accumulatedTimeMs += endTime - startTime;
+        }
+
+        /*while (true)
         {
             p.move(); //Updates the coordinates
             p.repaint(); //Calls the paint method
             Thread.sleep(10); //Pauses for a moment
             //Thread.sleep(1); //Pauses for a moment
         }
+         */
     }
 }
