@@ -3,11 +3,20 @@ import java.awt.event.*;
 import java.util.concurrent.TimeUnit;
 
 public class Player {
-    private int x = 80, y = 80;
+    private int x = 80, y = 80, xA, yA;
     private int speed = 3;
     private boolean right = false, left = false;
     private Boolean up = false, down = false;
+    private boolean projetile = false;
+    private PlayerCursor pc;
     private Cowabunga cb;
+
+    /*private PointerInfo mouse = MouseInfo.getPointerInfo(); //not needed here can be removed. but leaving it for now.
+    private Point mouseLocation = mouse.getLocation();
+    private int mX;
+    private int mY;
+     */
+
     private int VIEWPORT_SIZE_X = 1020, VIEWPORT_SIZE_Y = 640;
     private int offsetMaxX = 2400 - VIEWPORT_SIZE_X;
     private int offsetMaxY = 1440 - VIEWPORT_SIZE_Y;
@@ -19,7 +28,15 @@ public class Player {
     public Player(Cowabunga cb){
         this.cb = cb;
     }
+    /*
+    public void MouseDragged(MouseEvent e){ //not needed leaving for now.
 
+    }
+    public void MouseMoved(MouseEvent e){
+        mX = e.getX();
+        mY = e.getY();
+    }
+     */
     public void keyPressed(KeyEvent e){
         if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
             up = true;
@@ -80,6 +97,9 @@ public class Player {
         }
         //x = x + speed;
         //x = x + speed;
+        //xA = pc.getmX() - x;
+        //yA = pc.getmY() - y;
+
     }
 
     public void paint(Graphics2D g2d){
@@ -97,11 +117,18 @@ public class Player {
         }
         g2d.setColor(Color.RED);
         g2d.fillRect(x,y, 32,32);
+        if(projetile){
+            g2d.drawOval(xA,yA, 20,10);
+        }
+        //g2d.drawArc(mX - 10,mY -10, 20, 20, 0, 360);
     }
     public int getCamX(){
         return this.camX;
     }
     public int getCamY(){
         return this.camY;
+    }
+    public void setProjetile(boolean projetile){
+        this.projetile = projetile;
     }
 }

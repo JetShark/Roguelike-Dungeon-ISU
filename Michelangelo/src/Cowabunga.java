@@ -1,37 +1,60 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 
-public class Cowabunga extends JPanel {
+public class Cowabunga extends JPanel{
     private Enemies et = new Enemies(this);
     private Player p = new Player(this);
     private Bone b = new Bone();
     private Weapons wt = new Weapons();
+    private PlayerCursor pc = new PlayerCursor();
     //@Override
 
     MapLayer currentMap;
 
     public Cowabunga() throws Exception {
         currentMap = new MapLayer("Map System/Test Map_Map.csv", "Map System/DawnLike/Objects/floor.png");
-
+        addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                super.mouseMoved(e);
+                setCursor(PlayerCursor.customCursor);
+                //p.MouseMoved(e);
+                pc.MouseMoved(e);
+            }
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                super.mouseDragged(e);
+            }
+        });
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+            }
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+            }
+        });
         //This adds the KeyListener to the BallWorld. It’s in this section that
         //you HAVE to have all three key listener methods whether they are used
         //or not. We place the KeyListener in the JPanel class because as we
         //mentioned before it is the director of all the action, so it receives
         //the keyboard information and then passes it along to the appropriate
         //classes.
-
         addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
             }
+
             @Override
             public void keyReleased(KeyEvent e) {
                 //Passes the KeyEvent e to the ball instance
                 //list[0].keyReleased(e);
                 p.keyReleased(e);
             }
+
             @Override
             public void keyPressed(KeyEvent e) {
                 //Passes the KeyEvent e to the ball instance
@@ -64,6 +87,7 @@ public class Cowabunga extends JPanel {
         et.paint(g2d);
         b.paint(g2d);
         wt.paint(g2d);
+        pc.paint(g2d);
     }
 
 
