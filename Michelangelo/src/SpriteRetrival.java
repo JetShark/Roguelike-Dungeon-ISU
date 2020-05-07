@@ -7,6 +7,7 @@ public class SpriteRetrival {
 
     private static BufferedImage projectileSprites; //creates the img.
     private static BufferedImage enemySprites;
+    private static BufferedImage characterSprites;
     private static final int TILE_SIZE = 32; //tile size of the tiles on the spread sheet.
 
     private static BufferedImage loadSprite(String file){
@@ -26,6 +27,7 @@ public class SpriteRetrival {
         }
         if(spriteNumber == 2){
             //return getEnemySprites(xGrid, yGrid);
+            return getCharacterSpriteSheet(xGrid, yGrid);
         }
         return null;
     }
@@ -40,5 +42,11 @@ public class SpriteRetrival {
             enemySprites = loadSprite("Skeleton");
         }
         return enemySprites.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+    }
+    public static BufferedImage getCharacterSpriteSheet(int xGrid, int yGrid){
+        if(characterSprites == null){
+            characterSprites = loadSprite("Test-Character-SpriteSheet");
+        }
+        return characterSprites.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }
 }

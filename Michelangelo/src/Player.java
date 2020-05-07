@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.util.concurrent.TimeUnit;
 
 public class Player {
@@ -16,6 +17,10 @@ public class Player {
     private int mX;
     private int mY;
      */
+    private BufferedImage[] walking = {SpriteRetrival.getSprite(0,0,2), SpriteRetrival.getCharacterSpriteSheet(2,0), SpriteRetrival.getCharacterSpriteSheet(0,1), SpriteRetrival.getCharacterSpriteSheet(1,1)};
+    private animation Walking = new animation(walking,10);
+    private animation animation = Walking;
+    private int direction = 1;
 
     private int VIEWPORT_SIZE_X = 1020, VIEWPORT_SIZE_Y = 640;
     private int offsetMaxX = 2400 - VIEWPORT_SIZE_X;
@@ -39,37 +44,48 @@ public class Player {
      */
     public void keyPressed(KeyEvent e){
         if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
+            animation.start();
             up = true;
         }
         if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A){
+            animation.start();
+            direction = -1;
             left = true;
         }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){
+            direction = 1;
+            animation.start();
             right = true;
         }
         if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S){
+            animation.start();
             down = true;
         }
     }
     public void keyReleased(KeyEvent e){
         if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A){
+            animation.stop();
             left = false;
             //speed = 0;
         }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){
+            animation.stop();
             right = false;
             //speed = 0;
         }
         if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
+            animation.stop();
             up = false;
             //speed = 0;
         }
         if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S){
+            animation.stop();
             down = false;
             //speed = 0;
         }
     }
     public void move(){
+        animation.update();
         /*if (right && this.x + 32 < cb.getWidth() - 48){
             x = x + speed;
         }
@@ -92,7 +108,7 @@ public class Player {
         if (down ){
             y = y + speed;
         }
-        if (up ){
+        if (up ) {
             y = y - speed;
         }
         //x = x + speed;
@@ -115,8 +131,15 @@ public class Player {
         }else if (camY < offsetMinY) {
             camY = offsetMinY;
         }
+        if(direction == 1){
+            g2d.drawImage(animation.getSprite(), x, y, animation.getSprite().getHeight() * 3, animation.getSprite().getWidth() * 3 , null);
+        }
+
+        if(direction == -1){
+            g2d.drawImage(animation.getSprite(), x + (animation.getSprite().getWidth() * 2) , y, -animation.getSprite().getHeight() * 3, animation.getSprite().getWidth() * 3 , null);
+        }
         g2d.setColor(Color.RED);
-        g2d.fillRect(x,y, 32,32);
+        //g2d.fillRect(x,y, 32,32);
         if(projetile){
             g2d.drawOval(xA,yA, 20,10);
         }
