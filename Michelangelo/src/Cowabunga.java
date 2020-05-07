@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 public class Cowabunga extends JPanel {
     private Enemies et = new Enemies(this);
-    private Player pt = new Player(this);
+    private Player p = new Player(this);
     private Bone b = new Bone();
     private Weapons wt = new Weapons();
     //@Override
@@ -30,13 +30,13 @@ public class Cowabunga extends JPanel {
             public void keyReleased(KeyEvent e) {
                 //Passes the KeyEvent e to the ball instance
                 //list[0].keyReleased(e);
-                pt.keyReleased(e);
+                p.keyReleased(e);
             }
             @Override
             public void keyPressed(KeyEvent e) {
                 //Passes the KeyEvent e to the ball instance
                 //list[0].keyPressed(e);
-                pt.keyPressed(e);
+                p.keyPressed(e);
             }
         }); //NOTE THE SEMI-COLON!!!!
 
@@ -49,17 +49,18 @@ public class Cowabunga extends JPanel {
     private void move() throws InterruptedException { //Have the ball move
         // FIXME: 2020-05-05 need to have the player move function
         et.move();
-        pt.move();
+        p.move();
         b.move();
     }
 
     public void paint(Graphics g) {
         super.paint(g);
+        g.translate(-p.getCamX(), -p.getCamY());
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(Color.RED);
         g2d.setBackground(Color.black);
         currentMap.paint(g2d);
-        pt.paint(g2d);
+        p.paint(g2d);
         et.paint(g2d);
         b.paint(g2d);
         wt.paint(g2d);
