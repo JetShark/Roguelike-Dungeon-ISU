@@ -108,21 +108,21 @@ public class Player {
             y = y - speed;
         }
          */
-        if (right){
+        if (right && !dodgeRoll){
             x = x + speed;
         }
-        if (left ){
+        if (left && !dodgeRoll){
             x = x - speed;
         }
-        if (down ){
+        if (down && !dodgeRoll){
             y = y + speed;
         }
-        if (up ) {
+        if (up && !dodgeRoll) {
             y = y - speed;
         }
         if(dodgeRoll){
-            y = mY;
-            x = mX;
+            y = mY - 35;
+            x = mX - 45;
         }
         //x = x + speed;
         //x = x + speed;
