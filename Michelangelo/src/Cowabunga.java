@@ -8,6 +8,7 @@ public class Cowabunga extends JPanel{
     private Bone b = new Bone();
     private Weapons wt = new Weapons();
     private PlayerCursor pc = new PlayerCursor();
+    private UserInterface ui = new UserInterface();
     //@Override
 
     MapLayer currentMap;
@@ -21,6 +22,7 @@ public class Cowabunga extends JPanel{
                 setCursor(PlayerCursor.customCursor);
                 //p.MouseMoved(e);
                 pc.MouseMoved(e);
+                p.mouseMoved(e);
             }
             @Override
             public void mouseDragged(MouseEvent e) {
@@ -53,6 +55,7 @@ public class Cowabunga extends JPanel{
                 //Passes the KeyEvent e to the ball instance
                 //list[0].keyReleased(e);
                 p.keyReleased(e);
+                ui.keyReleased(e);
             }
 
             @Override
@@ -60,6 +63,7 @@ public class Cowabunga extends JPanel{
                 //Passes the KeyEvent e to the ball instance
                 //list[0].keyPressed(e);
                 p.keyPressed(e);
+                ui.keyPressed(e);
             }
         }); //NOTE THE SEMI-COLON!!!!
 
@@ -88,6 +92,7 @@ public class Cowabunga extends JPanel{
         b.paint(g2d);
         wt.paint(g2d);
         pc.paint(g2d);
+        ui.paint(g2d);
     }
 
 
