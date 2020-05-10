@@ -17,6 +17,18 @@ public class UserInterface {
             Esc = false;
         }
     }
+    private void titleScreen(){
+        
+    }
+    private void pauseScreen(){
+
+    }
+    private void optionsScreen(){
+
+    }
+    private void collectionScreen(){
+
+    }
     public void paint(Graphics2D g2d){
         if(Esc){
             g2d.drawRect(x - 200, y,400,520);

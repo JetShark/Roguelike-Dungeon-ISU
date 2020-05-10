@@ -10,6 +10,7 @@ public class Player {
     private Boolean up = false, down = false;
     private boolean dodgeRoll = false;
     private boolean projetile = false;
+    private int newmX, newmY;
     private PlayerCursor pc;
     private Cowabunga cb;
 
