@@ -12,9 +12,12 @@ public class Cowabunga extends JPanel{
     //@Override
 
     MapLayer currentMap;
+    MapLayer floorMap;
 
     public Cowabunga() throws Exception {
-        currentMap = new MapLayer("Map System/Test Map_Map.csv", "Map System/DawnLike/Objects/floor.png");
+        currentMap = new MapLayer("Map System/Level 1 Var 1_Wall.csv", "Map System/DawnLike/Objects/Wall.png");
+
+
         addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {

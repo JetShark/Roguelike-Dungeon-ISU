@@ -18,7 +18,7 @@ public class UserInterface {
         }
     }
     private void titleScreen(){
-        
+
     }
     private void pauseScreen(){
 

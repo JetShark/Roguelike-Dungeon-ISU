@@ -1,0 +1,7 @@
+[1]
+floor = Map System/Level 1 Var 1_Floor.csv, Map System/DawnLike/Objects/Floor.png
+wall = Map System/Level 1 Var 1_Wall.csv, Map System/DawnLike/Objects/Wall.png
+door = Map System/Level 1 Var 1_Door.csv, Map System/DawnLike/Objects/Door0.png
+decor = Map System/Level 1 Var 1_Decoration.csv, Map System/DawnLike/Objects/Decor0.png
+chest = Map System/Level 1 Var 1_Chest.csv, Map System/DawnLike/Objects/Chest0.png
+entity = Map System/Level 1 Var 1_Entity.csv, Map System/spawnMarkers.png
