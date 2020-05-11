@@ -12,11 +12,11 @@ public class Cowabunga extends JPanel{
     //@Override
 
     MapLayer currentMap;
-    MapLayer floorMap;
+    MapLevel level1;
 
     public Cowabunga() throws Exception {
-        currentMap = new MapLayer("Map System/Level 1 Var 1_Wall.csv", "Map System/DawnLike/Objects/Wall.png");
-
+        //currentMap = new MapLayer("Map System/Level 1 Var 1_Wall.csv", "Map System/DawnLike/Objects/Wall.png");
+        level1 = new MapLevel("[1]", "floor");
 
         addMouseMotionListener(new MouseAdapter() {
             @Override
@@ -89,7 +89,8 @@ public class Cowabunga extends JPanel{
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(Color.RED);
         g2d.setBackground(Color.black);
-        currentMap.paint(g2d);
+        //currentMap.paint(g2d);
+        level1.paint(g2d);
         p.paint(g2d);
         et.paint(g2d);
         b.paint(g2d);
