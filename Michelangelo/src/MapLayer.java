@@ -67,11 +67,16 @@ public class MapLayer {
 
 //Methods
     public void paint(Graphics2D g) {
+
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 int i = (level[x][y])%tilesAcross;
                 int j = (level[x][y])/tilesAcross;
-                g.drawImage(img.getSubimage(i*tileWidth, j*tileHeight, tileWidth,tileHeight), x*tileWidth*4, y*tileHeight*4, tileWidth*4, tileHeight*4, null);
+                if(level[x][y] == -1){
+                } else {
+                    g.drawImage(img.getSubimage(i*tileWidth, j*tileHeight, tileWidth,tileHeight), x*tileWidth*4, y*tileHeight*4, tileWidth*4, tileHeight*4, null);
+                }
+                //g.drawImage(img.getSubimage(i*tileWidth, j*tileHeight, tileWidth,tileHeight), x*tileWidth*4, y*tileHeight*4, tileWidth*4, tileHeight*4, null);
             }
         }
     }

@@ -27,8 +27,8 @@ public class Player {
 
 
     private int VIEWPORT_SIZE_X = 1020, VIEWPORT_SIZE_Y = 640; //Camera Set up and things.
-    private int offsetMaxX = 2400 - VIEWPORT_SIZE_X;
-    private int offsetMaxY = 1440 - VIEWPORT_SIZE_Y;
+    private int offsetMaxX = 5120 - VIEWPORT_SIZE_X;
+    private int offsetMaxY = 2048 - VIEWPORT_SIZE_Y;
     private int offsetMinX = 0;
     private int offsetMinY = 0;
     private int camX = this.x - VIEWPORT_SIZE_X/2;
