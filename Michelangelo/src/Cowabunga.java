@@ -15,8 +15,8 @@ public class Cowabunga extends JPanel{
     MapLevel level1;
 
     public Cowabunga() throws Exception {
-        //currentMap = new MapLayer("Map System/Level 1 Var 1_Wall.csv", "Map System/DawnLike/Objects/Wall.png");
-        level1 = new MapLevel("[1]", "floor");
+        //currentMap = new MapLayer("Map System/Test Map_Map.csv", "Map System/DawnLike/Objects/floor.png");
+        level1 = new MapLevel("Map System/Levels.txt", "1");
 
         addMouseMotionListener(new MouseAdapter() {
             @Override

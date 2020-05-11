@@ -8,7 +8,7 @@ public class MapLevel {
 
     //Attributes
     private MapLayer[] level;
-
+    //level = new MapLayer[6];
 
     /*
     [1]
@@ -22,7 +22,7 @@ public class MapLevel {
     //Constructor
     public MapLevel(String levelPath, String levelName)
     {
-        level = new MapLayer[5];
+        level = new MapLayer[6];
 
         try {
             BufferedReader levelReader = new BufferedReader(new FileReader(levelPath));
@@ -31,7 +31,7 @@ public class MapLevel {
                 int i=0;
 
                 while ((row = levelReader.readLine()) != null) {
-                    if (row=="["+levelPath+"]") {
+                    if (row=="["+levelName+"]") {
                         while ((row = levelReader.readLine()) != null) {
                             String[] layer = row.split("=");
                             if (layer.length<2) break;
@@ -67,8 +67,10 @@ public class MapLevel {
     //Methods
 
     public void paint(Graphics2D g) {
+        /*
         for (int y = 0; y < level.length; y++) {
             level[y].paint(g);
         }
+        */
     }
 }
