@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.concurrent.TimeUnit;
 
 public class Player {
-    private int x = 80, y = 80, xA, yA;
+    private int x, y, xA, yA;
     private int speed = 3;
     private boolean right = false, left = false;
     private Boolean up = false, down = false;
@@ -13,29 +13,37 @@ public class Player {
     private int newmX, newmY;
     private PlayerCursor pc;
     private Cowabunga cb;
+    private MapLayer mp;
 
     /*private Point mouse = MouseInfo.getPointerInfo().getLocation(); //not needed here can be removed. but leaving it for now.
     private Point mouseLocation;
      */
     private int mX, mY;
 
-
     private BufferedImage[] walking = {SpriteRetrival.getSprite(0,0,2), SpriteRetrival.getCharacterSpriteSheet(2,0), SpriteRetrival.getCharacterSpriteSheet(0,1), SpriteRetrival.getCharacterSpriteSheet(1,1)};
     private animation Walking = new animation(walking,10);
     private animation animation = Walking;
     private int direction = 1;
 
-
+    private int WORLD_WIDTH, WORLD_HEIGHT;
     private int VIEWPORT_SIZE_X = 1020, VIEWPORT_SIZE_Y = 640; //Camera Set up and things.
-    private int offsetMaxX = 5120 - VIEWPORT_SIZE_X;
-    private int offsetMaxY = 2048 - VIEWPORT_SIZE_Y;
-    private int offsetMinX = 0;
-    private int offsetMinY = 0;
-    private int camX = this.x - VIEWPORT_SIZE_X/2;
-    private int camY = this.y - VIEWPORT_SIZE_Y/2;
+    private int offsetMaxX;
+    private int offsetMaxY;
+    private int offsetMinX;
+    private int offsetMinY;
+    private int camX;
+    private int camY;
 
     public Player(Cowabunga cb){
         this.cb = cb;
+        offsetMaxX = 5120 - VIEWPORT_SIZE_X;
+        offsetMaxY = 2048 - VIEWPORT_SIZE_Y;
+        offsetMinX = 0;
+        offsetMinY = 0;
+        camX = this.x - VIEWPORT_SIZE_X/2;
+        camY = this.y - VIEWPORT_SIZE_Y/2;
+        x = 80;
+        y = 80;
     }
 
     public void keyPressed(KeyEvent e){
