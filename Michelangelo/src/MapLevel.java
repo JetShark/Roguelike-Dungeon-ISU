@@ -7,7 +7,7 @@ import java.io.IOException;
 public class MapLevel {
 
     //Attributes
-    private MapLayer[] level;
+    private MapLayer[] level = new MapLayer[6];
     //level = new MapLayer[6];
 
     /*
@@ -22,7 +22,7 @@ public class MapLevel {
     //Constructor
     public MapLevel(String levelPath, String levelName)
     {
-        level = new MapLayer[6];
+        //level = new MapLayer[6];
 
         try {
             BufferedReader levelReader = new BufferedReader(new FileReader(levelPath));
@@ -31,10 +31,10 @@ public class MapLevel {
                 int i=0;
 
                 while ((row = levelReader.readLine()) != null) {
-                    if (row=="["+levelName+"]") {
+                    if (row.equals("["+levelName+"]")) {
                         while ((row = levelReader.readLine()) != null) {
                             String[] layer = row.split("=");
-                            if (layer.length<2) break;
+                            if (layer.length<2) {break;}
                             String[] attribute = layer[1].split(",");
                             level[i] = new MapLayer(attribute[0], attribute[1]);
                             i++;
@@ -67,10 +67,9 @@ public class MapLevel {
     //Methods
 
     public void paint(Graphics2D g) {
-        /*
         for (int y = 0; y < level.length; y++) {
             level[y].paint(g);
         }
-        */
+        //level[1].paint(g);
     }
 }
