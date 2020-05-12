@@ -4,7 +4,7 @@ import java.awt.event.*;
 
 public class Cowabunga extends JPanel{
     private Enemies et = new Enemies(this);
-    private Player p = new Player(this);
+    private Player p;
     private Bone b = new Bone();
     private Weapons wt = new Weapons();
     private PlayerCursor pc = new PlayerCursor();
@@ -17,15 +17,16 @@ public class Cowabunga extends JPanel{
     public Cowabunga() throws Exception {
         //currentMap = new MapLayer("Map System/Test Map_Map.csv", "Map System/DawnLike/Objects/floor.png");
         level1 = new MapLevel("Map System/Levels.txt", "1");
+        p = new Player(this, "Map System/Level 1 Var 1_Entity.csv");
 
         addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
                 super.mouseMoved(e);
                 setCursor(PlayerCursor.customCursor);
-                //p.MouseMoved(e);
-                pc.MouseMoved(e);
                 p.mouseMoved(e);
+                pc.MouseMoved(e);
+                //p.mouseMoved(e);
             }
             @Override
             public void mouseDragged(MouseEvent e) {
@@ -92,9 +93,9 @@ public class Cowabunga extends JPanel{
         //currentMap.paint(g2d);
         level1.paint(g2d);
         p.paint(g2d);
-        et.paint(g2d);
-        b.paint(g2d);
-        wt.paint(g2d);
+        //et.paint(g2d);
+        //b.paint(g2d);
+        //wt.paint(g2d);
         pc.paint(g2d);
         ui.paint(g2d);
     }

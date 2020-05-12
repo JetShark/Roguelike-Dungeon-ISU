@@ -9,7 +9,7 @@ public class PlayerCursor {
     private int mX,mY;
     private int x, y;
     private Cowabunga cb;
-    private Player p = new Player(cb);
+    private Player p;
     private BufferedImage img = null;
     public static Cursor customCursor;
     private boolean cliked = false;

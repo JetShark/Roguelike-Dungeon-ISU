@@ -1,6 +1,8 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.*;
 import java.util.concurrent.TimeUnit;
 
 public class Player {
@@ -13,8 +15,18 @@ public class Player {
     private int newmX, newmY;
     private PlayerCursor pc;
     private Cowabunga cb;
+    private MapLevel ml;
     private MapLayer mp;
 
+    private Cowabunga ba;
+    private int width = 0;
+    private int height = 0;
+    private int tilesAcross = 0;
+    private int tilesDown = 0;
+    private static final int tileWidth = 16;
+    private static final int tileHeight = 16;
+    private BufferedImage img = null;
+    private int[][] level;
     /*private Point mouse = MouseInfo.getPointerInfo().getLocation(); //not needed here can be removed. but leaving it for now.
     private Point mouseLocation;
      */
@@ -34,16 +46,57 @@ public class Player {
     private int camX;
     private int camY;
 
-    public Player(Cowabunga cb){
+    public Player(Cowabunga cb, String mapPath){
         this.cb = cb;
-        offsetMaxX = 5120 - VIEWPORT_SIZE_X;
-        offsetMaxY = 2048 - VIEWPORT_SIZE_Y;
+        try {
+            BufferedReader csvReader = new BufferedReader(new FileReader(mapPath));
+            try {
+                String row;
+
+                while ((row = csvReader.readLine()) != null) {
+                    String[] data = row.split(",");
+                    height++;
+                    if (data.length > width) {
+                        width = data.length;
+                    }
+                }
+                csvReader.close();
+                level = new int[width][height];
+                csvReader = new BufferedReader(new FileReader(mapPath));
+                int y = 0;
+                while ((row = csvReader.readLine()) != null) {
+                    String[] data = row.split(",");
+                    for (int x = 0; x < data.length; x++){
+                        level[x][y]= Integer.parseInt(data[x]);
+                    }
+                    y++;
+                }
+                System.out.println("Map Width & Height = " + width + ", " + height);
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println(e.toString());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.out.println(e.toString());
+        }
+        for(int i = 0; i < width; i++){
+            for(int j = 0; j < height; j++){
+                if(level[i][j] == 0){
+                    this.x = i * tileWidth * 4;
+                    this.y = j * tileHeight * 4;
+                }
+            }
+        }
+        System.out.println("x and y = " + x + ", " + y);
+        WORLD_HEIGHT = height * 4 * tileHeight;
+        WORLD_WIDTH = width * 4 * tileWidth;
+        offsetMaxX = WORLD_WIDTH - VIEWPORT_SIZE_X;
+        offsetMaxY = WORLD_HEIGHT - VIEWPORT_SIZE_Y;
         offsetMinX = 0;
         offsetMinY = 0;
         camX = this.x - VIEWPORT_SIZE_X/2;
         camY = this.y - VIEWPORT_SIZE_Y/2;
-        x = 80;
-        y = 80;
     }
 
     public void keyPressed(KeyEvent e){
@@ -136,7 +189,6 @@ public class Player {
         //x = x + speed;
         //x = x + speed;
     }
-
     public void paint(Graphics2D g2d){
         camX = this.x - VIEWPORT_SIZE_X/2;
         camY = this.y - VIEWPORT_SIZE_Y/2;

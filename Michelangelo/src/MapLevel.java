@@ -8,6 +8,7 @@ public class MapLevel {
 
     //Attributes
     private MapLayer[] level = new MapLayer[6];
+    private String mapPath;
     //level = new MapLayer[6];
 
     /*
@@ -58,18 +59,20 @@ public class MapLevel {
             System.out.println(e.toString());
         }
     }
-
-
     //Accessors
+    public MapLayer getLevel(){
+        return level[1];
+    }
 
     //Mutators
 
     //Methods
 
     public void paint(Graphics2D g) {
-        for (int y = 0; y < level.length; y++) {
+        for (int y = 0; y < level.length - 1; y++) {
             level[y].paint(g);
         }
+
         //level[1].paint(g);
     }
 }
