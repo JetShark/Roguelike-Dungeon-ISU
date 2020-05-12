@@ -17,6 +17,7 @@ public class Player {
     private Cowabunga cb;
     private MapLevel ml;
     private MapLayer mp;
+    private Collision c = new Collision("Map System/Level 1 Var 1_Wall.csv");
 
     private Cowabunga ba;
     private int width = 0;
@@ -170,16 +171,16 @@ public class Player {
             y = y - speed;
         }
          */
-        if (right && !dodgeRoll){
+        if (right && !dodgeRoll && c.canMove(x,y)){
             x = x + speed;
         }
-        if (left && !dodgeRoll){
+        if (left && !dodgeRoll && c.canMove(x,y)){
             x = x - speed;
         }
-        if (down && !dodgeRoll){
+        if (down && !dodgeRoll && c.canMove(x,y)){
             y = y + speed;
         }
-        if (up && !dodgeRoll) {
+        if (up && !dodgeRoll && c.canMove(x,y)) {
             y = y - speed;
         }
         if(dodgeRoll){
@@ -203,11 +204,11 @@ public class Player {
             camY = offsetMinY;
         }
         if(direction == 1){
-            g2d.drawImage(animation.getSprite(), x, y, animation.getSprite().getHeight() * 3, animation.getSprite().getWidth() * 3 , null);
+            g2d.drawImage(animation.getSprite(), x, y, animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2 , null);
         }
 
         if(direction == -1){
-            g2d.drawImage(animation.getSprite(), x + (animation.getSprite().getWidth() * 2) , y, -animation.getSprite().getHeight() * 3, animation.getSprite().getWidth() * 3 , null);
+            g2d.drawImage(animation.getSprite(), x + (animation.getSprite().getWidth() * 2) , y, -animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2 , null);
         }
         g2d.setColor(Color.RED);
         //g2d.fillRect(x,y, 32,32);

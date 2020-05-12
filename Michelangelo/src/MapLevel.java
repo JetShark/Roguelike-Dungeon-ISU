@@ -9,6 +9,7 @@ public class MapLevel {
     //Attributes
     private MapLayer[] level = new MapLayer[6];
     private String mapPath;
+    private Collision[] c = new Collision[4];
     //level = new MapLayer[6];
 
     /*
@@ -38,6 +39,9 @@ public class MapLevel {
                             if (layer.length<2) {break;}
                             String[] attribute = layer[1].split(",");
                             level[i] = new MapLayer(attribute[0], attribute[1]);
+                            if(i <= 2){
+                                //c[i] = new Collision(attribute[0]);
+                            }
                             i++;
                         }
                         break;
