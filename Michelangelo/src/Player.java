@@ -174,13 +174,13 @@ public class Player {
         if (right && !dodgeRoll && c.canMove(x,y)){
             x = x + speed;
         }
-        if (left && !dodgeRoll && c.canMove(x,y)){
+        if (left && !dodgeRoll /*&& c.canMove(x,y)*/){
             x = x - speed;
         }
-        if (down && !dodgeRoll && c.canMove(x,y)){
+        if (down && !dodgeRoll /*&& c.canMove(x,y)*/){
             y = y + speed;
         }
-        if (up && !dodgeRoll && c.canMove(x,y)) {
+        if (up && !dodgeRoll /*&& c.canMove(x,y)*/) {
             y = y - speed;
         }
         if(dodgeRoll){
