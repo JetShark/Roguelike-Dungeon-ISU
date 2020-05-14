@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 public class Player {
     private int x, y, xA, yA;
     private int oldX, oldY;
-    private int speed = 3;
+    private int speedx = 0, speedy = 0;
     private boolean right = false, left = false;
     private Boolean up = false, down = false;
     private boolean dodgeRoll = false;
@@ -105,20 +105,25 @@ public class Player {
         if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
             animation.start();
             up = true;
+            speedy = -3;
+
         }
         if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A){
             animation.start();
             direction = -1;
             left = true;
+            speedx = -3;
         }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){
             direction = 1;
             animation.start();
             right = true;
+            speedx = 3;
         }
         if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S){
             animation.start();
             down = true;
+            speedy = 3;
         }
         if(e.getKeyCode() == KeyEvent.VK_C){
             dodgeRoll = true;
@@ -128,22 +133,22 @@ public class Player {
         if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A){
             animation.stop();
             left = false;
-            //speed = 0;
+            speedx = 0;
         }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){
             animation.stop();
             right = false;
-            //speed = 0;
+            speedx = 0;
         }
         if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
             animation.stop();
             up = false;
-            //speed = 0;
+            speedy = 0;
         }
         if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S){
             animation.stop();
             down = false;
-            //speed = 0;
+            speedy = 0;
         }
         if(e.getKeyCode() == KeyEvent.VK_C){
             dodgeRoll = false;
@@ -159,8 +164,7 @@ public class Player {
 
     public void move(){
         animation.update();
-        oldX = x;
-        oldY = y;
+        int xt = x, yt = y;
         /*if (right && this.x + 32 < cb.getWidth() - 48){
             x = x + speed;
         }
@@ -175,27 +179,48 @@ public class Player {
         }
          */
         //c.generateHitboxs(x/tileWidth/4,y/tileHeight/4);
-        if(c.checkCollision(x,y)){
+        /*if(c.checkCollision(x,y)){
             x = x - 10;
         }
         if(c.checkCollision(x,y)){
-            y = y + 10;
+           //x = x + 10;
         }
+        if(c.checkCollision(x,y)){
+           y = y + 10;
+        }
+        if(c.checkCollision(x,y)){
+           //y = y - 10;
+        }*/
         if (right && !dodgeRoll){
-            x = x + speed;
+            speedx = 3;
         }
         if (left && !dodgeRoll){
-            x = x - speed;
+            speedx = -3;
         }
         if (down && !dodgeRoll){
-            y = y + speed;
+            speedy = 3;
         }
         if (up && !dodgeRoll) {
-            y = y - speed;
+           speedy = -3;
         }
         if(dodgeRoll) {
             y = mY - 35;
             x = mX - 45;
+        }
+        if(speedx != 0 || speedy != 0){
+            xt += speedx;
+            yt += speedy;
+            if(c.checkCollision(xt, y)){
+                speedx = 0;
+            } else {
+                x += speedx;
+            }
+            if(c.checkCollision(x, yt)){
+                speedy = 0;
+            } else {
+                y += speedy;
+            }
+            System.out.println("x,y = " + speedx + ", " + speedy);
         }
         //x = x + speed;
         //x = x + speed;
