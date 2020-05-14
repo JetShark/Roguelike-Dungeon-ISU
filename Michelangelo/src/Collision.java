@@ -11,14 +11,14 @@ public class Collision {
     private static final int tileHeight = 16;
     private BufferedImage img = null;
     private int[][] collision;
-    private int topLeftY, topLeftX, topRightY, topRightX, bottomLeftY, bottomLeftX, bottomRightY, bottomRightX;
+    private boolean any_collision, Collision, x_overlaps, y_overlaps;
+    private int left, right, top, bottom;
 
     public Collision(String mapPath){
         try {
             BufferedReader csvReader = new BufferedReader(new FileReader(mapPath));
             try {
                 String row;
-
                 while ((row = csvReader.readLine()) != null) {
                     String[] data = row.split(",");
                     height++;
@@ -46,29 +46,39 @@ public class Collision {
             e.printStackTrace();
             System.out.println(e.toString());
         }
-        generateHitboxs();
     }
-    public void generateHitboxs(){
+    private void generateHitBox(){
         for(int i = 0; i < width; i++){
             for(int j = 0; j < height; j++){
-                if(collision[i][j] == 140){
-                    int x = i * tileWidth * 4;
-                    int y = j * tileHeight * 4;
-                    topLeftX = x;
-                    topLeftY = y;
-                    topRightX = topLeftX + tileWidth * 4;
-                    bottomLeftY = topLeftY + tileHeight * 4;
-                    System.out.println("tlx, tly, trx, bly = " + topLeftX + ", " + topLeftY + ", " + topRightX + ", " + bottomLeftY);
+                int id = collision[i][j];
+                if(id != -1){
+                    left = i;
+                    right = left + (tileWidth * 4);
+
                 }
             }
         }
     }
-    public boolean canMove(int xt, int yt){
-        System.out.println("xt, xy = " + xt + ", " + yt);
-        System.out.println("topLeftX = " + topLeftX);
-        if(xt == topLeftX){
-            return false;
+    public boolean checkCollision(int x, int y){
+        any_collision = false;
+        for(int i = 0; i < width; i++){
+            for(int j = 0; j < height; j++){
+                int id = collision[i][j];
+                if(id != -1){
+                    int xt = i * tileWidth * 4;
+                    int yt = j * tileHeight * 4;
+                    x_overlaps = (x < xt + (tileWidth * 4)) && (x + 32 > xt);
+                    y_overlaps = (y < yt + (tileHeight * 4)) && (y > yt);
+                    Collision = x_overlaps && y_overlaps;
+                    if(Collision){
+                        any_collision = true;
+                    }
+                }
+            }
         }
-        return true;
+        if(any_collision){
+            return true;
+        }
+        return false;
     }
 }

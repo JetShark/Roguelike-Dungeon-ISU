@@ -19,7 +19,7 @@ public class Cowabunga extends JPanel{
         //currentMap = new MapLayer("Map System/Test Map_Map.csv", "Map System/DawnLike/Objects/floor.png");
         level1 = new MapLevel("Map System/Levels.txt", "1");
         p = new Player(this, "Map System/Level 1 Var 1_Entity.csv");
-        collision = new Collision("Map System/Level 1 Var 1_Wall.csv");
+        //collision = new Collision("Map System/Level 1 Var 1_Wall.csv");
 
         addMouseMotionListener(new MouseAdapter() {
             @Override

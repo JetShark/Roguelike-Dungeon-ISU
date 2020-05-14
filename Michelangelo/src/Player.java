@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Player {
     private int x, y, xA, yA;
+    private int oldX, oldY;
     private int speed = 3;
     private boolean right = false, left = false;
     private Boolean up = false, down = false;
@@ -158,6 +159,8 @@ public class Player {
 
     public void move(){
         animation.update();
+        oldX = x;
+        oldY = y;
         /*if (right && this.x + 32 < cb.getWidth() - 48){
             x = x + speed;
         }
@@ -171,24 +174,33 @@ public class Player {
             y = y - speed;
         }
          */
-        if (right && !dodgeRoll && c.canMove(x,y)){
+        //c.generateHitboxs(x/tileWidth/4,y/tileHeight/4);
+        if(c.checkCollision(x,y)){
+            x = x - 10;
+        }
+        if(c.checkCollision(x,y)){
+            y = y + 10;
+        }
+        if (right && !dodgeRoll){
             x = x + speed;
         }
-        if (left && !dodgeRoll /*&& c.canMove(x,y)*/){
+        if (left && !dodgeRoll){
             x = x - speed;
         }
-        if (down && !dodgeRoll /*&& c.canMove(x,y)*/){
+        if (down && !dodgeRoll){
             y = y + speed;
         }
-        if (up && !dodgeRoll /*&& c.canMove(x,y)*/) {
+        if (up && !dodgeRoll) {
             y = y - speed;
         }
-        if(dodgeRoll){
+        if(dodgeRoll) {
             y = mY - 35;
             x = mX - 45;
         }
         //x = x + speed;
         //x = x + speed;
+    }
+    private void checkCollision(){
     }
     public void paint(Graphics2D g2d){
         camX = this.x - VIEWPORT_SIZE_X/2;
