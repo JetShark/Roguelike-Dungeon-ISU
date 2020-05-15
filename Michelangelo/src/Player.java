@@ -20,7 +20,6 @@ public class Player {
     private MapLayer mp;
     private Collision c = new Collision("Map System/Level 1 Var 1_Wall.csv");
 
-    private Cowabunga ba;
     private int width = 0;
     private int height = 0;
     private int tilesAcross = 0;

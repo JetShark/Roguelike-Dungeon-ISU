@@ -29,6 +29,10 @@ public class SpriteRetrival {
             //return getEnemySprites(xGrid, yGrid);
             return getCharacterSpriteSheet(xGrid, yGrid);
         }
+        if(spriteNumber == 3){
+            //return getEnemySprites(xGrid, yGrid);
+            return getEnemySprites(xGrid, yGrid);
+        }
         return null;
     }
     private static BufferedImage getProjectileSprites(int xGrid, int yGrid){
@@ -39,7 +43,7 @@ public class SpriteRetrival {
     }
     private static BufferedImage getEnemySprites(int xGrid, int yGrid){
         if(enemySprites == null){
-            enemySprites = loadSprite("Skeleton");
+            enemySprites = loadSprite("Ennemy-SpriteSheet");
         }
         return enemySprites.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }

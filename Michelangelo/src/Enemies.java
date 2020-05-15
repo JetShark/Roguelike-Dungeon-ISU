@@ -1,63 +1,75 @@
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.concurrent.TimeUnit;
-import javax.swing.*;
+import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
 
 public class Enemies {
-    private int x = 80, y = 176;
+    private int x, y;
     private int i;
+
     private Cowabunga cb;
-    private int acdtms = 0;
-    private int moveDelay = 0;
-    private int mD = 0;
-    public Enemies(Cowabunga cb){
+    private int width = 0;
+    private int height = 0;
+    private int tilesAcross = 0;
+    private int tilesDown = 0;
+    private static final int tileWidth = 16;
+    private static final int tileHeight = 16;
+    private BufferedImage img = null;
+    private int[][] level;
+
+    private BufferedImage[] ratrunning = {SpriteRetrival.getSprite(0, 0, 3), SpriteRetrival.getSprite(3,0,3), SpriteRetrival.getSprite(0,1, 3), SpriteRetrival.getSprite(3,1,3), SpriteRetrival.getSprite(0,2,3), SpriteRetrival.getSprite(1,2,3)};
+    private animation ratRunning = new animation(ratrunning, 10);
+    private animation animation = ratRunning;
+
+    public Enemies(Cowabunga cb, String mapPath){
         this.cb = cb;
-    }
-    public void move() throws InterruptedException{
-        //moveLeft();
-        mD += 1;
-        if(mD == 5){
-            moveRight();
-            mD = 0;
-        }
-    }
-    public void moveLeft(){
-        long accumulatedTimeMs = 0;
-        while(true){
-            long startTime =  System.currentTimeMillis();
-            cb.repaint();
-            while(accumulatedTimeMs >= 200){
-                if(x < cb.getWidth() - 150) {
-                    x = x + 96;
+        try {
+            BufferedReader csvReader = new BufferedReader(new FileReader(mapPath));
+            try {
+                String row;
 
+                while ((row = csvReader.readLine()) != null) {
+                    String[] data = row.split(",");
+                    height++;
+                    if (data.length > width) {
+                        width = data.length;
+                    }
                 }
-                accumulatedTimeMs -= 200;
+                csvReader.close();
+                level = new int[width][height];
+                csvReader = new BufferedReader(new FileReader(mapPath));
+                int y = 0;
+                while ((row = csvReader.readLine()) != null) {
+                    String[] data = row.split(",");
+                    for (int x = 0; x < data.length; x++){
+                        level[x][y]= Integer.parseInt(data[x]);
+                    }
+                    y++;
+                }
+                System.out.println("Map Width & Height = " + width + ", " + height);
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println(e.toString());
             }
-            long endTime = System.currentTimeMillis();
-            accumulatedTimeMs += endTime - startTime;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.out.println(e.toString());
         }
-    }
-    public void moveRight(){
-        moveDelay += 1;
-        if(x < cb.getWidth() - 150 && moveDelay <= 28) {
-            x = x + 7;
-        }
-        if(moveDelay >= 29 && moveDelay <= 42  && y < cb.getHeight() - 150){
-            y = y + 7;
-            if(moveDelay == 43){
-                moveDelay = 0;
+        for(int i = 0; i < width; i++){
+            for(int j = 0; j < height; j++){
+                if(level[i][j] == 1){
+                    this.x = i * tileWidth * 4;
+                    this.y = j * tileHeight * 4;
+                }
             }
         }
     }
-    public void moveUp(){
-
-    }
-    public void moveDown(){
-
+    public void move(){
+        animation.start();
+        animation = ratRunning;
+        animation.update();
     }
     public void paint(Graphics2D g2d){
-        g2d.setColor(Color.BLUE);
-        g2d.fillRect(x,y,32,32);
+        g2d.drawImage(animation.getSprite(), x, y,animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2 , null);
     }
 }
