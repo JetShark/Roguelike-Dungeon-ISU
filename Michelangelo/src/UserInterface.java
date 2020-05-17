@@ -14,7 +14,9 @@ public class UserInterface {
     private BufferedImage titleScreen;
     private BufferedImage pauseMenu;
     private boolean newGame = false;
+    private boolean TitleScreen;
     public UserInterface(){
+        TitleScreen = true;
         newGame = false;
         try {
             titleScreen = ImageIO.read(new File("Test Screens/Test-Title-Screen.png"));
@@ -49,6 +51,7 @@ public class UserInterface {
         my = e.getY();
         if(mx >= 17 && mx <= 164 && my >= 510 && my <= 556){
             newGame = true;
+            TitleScreen = false;
         }
         if(mx >= 16 && mx <= 156 && my >= 565 && my <= 610){
             System.exit(0);
@@ -61,7 +64,9 @@ public class UserInterface {
 
             }
             if(mx >= 391 && mx <= 630 && my >= 327 && my <= 390){
-
+                TitleScreen = true;
+                newGame = false;
+                Esc = false;
             }
             if(mx >= 391 && mx <= 630 && my >= 439 && my <= 502){
                 System.exit(0);
@@ -86,12 +91,11 @@ public class UserInterface {
     }
 
     public void paint(Graphics2D g2d){
-        if(!newGame){
+        if(!newGame || TitleScreen){
             titleScreen(g2d);
         }
         pauseScreen(g2d);
     }
-
 
     private void titleScreen(Graphics2D g2d){
         g2d.drawImage(titleScreen, 0,0, null);

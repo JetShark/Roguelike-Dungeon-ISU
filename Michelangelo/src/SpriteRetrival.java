@@ -8,6 +8,7 @@ public class SpriteRetrival {
     private static BufferedImage projectileSprites; //creates the img.
     private static BufferedImage enemySprites;
     private static BufferedImage characterSprites;
+    private static BufferedImage weaponSprites;
     private static final int TILE_SIZE = 32; //tile size of the tiles on the spread sheet.
 
     private static BufferedImage loadSprite(String file){
@@ -33,6 +34,9 @@ public class SpriteRetrival {
             //return getEnemySprites(xGrid, yGrid);
             return getEnemySprites(xGrid, yGrid);
         }
+        if(spriteNumber == 4){
+            return getWeaponSpriteSheet(xGrid, yGrid);
+        }
         return null;
     }
     private static BufferedImage getProjectileSprites(int xGrid, int yGrid){
@@ -52,5 +56,11 @@ public class SpriteRetrival {
             characterSprites = loadSprite("Test-Character-SpriteSheet");
         }
         return characterSprites.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+    }
+    public static BufferedImage getWeaponSpriteSheet(int xGrid, int yGrid){
+        if(weaponSprites == null){
+            weaponSprites = loadSprite("Weapon-SpriteSheet.png");
+        }
+        return weaponSprites.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }
 }
