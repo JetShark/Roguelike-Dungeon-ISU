@@ -121,10 +121,8 @@ public class Cowabunga extends JPanel{
         //g2d.setColor(Color.RED);
         //g2d.setBackground(Color.black);
         //currentMap.paint(g2d);
-        if(!ui.getNewGame()) {
-            ui.paint(g2d);
-        }
-        if(ui.getNewGame()){
+        ui.paint(g2d);
+        if(ui.getNewGame() && !ui.getEsc()){
             g.translate(-p.getCamX(), -p.getCamY());
             level1.paint(g2d);
             p.paint(g2d);

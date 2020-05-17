@@ -74,6 +74,9 @@ public class MapLevel {
 
     public void paint(Graphics2D g) {
         for (int y = 0; y < level.length - 1; y++) {
+            if(y == 0){
+                level[y].fillEmptySpaces(g);
+            }
             level[y].paint(g);
         }
 

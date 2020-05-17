@@ -85,4 +85,16 @@ public class MapLayer {
             }
         }
     }
+    public void fillEmptySpaces(Graphics2D g){
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int i = (level[x][y])%tilesAcross;
+                int j = (level[x][y])/tilesAcross;
+                if(level[x][y] == -1){
+                    g.setColor(Color.BLACK);
+                    g.fillRect(x*tileWidth*4,y*tileHeight*4,tileWidth*4, tileHeight*4);
+                }
+            }
+        }
+    }
 }
