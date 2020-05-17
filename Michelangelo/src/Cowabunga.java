@@ -46,6 +46,32 @@ public class Cowabunga extends JPanel{
                 super.mouseReleased(e);
             }
         });
+        addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                ui.mouseClicked(e);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                ui.mousePressed(e);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                ui.mouseReleased(e);
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                ui.mouseEntered(e);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                ui.mouseExited(e);
+            }
+        });
         //This adds the KeyListener to the BallWorld. It’s in this section that
         //you HAVE to have all three key listener methods whether they are used
         //or not. We place the KeyListener in the JPanel class because as we
@@ -82,25 +108,31 @@ public class Cowabunga extends JPanel{
 
     private void move() throws InterruptedException { //Have the ball move
         // FIXME: 2020-05-05 need to have the player move function
-        et.move();
-        p.move();
-        b.move();
+        if(!ui.getEsc()){
+            et.move();
+            p.move();
+            b.move();
+        }
     }
 
     public void paint(Graphics g) {
         super.paint(g);
-        g.translate(-p.getCamX(), -p.getCamY());
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(Color.RED);
-        g2d.setBackground(Color.black);
+        //g2d.setColor(Color.RED);
+        //g2d.setBackground(Color.black);
         //currentMap.paint(g2d);
-        level1.paint(g2d);
-        p.paint(g2d);
-        et.paint(g2d);
+        if(!ui.getNewGame()) {
+            ui.paint(g2d);
+        }
+        if(ui.getNewGame()){
+            g.translate(-p.getCamX(), -p.getCamY());
+            level1.paint(g2d);
+            p.paint(g2d);
+            et.paint(g2d);
+            pc.paint(g2d);
+        }
         //b.paint(g2d);
         //wt.paint(g2d);
-        pc.paint(g2d);
-        ui.paint(g2d);
     }
 
 
