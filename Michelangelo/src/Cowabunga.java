@@ -5,6 +5,7 @@ import java.awt.event.*;
 public class Cowabunga extends JPanel{
     private Enemies et;
     private Player p;
+    private Audio a;
     private Bone b = new Bone();
     private Weapons wt = new Weapons();
     private PlayerCursor pc = new PlayerCursor();
@@ -20,6 +21,7 @@ public class Cowabunga extends JPanel{
         level1 = new MapLevel("Map System/Levels.txt", "1");
         p = new Player(this, "Map System/Level 1 Var 1_Entity.csv");
         et = new Enemies(this, "Map System/Level 1 Var 1_Entity.csv");
+        a = new Audio();
         //collision = new Collision("Map System/Level 1 Var 1_Wall.csv");
 
         addMouseMotionListener(new MouseAdapter() {
@@ -108,6 +110,7 @@ public class Cowabunga extends JPanel{
 
     private void move() throws InterruptedException { //Have the ball move
         // FIXME: 2020-05-05 need to have the player move function
+        a.setVolume(0.1f);
         if(!ui.getEsc()){
             et.move();
             p.move();

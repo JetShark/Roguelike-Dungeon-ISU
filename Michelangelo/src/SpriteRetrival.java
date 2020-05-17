@@ -59,7 +59,7 @@ public class SpriteRetrival {
     }
     public static BufferedImage getWeaponSpriteSheet(int xGrid, int yGrid){
         if(weaponSprites == null){
-            weaponSprites = loadSprite("Weapon-SpriteSheet.png");
+            weaponSprites = loadSprite("Weapon-SpriteSheet");
         }
         return weaponSprites.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }
