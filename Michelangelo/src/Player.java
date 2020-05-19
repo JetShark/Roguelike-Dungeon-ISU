@@ -219,12 +219,10 @@ public class Player {
             } else {
                 y += speedy;
             }
-            System.out.println("x,y = " + speedx + ", " + speedy);
+            //System.out.println("x,y = " + speedx + ", " + speedy);
         }
         //x = x + speed;
         //x = x + speed;
-    }
-    private void checkCollision(){
     }
     public void paint(Graphics2D g2d){
         camX = this.x - VIEWPORT_SIZE_X/2;

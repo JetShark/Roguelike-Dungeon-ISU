@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Cowabunga extends JPanel{
-    private Enemies et;
+    private Enemies[] et = new Enemies[3];
     private Player p;
     private Audio a;
     private Bone b = new Bone();
@@ -20,7 +20,9 @@ public class Cowabunga extends JPanel{
         //currentMap = new MapLayer("Map System/Test Map_Map.csv", "Map System/DawnLike/Objects/floor.png");
         level1 = new MapLevel("Map System/Levels.txt", "1");
         p = new Player(this, "Map System/Level 1 Var 1_Entity.csv");
-        et = new Enemies(this, "Map System/Level 1 Var 1_Entity.csv");
+        for(int i = 0; i < et.length; i++){
+            et[i] = new Enemies(this, "Map System/Level 1 Var 1_Entity.csv", (int)(3 * Math.random() - 0));
+        }
         a = new Audio();
         //collision = new Collision("Map System/Level 1 Var 1_Wall.csv");
 
@@ -112,7 +114,9 @@ public class Cowabunga extends JPanel{
         // FIXME: 2020-05-05 need to have the player move function
         a.setVolume(0.1f);
         if(!ui.getEsc()){
-            et.move();
+            for(Enemies et:et){
+                et.move();
+            }
             p.move();
             b.move();
         }
@@ -129,7 +133,10 @@ public class Cowabunga extends JPanel{
             g.translate(-p.getCamX(), -p.getCamY());
             level1.paint(g2d);
             p.paint(g2d);
-            et.paint(g2d);
+            for(Enemies et:et){
+                et.paint(g2d);
+            }
+
             pc.paint(g2d);
         }
         //b.paint(g2d);
