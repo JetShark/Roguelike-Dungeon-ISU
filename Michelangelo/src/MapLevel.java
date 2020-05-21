@@ -7,9 +7,9 @@ import java.io.IOException;
 public class MapLevel {
 
     //Attributes
-    private MapLayer[] level = new MapLayer[6];
+    private MapLayer[] level = new MapLayer[7];
     private String mapPath;
-    private Collision[] c = new Collision[4];
+    //private Collision[] c = new Collision[5];
     //level = new MapLayer[6];
 
     /*
