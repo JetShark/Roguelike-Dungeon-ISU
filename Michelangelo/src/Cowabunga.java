@@ -1,15 +1,22 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Cowabunga extends JPanel{
-    private Enemies[] et = new Enemies[3];
+    private Enemies[] et = new Enemies[100];
     private Player p;
     private Audio a;
+    private EnemySpawnPoints eps;
     private Bone b = new Bone();
     private Weapons wt = new Weapons();
     private PlayerCursor pc = new PlayerCursor();
     private UserInterface ui = new UserInterface();
+
     //@Override
 
     MapLayer currentMap;
@@ -20,10 +27,11 @@ public class Cowabunga extends JPanel{
         //currentMap = new MapLayer("Map System/Test Map_Map.csv", "Map System/DawnLike/Objects/floor.png");
         level1 = new MapLevel("Map System/Levels.txt", "1");
         p = new Player(this, "Map System/Level 1 Var 1_Entity.csv");
-        for(int i = 0; i < et.length; i++){
-            et[i] = new Enemies(this, "Map System/Level 1 Var 1_Entity.csv", (int)(3 * Math.random() - 0));
-        }
+        eps = new EnemySpawnPoints("Map System/Level 1 Var 1_Entity.csv");
         a = new Audio();
+        for (int q = 0; q < et.length; q++) {
+            et[q] = new Enemies(this, (int) (3 * Math.random() - 0), eps.getX(q), eps.getY(q));
+        }
         //collision = new Collision("Map System/Level 1 Var 1_Wall.csv");
 
         addMouseMotionListener(new MouseAdapter() {
