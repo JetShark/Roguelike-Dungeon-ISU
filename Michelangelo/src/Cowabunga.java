@@ -30,7 +30,7 @@ public class Cowabunga extends JPanel{
         eps = new EnemySpawnPoints("Map System/Level 1 Var 1_Entity.csv");
         a = new Audio();
         for (int q = 0; q < et.length; q++) {
-            et[q] = new Enemies(this, (int) (3 * Math.random() - 0), eps.getX(q), eps.getY(q));
+            et[q] = new Enemies(this, (int) (4 * Math.random() - 0), eps.getX(q), eps.getY(q));
         }
         //collision = new Collision("Map System/Level 1 Var 1_Wall.csv");
 

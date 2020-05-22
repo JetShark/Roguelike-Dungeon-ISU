@@ -4,9 +4,11 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 
 public class Enemies {
-    private int[] xt = new int[26], yt = new int[26];
+    private int xt,yt;
     private int x,y;
+    private int speedX = 0, speedY = 0;
     private int i;
+    private Collision c = new Collision("Map System/Level 1 Var 1_Wall.csv");
 
     private int enemyNumber;
 
@@ -34,11 +36,24 @@ public class Enemies {
     public void move(){
         animation.start();
         animation.update();
+        xt = x;
+        yt = y;
         if(enemyNumber == 0){
             animation = ratRunning;
+            int ranNum = (int)(4 * Math.random() - 0);
+            if(ranNum == 0){
+                speedX = -1;
+            } else if(ranNum == 1){
+                speedY = -1;
+            } else if(ranNum == 2){
+                speedX = 1;
+            } else if(ranNum == 3){
+                speedY = 1;
+            }
         }
         if(enemyNumber == 1){
             animation = flyingBookMoving;
+
         }
         if(enemyNumber == 2){
             animation = gaintSpiderJumping;
@@ -114,6 +129,20 @@ public class Enemies {
         }
         if(enemyNumber == 25){
 
+        }
+        if(speedX != 0 || speedY != 0) {
+            xt += speedX;
+            yt += speedY;
+            if (c.checkCollision(xt, y)) {
+                speedX = 0;
+            } else {
+                x += speedX;
+            }
+            if (c.checkCollision(x, yt)) {
+                speedY = 0;
+            } else {
+                y += speedY;
+            }
         }
     }
     public void paint(Graphics2D g2d){
