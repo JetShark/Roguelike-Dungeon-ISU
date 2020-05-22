@@ -1,7 +1,6 @@
-import java.io.*;
-import java.net.URL;
 import javax.sound.sampled.*;
-import javax.swing.*;
+import java.io.IOException;
+import java.net.URL;
 
 // To play sound using Clip, the process need to be alive.
 // Hence, we use a Swing application.
@@ -17,7 +16,7 @@ public class Audio {
             clip = AudioSystem.getClip();
             // Open audio clip and load samples from the audio input stream.
             clip.open(audioIn);
-            //clip.start();
+            clip.start();
         } catch (UnsupportedAudioFileException e) {
             e.printStackTrace();
         } catch (IOException e) {
