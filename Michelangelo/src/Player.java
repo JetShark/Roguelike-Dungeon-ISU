@@ -9,7 +9,6 @@ public class Player {
     private int x, y, xA, yA;
     private int oldX, oldY;
     private int speedx = 0, speedy = 0;
-    private Weapons w;
     private boolean right = false, left = false;
     private Boolean up = false, down = false;
     private boolean dodgeRoll = false;
@@ -99,7 +98,6 @@ public class Player {
         offsetMinY = 0;
         camX = this.x - VIEWPORT_SIZE_X/2;
         camY = this.y - VIEWPORT_SIZE_Y/2;
-        //w = new Weapons(x,y);
     }
 
     public void keyPressed(KeyEvent e){
@@ -164,7 +162,6 @@ public class Player {
     }
 
     public void move(){
-        //w = new Weapons(x,y);
         animation.update();
         int xt = x, yt = y;
         /*if (right && this.x + 32 < cb.getWidth() - 48){
@@ -240,7 +237,6 @@ public class Player {
         }else if (camY < offsetMinY) {
             camY = offsetMinY;
         }
-        //w.paint(g2d);
         if(direction == 1){
             g2d.drawImage(animation.getSprite(), x, y, animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2 , null);
         }
@@ -260,12 +256,6 @@ public class Player {
     }
     public int getCamY(){
         return this.camY;
-    }
-    public int getX(){
-        return x;
-    }
-    public int getY(){
-        return y;
     }
     public void setProjetile(boolean projetile){
         this.projetile = projetile;

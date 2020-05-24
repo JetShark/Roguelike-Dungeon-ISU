@@ -8,12 +8,12 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Cowabunga extends JPanel{
-    private Enemies[] et = new Enemies[14];
+    private Enemies[] et = new Enemies[100];
     private Player p;
     private Audio a;
     private EnemySpawnPoints eps;
     private Bone b = new Bone();
-    private Weapons w = new Weapons();
+    private Weapons wt = new Weapons();
     private PlayerCursor pc = new PlayerCursor();
     private UserInterface ui = new UserInterface();
 
@@ -32,7 +32,6 @@ public class Cowabunga extends JPanel{
         for (int q = 0; q < et.length; q++) {
             et[q] = new Enemies(this, (int) (4 * Math.random() - 0), eps.getX(q), eps.getY(q));
         }
-        //w = new Weapons(p.getX(), p.getY());
         //collision = new Collision("Map System/Level 1 Var 1_Wall.csv");
 
         addMouseMotionListener(new MouseAdapter() {
@@ -126,10 +125,8 @@ public class Cowabunga extends JPanel{
             for(Enemies et:et){
                 et.move();
             }
-            w.move();
             p.move();
             b.move();
-
         }
     }
 
@@ -143,11 +140,11 @@ public class Cowabunga extends JPanel{
         if(ui.getNewGame() && !ui.getEsc()){
             g.translate(-p.getCamX(), -p.getCamY());
             level1.paint(g2d);
-            w.paint(g2d);
+            p.paint(g2d);
             for(Enemies et:et){
                 et.paint(g2d);
             }
-            p.paint(g2d);
+
             pc.paint(g2d);
         }
         //b.paint(g2d);

@@ -10,14 +10,13 @@ public class Audio {
     public Audio() {
         try {
             // Open an audio input stream.
-            //URL url = this.getClass().getClassLoader().getResource("Cigarette Daydreams - Cage the Elephant.wav");
-            URL url = this.getClass().getResource("SoundSystem/Cigarette Daydreams - Cage the Elephant.wav");
+            URL url = this.getClass().getClassLoader().getResource("Cigarette Daydreams - Cage the Elephant.wav");
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
             // Get a sound clip resource.
             clip = AudioSystem.getClip();
             // Open audio clip and load samples from the audio input stream.
             clip.open(audioIn);
-            //clip.start();
+            clip.start();
         } catch (UnsupportedAudioFileException e) {
             e.printStackTrace();
         } catch (IOException e) {

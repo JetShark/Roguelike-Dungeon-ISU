@@ -5,9 +5,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class Weapons {
-    private int x, y;
-    private Player p;
-    private Cowabunga cb;
+    private int x = 800, y = 200;
     private BufferedImage img = null;
 
     private BufferedImage[] allen = {SpriteRetrival.getSprite(0,0,4)};
@@ -115,18 +113,9 @@ public class Weapons {
 
     private animation animation;
     public Weapons(){
-        p = new Player(cb, "Map System/Level 1 Var 1_Entity.csv");
-        this.x = p.getX();
-        this.y = p.getY();
-    }
-    public void move(){
-        this.x = p.getX();
-        this.y = p.getY();
+
     }
     public void paint(Graphics2D g2d){
-        animation = idleYouMonster;
-        animation.start();
-        animation.update();
-        g2d.drawImage(animation.getSprite(),x + 5,y, animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2 ,null);
+
     }
 }

@@ -7,7 +7,6 @@ public class Enemies {
     private int xt,yt;
     private int x,y;
     private int speedX = 0, speedY = 0;
-    private int ratMoveDelay = 100;
     private int i;
     private Collision c = new Collision("Map System/Level 1 Var 1_Wall.csv");
 
@@ -39,16 +38,16 @@ public class Enemies {
         animation.update();
         xt = x;
         yt = y;
-        if (enemyNumber == 0) {
+        if(enemyNumber == 0){
             animation = ratRunning;
-            int ranNum = (int) (4 * Math.random() - 0);
-            if (ranNum == 0) {
+            int ranNum = (int)(4 * Math.random() - 0);
+            if(ranNum == 0){
                 speedX = -1;
-            } else if (ranNum == 1) {
+            } else if(ranNum == 1){
                 speedY = -1;
-            } else if (ranNum == 2) {
+            } else if(ranNum == 2){
                 speedX = 1;
-            } else if (ranNum == 3) {
+            } else if(ranNum == 3){
                 speedY = 1;
             }
         }
