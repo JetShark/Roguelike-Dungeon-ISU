@@ -1,9 +1,11 @@
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
-import java.io.*;
-import java.util.concurrent.TimeUnit;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Player {
     private int x, y, xA, yA;
@@ -19,6 +21,7 @@ public class Player {
     private MapLevel ml;
     private MapLayer mp;
     private Collision c = new Collision("Map System/Level 1 Var 1_Wall.csv");
+    private Collision d = new Collision("Map System/Level 1 Var 1_Collision_Required_Decoration.csv");
 
     private int width = 0;
     private int height = 0;
@@ -209,12 +212,12 @@ public class Player {
         if(speedx != 0 || speedy != 0){
             xt += speedx;
             yt += speedy;
-            if(c.checkCollision(xt, y)){
+            if(c.checkCollision(xt, y) || c.checkCollision(xt, y)){
                 speedx = 0;
             } else {
                 x += speedx;
             }
-            if(c.checkCollision(x, yt)){
+            if(c.checkCollision(x, yt) || d.checkCollision(x, yt)){
                 speedy = 0;
             } else {
                 y += speedy;
