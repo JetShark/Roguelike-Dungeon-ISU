@@ -1,11 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 
 public class Cowabunga extends JPanel{
     private Enemies[] et = new Enemies[14];
@@ -29,6 +24,7 @@ public class Cowabunga extends JPanel{
         p = new Player(this, "Map System/Level 1 Var 1_Entity.csv");
         eps = new EnemySpawnPoints("Map System/Level 1 Var 1_Entity.csv");
         a = new Audio();
+        a.setVolume(0.1f);
         for (int q = 0; q < et.length; q++) {
             et[q] = new Enemies(this, (int) (4 * Math.random() - 0), eps.getX(q), eps.getY(q));
         }
@@ -121,7 +117,6 @@ public class Cowabunga extends JPanel{
 
     private void move() throws InterruptedException { //Have the ball move
         // FIXME: 2020-05-05 need to have the player move function
-        a.setVolume(0.1f);
         if(!ui.getEsc()){
             for(Enemies et:et){
                 et.move();

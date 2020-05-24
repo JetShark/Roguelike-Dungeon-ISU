@@ -11,7 +11,7 @@ public class Audio {
         try {
             // Open an audio input stream.
             //URL url = this.getClass().getClassLoader().getResource("Cigarette Daydreams - Cage the Elephant.wav");
-            URL url = this.getClass().getResource("SoundSystem/Legend of Zelda Ocarina of Time - Song of Storms (Extended) - (online-audio-converter.com).wav");
+            URL url = this.getClass().getResource("SoundSystem/Legend of Zelda Ocarina of Time - Song of Storms (Extended).wav");
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
             // Get a sound clip resource.
             clip = AudioSystem.getClip();
