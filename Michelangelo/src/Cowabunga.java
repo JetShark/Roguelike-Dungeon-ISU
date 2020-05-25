@@ -8,7 +8,7 @@ public class Cowabunga extends JPanel{
     private Audio a;
     private EnemySpawnPoints eps;
     private Bone b = new Bone();
-    private Weapons w = new Weapons();
+    private Weapons w = new Weapons(0,0);
     private PlayerCursor pc = new PlayerCursor();
     private UserInterface ui = new UserInterface();
 
@@ -38,6 +38,7 @@ public class Cowabunga extends JPanel{
                 setCursor(PlayerCursor.customCursor);
                 p.mouseMoved(e);
                 pc.MouseMoved(e);
+                w.mouseMoved(e);
                 //p.mouseMoved(e);
             }
             @Override
@@ -121,7 +122,7 @@ public class Cowabunga extends JPanel{
             for(Enemies et:et){
                 et.move();
             }
-            w.move();
+            //w.move();
             p.move();
             b.move();
 
@@ -138,7 +139,7 @@ public class Cowabunga extends JPanel{
         if(ui.getNewGame() && !ui.getEsc()){
             g.translate(-p.getCamX(), -p.getCamY());
             level1.paint(g2d);
-            w.paint(g2d);
+            //w.paint(g2d);
             for(Enemies et:et){
                 et.paint(g2d);
             }

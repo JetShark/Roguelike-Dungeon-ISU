@@ -231,6 +231,8 @@ public class Player {
         //x = x + speed;
     }
     public void paint(Graphics2D g2d){
+        w = new Weapons(x,y);
+        w.paint(g2d);
         camX = this.x - VIEWPORT_SIZE_X/2;
         camY = this.y - VIEWPORT_SIZE_Y/2;
         if (camX > offsetMaxX) {
@@ -243,7 +245,6 @@ public class Player {
         }else if (camY < offsetMinY) {
             camY = offsetMinY;
         }
-        //w.paint(g2d);
         if(direction == 1){
             g2d.drawImage(animation.getSprite(), x, y, animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2 , null);
         }

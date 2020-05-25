@@ -1,11 +1,14 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 public class Weapons {
     private int x, y;
+    private int mX, mY;
     private Player p;
     private Cowabunga cb;
     private BufferedImage img = null;
@@ -114,19 +117,37 @@ public class Weapons {
     private animation firingZorMarUlla = new animation(zorMarUllaFiring,10);
 
     private animation animation;
-    public Weapons(){
-        p = new Player(cb, "Map System/Level 1 Var 1_Entity.csv");
-        this.x = p.getX();
-        this.y = p.getY();
+
+    public void mouseMoved(MouseEvent e){
+        mX = e.getX();
+        mY = e.getY();
+    }
+    public void mouseDragged(MouseEvent e){
+
+    }
+    public Weapons(int x, int y){
+        //p = new Player(cb, "Map System/Level 1 Var 1_Entity.csv");
+        /*this.x = p.getX();
+        this.y = p.getY();*/
+        this.x = x;
+        this.y = y;
     }
     public void move(){
-        this.x = p.getX();
-        this.y = p.getY();
+        /*this.x = p.getX();
+        this.y = p.getY();*/
     }
     public void paint(Graphics2D g2d){
         animation = idleYouMonster;
         animation.start();
         animation.update();
-        g2d.drawImage(animation.getSprite(),x + 5,y, animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2 ,null);
+        AffineTransform at = new AffineTransform();
+        at.translate(x + 60, y + 30);
+        at.rotate(Math.PI/0.5);
+        at.scale(2.0,2.0);
+        at.translate(-animation.getSprite().getWidth() / 2, -animation.getSprite().getHeight() / 2);
+        //at.translate(x + 5, y);
+        g2d.drawImage(animation.getSprite(), at, null);
+        //g2d.rotate(Math.toRadians(45), animation.getSprite().getWidth()/2, animation.getSprite().getHeight() / 2);
+        //g2d.drawImage(animation.getSprite(),x + 5,y, animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2 ,null);
     }
 }
