@@ -12,6 +12,8 @@ public class Weapons {
     private Player p;
     private Cowabunga cb;
     private BufferedImage img = null;
+    private double imageAngleRad = 0;
+    private Point imagePosition;
 
     private BufferedImage[] allen = {SpriteRetrival.getSprite(0,0,4)};
     private animation idleAllen = new animation(allen,10);
@@ -117,11 +119,6 @@ public class Weapons {
     private animation firingZorMarUlla = new animation(zorMarUllaFiring,10);
 
     private animation animation;
-
-    public void mouseMoved(MouseEvent e){
-        mX = e.getX();
-        mY = e.getY();
-    }
     public void mouseDragged(MouseEvent e){
 
     }
@@ -129,25 +126,53 @@ public class Weapons {
         //p = new Player(cb, "Map System/Level 1 Var 1_Entity.csv");
         /*this.x = p.getX();
         this.y = p.getY();*/
-        this.x = x;
-        this.y = y;
+        //this.x = x;
+        //this.y = y;
+        imagePosition = new Point(x,y);
+    }
+    public void mouseMoved(int mX, int mY){
+        //this.mX = mY;
+        //this.mY = mY;
+        double dx = mX - imagePosition.getX();
+        double dy = mY - imagePosition.getY();
+        imageAngleRad = Math.atan2(dy,dx);
     }
     public void move(){
         /*this.x = p.getX();
         this.y = p.getY();*/
+        /*double dx = mX - imagePosition.getX();
+        double dy = mY - imagePosition.getY();
+        imageAngleRad = Math.atan2(dy,dx);*/
+    }
+    private void weaponDirection(){
+
     }
     public void paint(Graphics2D g2d){
-        animation = idleYouMonster;
-        animation.start();
-        animation.update();
+        animation = idleYouMonster; //set what animation to draw
+        animation.start(); // starts the animation
+        animation.update(); //updates the animation class so that it updates and will draw the new images.
+
+        /*double dx = mX - imagePosition.getX();
+        double dy = mY - imagePosition.getY();
+        imageAngleRad = Math.atan2(dy,dx);*/
+
+        int cx = animation.getSprite().getWidth() / 2;
+        //int cx = animation.getSprite().getWidth() - 40;
+        int cy = animation.getSprite().getHeight() / 2;
         AffineTransform at = new AffineTransform();
-        at.translate(x + 60, y + 30);
-        at.rotate(Math.PI/0.5);
+        /*at.translate(x + 60, y + 30);
+        at.rotate(Math.PI/-1.05);
         at.scale(2.0,2.0);
-        at.translate(-animation.getSprite().getWidth() / 2, -animation.getSprite().getHeight() / 2);
-        //at.translate(x + 5, y);
+        at.translate(-animation.getSprite().getWidth() / 2, -animation.getSprite().getHeight() / 2);*/
+
+        at.translate(cx + imagePosition.x + 60, cy + imagePosition.y + 30);
+        at.rotate(imageAngleRad);
+        at.scale(2.0,2.0);
+        at.translate(-cx, -cy);
+
         g2d.drawImage(animation.getSprite(), at, null);
         //g2d.rotate(Math.toRadians(45), animation.getSprite().getWidth()/2, animation.getSprite().getHeight() / 2);
         //g2d.drawImage(animation.getSprite(),x + 5,y, animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2 ,null);
+        // at.translate(x + 5, y);
     }
 }
