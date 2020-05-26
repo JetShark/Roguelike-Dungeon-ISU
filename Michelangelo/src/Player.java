@@ -232,8 +232,8 @@ public class Player {
         //x = x + speed;
     }
     public void paint(Graphics2D g2d){
-        w = new Weapons(x,y);
-        w.mouseMoved(mX,mY);
+        w = new Weapons(x,y, this);
+        w.mouseMoved(et);
         w.paint(g2d);
         camX = this.x - VIEWPORT_SIZE_X/2;
         camY = this.y - VIEWPORT_SIZE_Y/2;

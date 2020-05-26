@@ -14,6 +14,7 @@ public class Weapons {
     private BufferedImage img = null;
     private double imageAngleRad = 0;
     private Point imagePosition;
+    private PlayerCursor pc = new PlayerCursor();
 
     private BufferedImage[] allen = {SpriteRetrival.getSprite(0,0,4)};
     private animation idleAllen = new animation(allen,10);
@@ -122,27 +123,19 @@ public class Weapons {
     public void mouseDragged(MouseEvent e){
 
     }
-    public Weapons(int x, int y){
-        //p = new Player(cb, "Map System/Level 1 Var 1_Entity.csv");
-        /*this.x = p.getX();
-        this.y = p.getY();*/
-        //this.x = x;
-        //this.y = y;
+    public Weapons(int x, int y, Player p){
+        this.p = p;
         imagePosition = new Point(x,y);
     }
-    public void mouseMoved(int mX, int mY){
-        //this.mX = mY;
-        //this.mY = mY;
+    public void mouseMoved(MouseEvent e){
+        mX = e.getX() + p.getCamX();
+        mY = e.getY() + p.getCamY();
         double dx = mX - imagePosition.getX();
         double dy = mY - imagePosition.getY();
         imageAngleRad = Math.atan2(dy,dx);
     }
     public void move(){
-        /*this.x = p.getX();
-        this.y = p.getY();*/
-        /*double dx = mX - imagePosition.getX();
-        double dy = mY - imagePosition.getY();
-        imageAngleRad = Math.atan2(dy,dx);*/
+
     }
     private void weaponDirection(){
 
@@ -151,10 +144,6 @@ public class Weapons {
         animation = idleYouMonster; //set what animation to draw
         animation.start(); // starts the animation
         animation.update(); //updates the animation class so that it updates and will draw the new images.
-
-        /*double dx = mX - imagePosition.getX();
-        double dy = mY - imagePosition.getY();
-        imageAngleRad = Math.atan2(dy,dx);*/
 
         int cx = animation.getSprite().getWidth() / 2;
         //int cx = animation.getSprite().getWidth() - 40;
@@ -173,6 +162,6 @@ public class Weapons {
         g2d.drawImage(animation.getSprite(), at, null);
         //g2d.rotate(Math.toRadians(45), animation.getSprite().getWidth()/2, animation.getSprite().getHeight() / 2);
         //g2d.drawImage(animation.getSprite(),x + 5,y, animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2 ,null);
-        // at.translate(x + 5, y);
+        //at.translate(x + 5, y);
     }
 }
