@@ -20,7 +20,7 @@ public class PlayerCursor {
     private double magazineCooldown = 0;
     private double magazineCooldownInit = 100;
     private double magazineShots = 0;
-    private double magazineShotsInit = 7;
+    private double magazineShotsInit = 4;
     //private double shotCooldownInit = currentWeapon.getShotDelay();
     //private double magazineCooldownInit = currentWeapon.getShotDelay();
     //private double magazineShotsInit = currentWeapon.getShotDelay();
@@ -78,6 +78,7 @@ public class PlayerCursor {
                 shotCooldown = shotCooldownInit;
                 if (magazineShots >= magazineShotsInit) {
                     magazineCooldown = magazineCooldownInit;
+                    shotCooldown = magazineCooldownInit;
                 }
                 magazineShots = magazineShots + 1;
             }

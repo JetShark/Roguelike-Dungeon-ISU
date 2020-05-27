@@ -14,7 +14,7 @@ public class Player {
     private Weapons w;
     private boolean right = false, left = false;
     private Boolean up = false, down = false;
-    private boolean dodgeRoll = false;
+
     private boolean projetile = false;
     private int newmX, newmY;
     private PlayerCursor pc;
@@ -23,6 +23,20 @@ public class Player {
     private MapLayer mp;
     private Collision c = new Collision("Map System/Level 1 Var 1_Wall.csv");
     private Collision d = new Collision("Map System/Level 1 Var 1_Collision_Required_Decoration.csv");
+
+    private boolean dodgeRoll = false;
+    private int xRollDistance = 0;
+    private double xDistanceRolled = 0;
+    private int yRollDistance = 0;
+    private double yDistanceRolled = 0;
+    private double xRollSpeed = 0;
+    private double yRollSpeed = 0;
+    private int xMaxDistance = 100;
+    private int yMaxDistance = 100;
+    private double rpX = 100;
+    private double rpY = 100;
+
+
 
     private int width = 0;
     private int height = 0;
@@ -38,10 +52,22 @@ public class Player {
     private int mX, mY;
     private MouseEvent et;
 
-    private BufferedImage[] walking = {SpriteRetrival.getSprite(0,0,2), SpriteRetrival.getCharacterSpriteSheet(2,0), SpriteRetrival.getCharacterSpriteSheet(0,1), SpriteRetrival.getCharacterSpriteSheet(1,1)};
+    private BufferedImage[] walking = {SpriteRetrival.getSprite(0,0,5), SpriteRetrival.getCharacterSpriteSheetTest(2,0), SpriteRetrival.getCharacterSpriteSheetTest(0,1), SpriteRetrival.getCharacterSpriteSheetTest(1,1)};
     private animation Walking = new animation(walking,10);
     private animation animation = Walking;
     private int direction = 1;
+
+    private BufferedImage[] idleFront = {SpriteRetrival.getSprite(0,0, 2)};
+    private animation IdleFront = new animation(idleFront, 10);
+
+    private BufferedImage[] idleBack = {SpriteRetrival.getSprite(1,0, 2)};
+    private animation IdleBack = new animation(idleBack, 10);
+
+    private BufferedImage[] idleSide = {SpriteRetrival.getSprite(2,0, 2)};
+    private animation IdleSide = new animation(idleSide, 10);
+
+    private BufferedImage[] walkingSide = {SpriteRetrival.getSprite(4,0, 2), SpriteRetrival.getSprite(6,0,2)};
+    private animation WalkingSide = new animation(walkingSide, 10);
 
     private int WORLD_WIDTH, WORLD_HEIGHT;
     private int VIEWPORT_SIZE_X = 1020, VIEWPORT_SIZE_Y = 640; //Camera Set up and things.
@@ -103,6 +129,7 @@ public class Player {
         offsetMinY = 0;
         camX = this.x - VIEWPORT_SIZE_X/2;
         camY = this.y - VIEWPORT_SIZE_Y/2;
+        animation = IdleFront;
         //w = new Weapons(x,y);
     }
 
@@ -111,27 +138,30 @@ public class Player {
             animation.start();
             up = true;
             speedy = -3;
-
+            animation = IdleBack;
         }
         if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A){
-            animation.start();
             direction = -1;
+            animation.start();
             left = true;
             speedx = -3;
+            animation = IdleSide;
         }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){
             direction = 1;
             animation.start();
             right = true;
             speedx = 3;
+            animation = IdleSide;
         }
         if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S){
             animation.start();
             down = true;
             speedy = 3;
+            animation = IdleFront;
         }
         if(e.getKeyCode() == KeyEvent.VK_C){
-            dodgeRoll = true;
+            //dodgeRoll = true;
         }
     }
     public void keyReleased(KeyEvent e){
@@ -156,7 +186,9 @@ public class Player {
             speedy = 0;
         }
         if(e.getKeyCode() == KeyEvent.VK_C){
-            dodgeRoll = false;
+            //dodgeRoll = false;
+            dodgeRoll = true;
+            dodgeRoll();
         }
     }
     public void mouseDragged(MouseEvent e){
@@ -209,14 +241,16 @@ public class Player {
         if (up && !dodgeRoll) {
            speedy = -3;
         }
+        /*
         if(dodgeRoll) {
             y = mY - 35;
             x = mX - 45;
         }
+        */
         if(speedx != 0 || speedy != 0){
             xt += speedx;
             yt += speedy;
-            if(c.checkCollision(xt, y) || c.checkCollision(xt, y)){
+            if(c.checkCollision(xt, y) || d.checkCollision(xt, y)){
                 speedx = 0;
             } else {
                 x += speedx;
@@ -227,9 +261,73 @@ public class Player {
                 y += speedy;
             }
             //System.out.println("x,y = " + speedx + ", " + speedy);
+
+        }
+        while (dodgeRoll) { // FIXME: 2020-05-27 not formated correctly, should possibly be changed to do something in move instead
+            if (xRollDistance > xDistanceRolled) {
+                x = (int)(x + xRollSpeed);
+                xDistanceRolled = xDistanceRolled + xRollSpeed;
+            }
+            if (yRollDistance > yDistanceRolled) {
+                y = (int)(y + yRollSpeed);
+                yDistanceRolled = yDistanceRolled + yRollSpeed;
+            }
+
+            if (xDistanceRolled >= xRollDistance && yDistanceRolled >= yRollDistance) {
+                dodgeRoll = false;
+            }
         }
         //x = x + speed;
         //x = x + speed;
+    }
+    public void dodgeRoll() {
+        mX = et.getX() + getCamX();
+        mY = et.getY() + getCamX();
+        rpX = x + getCamX();
+        rpY = y + getCamY();
+
+        /*Old Function Here
+        y = mY - 35;
+        x = mX - 45 ;
+        */
+        int playerMouseXDiff = (int)(rpX - mX);
+        int playerMouseYDiff = (int)(rpY - mY);
+
+        xDistanceRolled = 0;
+        yDistanceRolled = 0;
+
+        if (playerMouseXDiff < xMaxDistance) {
+            xRollDistance = playerMouseXDiff;
+        } else {
+            xRollDistance = xMaxDistance;
+        }
+        if (playerMouseXDiff > -xMaxDistance) {
+            xRollDistance = playerMouseXDiff;
+        } else {
+            xRollDistance = -xMaxDistance;
+        }
+
+        if (playerMouseYDiff < yMaxDistance && playerMouseXDiff > -yMaxDistance) {
+            yRollDistance = playerMouseYDiff;
+        } else {
+            yRollDistance = yMaxDistance;
+        }
+        xRollSpeed = 0.01 * xRollDistance;
+        yRollSpeed = 0.01 * yRollDistance;
+        /*
+        while (dodgeRoll) { // FIXME: 2020-05-27 not formatted correctly, should possibly be changed to do something in move instead
+            if (xRollDistance > xDistanceRolled) {
+                x = x + 1;
+            }
+            if (yRollDistance > yDistanceRolled) {
+                y = y + 1;
+            }
+
+            if (xDistanceRolled >= xRollDistance && yDistanceRolled >= yRollDistance) {
+                dodgeRoll = false;
+            }
+        }
+        */
     }
     public void paint(Graphics2D g2d){
         w = new Weapons(x,y, this);
@@ -248,11 +346,11 @@ public class Player {
             camY = offsetMinY;
         }
         if(direction == 1){
-            g2d.drawImage(animation.getSprite(), x, y, animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2 , null);
+            g2d.drawImage(animation.getSprite(), x, y, animation.getSprite().getHeight(), animation.getSprite().getWidth() * 2 , null);
         }
 
         if(direction == -1){
-            g2d.drawImage(animation.getSprite(), x + (animation.getSprite().getWidth() * 2) , y, -animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2 , null);
+            g2d.drawImage(animation.getSprite(), x + (animation.getSprite().getWidth()) , y, -animation.getSprite().getHeight(), animation.getSprite().getWidth() * 2 , null);
         }
         g2d.setColor(Color.RED);
         //g2d.fillRect(x,y, 32,32);
