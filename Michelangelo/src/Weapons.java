@@ -128,11 +128,11 @@ public class Weapons {
         imagePosition = new Point(x,y);
     }
     public void mouseMoved(MouseEvent e){
-        mX = e.getX() + p.getCamX();
+        mX = e.getX() + p.getCamX(); //set the mX and mY to the location of the cursor on the screen
         mY = e.getY() + p.getCamY();
-        double dx = mX - imagePosition.getX();
+        double dx = mX - imagePosition.getX(); //find s the distance from the cursur to the weapon
         double dy = mY - imagePosition.getY();
-        imageAngleRad = Math.atan2(dy,dx);
+        imageAngleRad = Math.atan2(dy,dx); //find the angle of the weapon to the cursor
     }
     public void move(){
 
@@ -145,16 +145,16 @@ public class Weapons {
         animation.start(); // starts the animation
         animation.update(); //updates the animation class so that it updates and will draw the new images.
 
-        int cx = animation.getSprite().getWidth() / 2;
+        int cx = animation.getSprite().getWidth() / 2 - 5;
         //int cx = animation.getSprite().getWidth() - 40;
-        int cy = animation.getSprite().getHeight() / 2;
+        int cy = animation.getSprite().getHeight() / 2 + 3;
         AffineTransform at = new AffineTransform();
         /*at.translate(x + 60, y + 30);
         at.rotate(Math.PI/-1.05);
         at.scale(2.0,2.0);
         at.translate(-animation.getSprite().getWidth() / 2, -animation.getSprite().getHeight() / 2);*/
 
-        at.translate(cx + imagePosition.x + 60, cy + imagePosition.y + 30);
+        at.translate(cx + imagePosition.x + 35, cy + imagePosition.y + 20);
         at.rotate(imageAngleRad);
         at.scale(2.0,2.0);
         at.translate(-cx, -cy);
