@@ -8,9 +8,10 @@ public class Cowabunga extends JPanel{
     private Audio a;
     private EnemySpawnPoints eps;
     private Bone b = new Bone();
-    private Weapons w = new Weapons(0,0);
+    private Weapons w = new Weapons(0,0, p);
     private PlayerCursor pc = new PlayerCursor();
     private UserInterface ui = new UserInterface();
+    //private WeaponProjectile wp = new WeaponProjectile(p);
 
     //@Override
 
@@ -22,6 +23,8 @@ public class Cowabunga extends JPanel{
         //currentMap = new MapLayer("Map System/Test Map_Map.csv", "Map System/DawnLike/Objects/floor.png");
         level1 = new MapLevel("Map System/Levels.txt", "1");
         p = new Player(this, "Map System/Level 1 Var 1_Entity.csv");
+        pc.setPlayer(p);
+        w = new Weapons(p.getX() * 16 * 4, p.getY() * 16 * 4, p);
         eps = new EnemySpawnPoints("Map System/Level 1 Var 1_Entity.csv");
         a = new Audio();
         a.setVolume(0.1f);
@@ -38,7 +41,8 @@ public class Cowabunga extends JPanel{
                 setCursor(PlayerCursor.customCursor);
                 p.mouseMoved(e);
                 pc.MouseMoved(e);
-                w.mouseMoved(e);
+                //w.mouseMoved(e);
+                //wp.mouseMoved(e);
                 //p.mouseMoved(e);
             }
             @Override
@@ -54,6 +58,7 @@ public class Cowabunga extends JPanel{
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
+                pc.mouseReleased(e);
             }
         });
         addMouseListener(new MouseListener() {
@@ -125,7 +130,8 @@ public class Cowabunga extends JPanel{
             //w.move();
             p.move();
             b.move();
-
+            pc.move();
+            //wp.move();
         }
     }
 
@@ -145,6 +151,7 @@ public class Cowabunga extends JPanel{
             }
             p.paint(g2d);
             pc.paint(g2d);
+            //wp.paint(g2d);
         }
         //b.paint(g2d);
         //wt.paint(g2d);

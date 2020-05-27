@@ -15,6 +15,7 @@ public class MapLayer {
     private static final int tileHeight = 16;
     private BufferedImage img = null;
     private int[][] level;
+    private java.util.Map<Integer, BufferedImage> cachedImage = new java.util.HashMap<Integer, BufferedImage>();
 
 
 
@@ -79,7 +80,15 @@ public class MapLayer {
                 int j = (level[x][y])/tilesAcross;
                 if(level[x][y] == -1){
                 } else {
-                    g.drawImage(img.getSubimage(i*tileWidth, j*tileHeight, tileWidth,tileHeight), x*tileWidth*4, y*tileHeight*4, tileWidth*4, tileHeight*4, null);
+
+                    BufferedImage subimage;
+                    if (cachedImage.containsKey(level[x][y])) {
+                        subimage = cachedImage.get(level[x][y]);
+                    } else {
+                        subimage = img.getSubimage(i * tileWidth, j * tileHeight, tileWidth, tileHeight);
+                        cachedImage.put(level[x][y], subimage);
+                    }
+                    g.drawImage(subimage, x*tileWidth*4, y*tileHeight*4, tileWidth*4, tileHeight*4, null);
                 }
                 //g.drawImage(img.getSubimage(i*tileWidth, j*tileHeight, tileWidth,tileHeight), x*tileWidth*4, y*tileHeight*4, tileWidth*4, tileHeight*4, null);
             }
