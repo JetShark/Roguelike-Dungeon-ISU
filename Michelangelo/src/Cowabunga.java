@@ -58,7 +58,9 @@ public class Cowabunga extends JPanel{
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                pc.mouseReleased(e);
+                if (ui.getNewGame()) {
+                    pc.mouseReleased(e);
+                }
             }
         });
         addMouseListener(new MouseListener() {

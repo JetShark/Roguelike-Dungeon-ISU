@@ -1,10 +1,10 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.Buffer;
 
 public class UserInterface {
     private Boolean Esc = false;
@@ -47,6 +47,9 @@ public class UserInterface {
 
     }
     public void mousePressed(MouseEvent e){
+
+    }
+    public void mouseReleased(MouseEvent e){
         mx = e.getX();
         my = e.getY();
         if(mx >= 17 && mx <= 164 && my >= 510 && my <= 556){
@@ -72,9 +75,6 @@ public class UserInterface {
                 System.exit(0);
             }
         }
-    }
-    public void mouseReleased(MouseEvent e){
-
     }
     public void mouseEntered(MouseEvent e){
 
