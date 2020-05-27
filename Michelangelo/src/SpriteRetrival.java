@@ -8,6 +8,7 @@ public class SpriteRetrival {
     private static BufferedImage projectileSprites; //creates the img.
     private static BufferedImage enemySprites;
     private static BufferedImage characterSprites;
+    private static BufferedImage characterSpritesTest;
     private static BufferedImage weaponSprites;
     private static final int TILE_SIZE = 32; //tile size of the tiles on the spread sheet.
 
@@ -37,6 +38,9 @@ public class SpriteRetrival {
         if(spriteNumber == 4){
             return getWeaponSpriteSheet(xGrid, yGrid);
         }
+        if(spriteNumber == 5){
+            return getCharacterSpriteSheetTest(xGrid, yGrid);
+        }
         return null;
     }
     private static BufferedImage getProjectileSprites(int xGrid, int yGrid){
@@ -52,10 +56,18 @@ public class SpriteRetrival {
         return enemySprites.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }
     public static BufferedImage getCharacterSpriteSheet(int xGrid, int yGrid){
+        int TILE_SIZE_X = 24;
+        int TILE_SIZE_Y = 34;
         if(characterSprites == null){
-            characterSprites = loadSprite("Test-Character-SpriteSheet");
+            characterSprites = loadSprite("Character-SpriteSheet");
         }
-        return characterSprites.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        return characterSprites.getSubimage(xGrid * TILE_SIZE_X, yGrid * TILE_SIZE_Y, TILE_SIZE_X, TILE_SIZE_Y);
+    }
+    public static BufferedImage getCharacterSpriteSheetTest(int xGrid, int yGrid){
+        if(characterSpritesTest == null){
+            characterSpritesTest = loadSprite("Test-Character-SpriteSheet");
+        }
+        return characterSpritesTest.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }
     public static BufferedImage getWeaponSpriteSheet(int xGrid, int yGrid){
         if(weaponSprites == null){
