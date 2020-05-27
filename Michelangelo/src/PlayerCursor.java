@@ -18,8 +18,13 @@ public class PlayerCursor {
     private double shotCooldown = 0;
     private double shotCooldownInit = 17.5;
     private double magazineCooldown = 0;
-    private double magazineCooldownInit = 17.5;
+    private double magazineCooldownInit = 100;
+    private double magazineShots = 0;
+    private double magazineShotsInit = 7;
     //private double shotCooldownInit = currentWeapon.getShotDelay();
+    //private double magazineCooldownInit = currentWeapon.getShotDelay();
+    //private double magazineShotsInit = currentWeapon.getShotDelay();
+
     private WeaponProjectile[] projectileList = new WeaponProjectile[16];
 
 
@@ -69,8 +74,12 @@ public class PlayerCursor {
             if (shotCooldown <= 0 && magazineCooldown <=0) {
                 projectileList[nextProjectile++] = new WeaponProjectile(p, mX, mY);
                 if (nextProjectile >= projectileList.length) nextProjectile = 0;
+
                 shotCooldown = shotCooldownInit;
-                magazineCooldown = magazineCooldownInit;
+                if (magazineShots >= magazineShotsInit) {
+                    magazineCooldown = magazineCooldownInit;
+                }
+                magazineShots = magazineShots + 1;
             }
         }
     }
@@ -90,6 +99,9 @@ public class PlayerCursor {
         }
         if (magazineCooldown > 0) {
             magazineCooldown = magazineCooldown - 1;
+        }
+        if (magazineCooldown <= 0) {
+            magazineShots = 0;
         }
 
     }
