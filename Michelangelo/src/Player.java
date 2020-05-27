@@ -163,8 +163,8 @@ public class Player {
 
     }
     public void mouseMoved(MouseEvent e){
-        mX = e.getX();
-        mY = e.getY();
+        mX = e.getX() + camX;
+        mY = e.getY() + camY;
         this.et = e;
     }
     public void move(){
