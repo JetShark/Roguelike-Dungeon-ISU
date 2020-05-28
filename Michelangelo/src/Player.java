@@ -31,8 +31,8 @@ public class Player {
     private double yDistanceRolled = 0;
     private double xRollSpeed = 0;
     private double yRollSpeed = 0;
-    private int xMaxDistance = 100;
-    private int yMaxDistance = 100;
+    private int xMaxDistance = 30;
+    private int yMaxDistance = 30;
     private double rpX = 100;
     private double rpY = 100;
 
@@ -187,8 +187,8 @@ public class Player {
         }
         if(e.getKeyCode() == KeyEvent.VK_C){
             //dodgeRoll = false;
-            dodgeRoll = true;
             dodgeRoll();
+            dodgeRoll = true;
         }
     }
     public void mouseDragged(MouseEvent e){
@@ -290,8 +290,9 @@ public class Player {
         y = mY - 35;
         x = mX - 45 ;
         */
-        int playerMouseXDiff = (int)(rpX - mX);
-        int playerMouseYDiff = (int)(rpY - mY);
+
+        int playerMouseXDiff = (int)(x - mX);
+        int playerMouseYDiff = (int)(y - mY);
 
         xDistanceRolled = 0;
         yDistanceRolled = 0;
@@ -312,8 +313,8 @@ public class Player {
         } else {
             yRollDistance = yMaxDistance;
         }
-        xRollSpeed = 0.01 * xRollDistance;
-        yRollSpeed = 0.01 * yRollDistance;
+        xRollSpeed = 0.005 * xRollDistance;
+        yRollSpeed = 0.005 * yRollDistance;
         /*
         while (dodgeRoll) { // FIXME: 2020-05-27 not formatted correctly, should possibly be changed to do something in move instead
             if (xRollDistance > xDistanceRolled) {
