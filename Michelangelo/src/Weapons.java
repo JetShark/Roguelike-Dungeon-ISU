@@ -124,25 +124,28 @@ public class Weapons {
     private BufferedImage[] sword = {SpriteRetrival.getSprite(5,45,4)};
     private animation idleSword = new animation(sword, 10);
     private BufferedImage[] swordSwinging = {SpriteRetrival.getSprite(4, 44, 4), SpriteRetrival.getSprite(7,44,4), SpriteRetrival.getSprite(4, 45,4)};
-    private animation firingSwordSwinging = new animation(swordSwinging,10);
+    private animation firingSwordSwinging = new animation(swordSwinging,100);
 
     private animation animation;
+    private animation swordAnimation;
     public void mouseDragged(MouseEvent e){
 
     }
-    public Weapons(int x, int y, Player p){
+    public Weapons(Player p){
         this.p = p;
-        imagePosition = new Point(x,y);
+        imagePosition = new Point(p.getX(),p.getY());
+        swordAnimation = firingSwordSwinging;
     }
 
     public void mousePressed(MouseEvent e){
-        if(e.getButton() == MouseEvent.BUTTON2){
-            //rightClick = false;
+        if(e.getButton() == MouseEvent.BUTTON3){
+            rightClick = false;
         }
     }
     public void mouseReleased(MouseEvent e){
         if(e.getButton() == MouseEvent.BUTTON3){
             rightClick = true;
+            swordAnimation.start();
         }
     }
 
@@ -154,7 +157,8 @@ public class Weapons {
         imageAngleRad = Math.atan2(dy,dx); //find the angle of the weapon to the cursor
     }
     public void move(){
-
+        imagePosition.x = p.getX();
+        imagePosition.y = p.getY();
     }
     private void weaponDirection(){
 
@@ -163,7 +167,7 @@ public class Weapons {
         animation = firingYouMonster; //set what animation to draw
         animation.start(); //starts the animation
         animation.update(); //updates the animation class so that it updates and will draw the new images.
-
+        swordAnimation.update();
         int cx = animation.getSprite().getWidth() / 2 - 10;
         //int cx = animation.getSprite().getWidth() - 40;
         int cy = animation.getSprite().getHeight() / 2 + 5;
@@ -175,7 +179,7 @@ public class Weapons {
 
         at.translate(cx + imagePosition.x + 35, cy + imagePosition.y + 20);
         at.rotate(imageAngleRad);
-        at.scale(2.0,2.0);
+        at.scale(1.0,1.0);
         at.translate(-cx, -cy);
 
         g2d.drawImage(animation.getSprite(), at, null);
@@ -184,15 +188,14 @@ public class Weapons {
         //g2d.drawImage(animation.getSprite(),x + 5,y, animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2 ,null);
         //at.translate(x + 5, y);
         if(rightClick){
-            animation = firingSwordSwinging;
-            animation.start();
-            animation.update();
+            int cX = swordAnimation.getSprite().getWidth() / 2;
+            int cY = swordAnimation.getSprite().getHeight() / 2;
             AffineTransform newAt = new AffineTransform();
-            newAt.translate(cx + imagePosition.x + 35, cy + imagePosition.y + 20);
-            newAt.scale(2.0,2.0);
-            newAt.translate(-cx, -cy);
-            g2d.drawImage(animation.getSprite(), imagePosition.x,imagePosition.y, null);
-
+            newAt.translate(cX + imagePosition.x + 35, cY + imagePosition.y + 20);
+            newAt.scale(3.0,3.0);
+            newAt.translate(-cX, -cY);
+            g2d.drawImage(swordAnimation.getSprite(), newAt, null);
+            //g2d.drawImage(swordAnimation.getSprite(), imagePosition.x, imagePosition.y, null);
         }
     }
 

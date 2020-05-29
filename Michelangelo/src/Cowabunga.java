@@ -8,7 +8,7 @@ public class Cowabunga extends JPanel{
     private Audio a;
     private EnemySpawnPoints eps;
     private Bone b = new Bone();
-    private Weapons w = new Weapons(0,0, p);
+    private Weapons w;
     private PlayerCursor pc = new PlayerCursor();
     private UserInterface ui = new UserInterface();
     //private WeaponProjectile wp = new WeaponProjectile(p);
@@ -24,7 +24,7 @@ public class Cowabunga extends JPanel{
         level1 = new MapLevel("Map System/Levels.txt", "1");
         p = new Player(this, "Map System/Level 1 Var 1_Entity.csv");
         pc.setPlayer(p);
-        w = new Weapons(p.getX() * 16 * 4, p.getY() * 16 * 4, p);
+        w = new Weapons(p);
         eps = new EnemySpawnPoints("Map System/Level 1 Var 1_Entity.csv");
         a = new Audio();
         a.setVolume(0.1f);
@@ -41,7 +41,7 @@ public class Cowabunga extends JPanel{
                 setCursor(PlayerCursor.customCursor);
                 p.mouseMoved(e);
                 pc.MouseMoved(e);
-                //w.mouseMoved(e);
+                w.mouseMoved(e);
                 //wp.mouseMoved(e);
                 //p.mouseMoved(e);
             }
@@ -73,12 +73,13 @@ public class Cowabunga extends JPanel{
             public void mousePressed(MouseEvent e) {
                 ui.mousePressed(e);
                 p.mousePressed(e);
+                w.mousePressed(e);
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
                 ui.mouseReleased(e);
-                p.mouseReleased(e);
+                w.mouseReleased(e);
             }
 
             @Override
@@ -131,7 +132,7 @@ public class Cowabunga extends JPanel{
             for(Enemies et:et){
                 et.move();
             }
-            //w.move();
+            w.move();
             p.move();
             b.move();
             pc.move();
@@ -149,7 +150,7 @@ public class Cowabunga extends JPanel{
         if(ui.getNewGame() && !ui.getEsc()){
             g.translate(-p.getCamX(), -p.getCamY());
             level1.paint(g2d);
-            //w.paint(g2d);
+            w.paint(g2d);
             for(Enemies et:et){
                 et.paint(g2d);
             }
