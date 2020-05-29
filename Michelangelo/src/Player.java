@@ -50,7 +50,7 @@ public class Player {
     private Point mouseLocation;
      */
     private int mX, mY;
-    private MouseEvent et;
+    private MouseEvent et, ep, er;
 
     private BufferedImage[] walking = {SpriteRetrival.getSprite(0,0,5), SpriteRetrival.getCharacterSpriteSheetTest(2,0), SpriteRetrival.getCharacterSpriteSheetTest(0,1), SpriteRetrival.getCharacterSpriteSheetTest(1,1)};
     private animation Walking = new animation(walking,10);
@@ -199,6 +199,8 @@ public class Player {
         mY = e.getY() + camY;
         this.et = e;
     }
+    public void mousePressed(MouseEvent e){this.ep = e;};
+    public void mouseReleased(MouseEvent e){this.er = e;};
     public void move(){
         //w = new Weapons(x,y);
         animation.update();
@@ -333,6 +335,8 @@ public class Player {
     public void paint(Graphics2D g2d){
         w = new Weapons(x,y, this);
         w.mouseMoved(et);
+        w.mousePressed(ep);
+        w.mouseReleased(er);
         w.paint(g2d);
         camX = this.x - VIEWPORT_SIZE_X/2;
         camY = this.y - VIEWPORT_SIZE_Y/2;

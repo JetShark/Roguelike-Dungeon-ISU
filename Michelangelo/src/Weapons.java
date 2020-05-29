@@ -16,6 +16,8 @@ public class Weapons {
     private Point imagePosition;
     private PlayerCursor pc = new PlayerCursor();
 
+    private boolean rightClick = false;
+
     private BufferedImage[] allen = {SpriteRetrival.getSprite(0,0,4)};
     private animation idleAllen = new animation(allen,10);
     private BufferedImage[] allenFiring = {SpriteRetrival.getSprite(0,3,4), SpriteRetrival.getSprite(3,3,4), SpriteRetrival.getSprite(0,4,4), SpriteRetrival.getSprite(3,4,4)};
@@ -97,7 +99,7 @@ public class Weapons {
     private BufferedImage[] theSolvent = {SpriteRetrival.getSprite(1,2,4)};
     private animation idleSolvent = new animation(theSolvent,10);
     private BufferedImage[] theSolventFiring = {SpriteRetrival.getSprite(4,31,4), SpriteRetrival.getSprite(7,31,4), SpriteRetrival.getSprite(4,32,4), SpriteRetrival.getSprite(7,32,4), SpriteRetrival.getSprite(4,33,4), SpriteRetrival.getSprite(7,33,4), SpriteRetrival.getSprite(4,34,4), SpriteRetrival.getSprite(7,34,4)};
-    private animation firingSolvent = new animation(theSequencerFiring,10);
+    private animation firingSolvent = new animation(theSolventFiring,10);
 
     private BufferedImage[] triggerTwins = {SpriteRetrival.getSprite(2,2,4)};
     private animation idleTriggerTwins = new animation(triggerTwins,10);
@@ -119,6 +121,11 @@ public class Weapons {
     private BufferedImage[] zorMarUllaFiring = {SpriteRetrival.getSprite(0,37,4), SpriteRetrival.getSprite(3,37,4), SpriteRetrival.getSprite(0,38,4), SpriteRetrival.getSprite(3,38,4), SpriteRetrival.getSprite(0,39,4), SpriteRetrival.getSprite(3,39,4), SpriteRetrival.getSprite(0,40,4), SpriteRetrival.getSprite(3,40,4), SpriteRetrival.getSprite(0,41,4), SpriteRetrival.getSprite(3,41,4), SpriteRetrival.getSprite(0,42,4), SpriteRetrival.getSprite(3,42,4)};
     private animation firingZorMarUlla = new animation(zorMarUllaFiring,10);
 
+    private BufferedImage[] sword = {SpriteRetrival.getSprite(5,45,4)};
+    private animation idleSword = new animation(sword, 10);
+    private BufferedImage[] swordSwinging = {SpriteRetrival.getSprite(4, 44, 4), SpriteRetrival.getSprite(7,44,4), SpriteRetrival.getSprite(4, 45,4)};
+    private animation firingSwordSwinging = new animation(swordSwinging,10);
+
     private animation animation;
     public void mouseDragged(MouseEvent e){
 
@@ -127,6 +134,18 @@ public class Weapons {
         this.p = p;
         imagePosition = new Point(x,y);
     }
+
+    public void mousePressed(MouseEvent e){
+        if(e.getButton() == MouseEvent.BUTTON2){
+            //rightClick = false;
+        }
+    }
+    public void mouseReleased(MouseEvent e){
+        if(e.getButton() == MouseEvent.BUTTON3){
+            rightClick = true;
+        }
+    }
+
     public void mouseMoved(MouseEvent e){
         mX = e.getX() + p.getCamX(); //set the mX and mY to the location of the cursor on the screen
         mY = e.getY() + p.getCamY();
@@ -141,13 +160,13 @@ public class Weapons {
 
     }
     public void paint(Graphics2D g2d){
-        animation = idleYouMonster; //set what animation to draw
-        animation.start(); // starts the animation
+        animation = firingYouMonster; //set what animation to draw
+        animation.start(); //starts the animation
         animation.update(); //updates the animation class so that it updates and will draw the new images.
 
-        int cx = animation.getSprite().getWidth() / 2 - 5;
+        int cx = animation.getSprite().getWidth() / 2 - 10;
         //int cx = animation.getSprite().getWidth() - 40;
-        int cy = animation.getSprite().getHeight() / 2 + 3;
+        int cy = animation.getSprite().getHeight() / 2 + 5;
         AffineTransform at = new AffineTransform();
         /*at.translate(x + 60, y + 30);
         at.rotate(Math.PI/-1.05);
@@ -160,8 +179,24 @@ public class Weapons {
         at.translate(-cx, -cy);
 
         g2d.drawImage(animation.getSprite(), at, null);
+
         //g2d.rotate(Math.toRadians(45), animation.getSprite().getWidth()/2, animation.getSprite().getHeight() / 2);
         //g2d.drawImage(animation.getSprite(),x + 5,y, animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2 ,null);
         //at.translate(x + 5, y);
+        if(rightClick){
+            animation = firingSwordSwinging;
+            animation.start();
+            animation.update();
+            AffineTransform newAt = new AffineTransform();
+            newAt.translate(cx + imagePosition.x + 35, cy + imagePosition.y + 20);
+            newAt.scale(2.0,2.0);
+            newAt.translate(-cx, -cy);
+            g2d.drawImage(animation.getSprite(), imagePosition.x,imagePosition.y, null);
+
+        }
+    }
+
+    public void meleeWeapons(){
+        animation = firingSwordSwinging;
     }
 }

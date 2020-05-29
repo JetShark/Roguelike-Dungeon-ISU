@@ -72,11 +72,13 @@ public class Cowabunga extends JPanel{
             @Override
             public void mousePressed(MouseEvent e) {
                 ui.mousePressed(e);
+                p.mousePressed(e);
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
                 ui.mouseReleased(e);
+                p.mouseReleased(e);
             }
 
             @Override
