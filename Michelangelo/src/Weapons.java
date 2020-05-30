@@ -114,7 +114,7 @@ public class Weapons {
     private BufferedImage[] youMonster = {SpriteRetrival.getSprite(4,2,4)};
     private animation idleYouMonster = new animation(youMonster,10);
     private BufferedImage[] youMonsterFiring = {SpriteRetrival.getSprite(4,35,4), SpriteRetrival.getSprite(7,35,4), SpriteRetrival.getSprite(4,36,4), SpriteRetrival.getSprite(7,36,4), SpriteRetrival.getSprite(4,37,4), SpriteRetrival.getSprite(7,37,4), SpriteRetrival.getSprite(4,38,4), SpriteRetrival.getSprite(7,38,4)};
-    private animation firingYouMonster = new animation(youMonsterFiring,10);
+    private animation firingYouMonster = new animation(youMonsterFiring,50);
 
     private BufferedImage[] zorMarUlla = {SpriteRetrival.getSprite(5,2,4)};
     private animation idleZorMarUlla = new animation(zorMarUlla,10);
@@ -123,7 +123,7 @@ public class Weapons {
 
     private BufferedImage[] sword = {SpriteRetrival.getSprite(5,45,4)};
     private animation idleSword = new animation(sword, 10);
-    private BufferedImage[] swordSwinging = {SpriteRetrival.getSprite(4, 44, 4), SpriteRetrival.getSprite(7,44,4), SpriteRetrival.getSprite(4, 45,4)};
+    private BufferedImage[] swordSwinging = {SpriteRetrival.getSprite(4, 44, 4), SpriteRetrival.getSprite(5,44,4), SpriteRetrival.getSprite(6,44,4), SpriteRetrival.getSprite(7,44,4), SpriteRetrival.getSprite(4, 45,4)};
     private animation firingSwordSwinging = new animation(swordSwinging,100);
 
     private animation animation;
@@ -148,17 +148,16 @@ public class Weapons {
             swordAnimation.start();
         }
     }
-
+    public void move(){
+        imagePosition.x = p.getX();
+        imagePosition.y = p.getY();
+    }
     public void mouseMoved(MouseEvent e){
         mX = e.getX() + p.getCamX(); //set the mX and mY to the location of the cursor on the screen
         mY = e.getY() + p.getCamY();
         double dx = mX - imagePosition.getX(); //find s the distance from the cursur to the weapon
         double dy = mY - imagePosition.getY();
         imageAngleRad = Math.atan2(dy,dx); //find the angle of the weapon to the cursor
-    }
-    public void move(){
-        imagePosition.x = p.getX();
-        imagePosition.y = p.getY();
     }
     private void weaponDirection(){
 
@@ -179,19 +178,20 @@ public class Weapons {
 
         at.translate(cx + imagePosition.x + 35, cy + imagePosition.y + 20);
         at.rotate(imageAngleRad);
-        at.scale(1.0,1.0);
+        at.scale(3.0,3.0);
         at.translate(-cx, -cy);
 
-        g2d.drawImage(animation.getSprite(), at, null);
+        //g2d.drawImage(animation.getSprite(), at, null);
 
         //g2d.rotate(Math.toRadians(45), animation.getSprite().getWidth()/2, animation.getSprite().getHeight() / 2);
         //g2d.drawImage(animation.getSprite(),x + 5,y, animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2 ,null);
         //at.translate(x + 5, y);
         if(rightClick){
-            int cX = swordAnimation.getSprite().getWidth() / 2;
-            int cY = swordAnimation.getSprite().getHeight() / 2;
+            int cX = swordAnimation.getSprite().getWidth() / 2 - 12;
+            int cY = swordAnimation.getSprite().getHeight() / 2 - 3;
             AffineTransform newAt = new AffineTransform();
             newAt.translate(cX + imagePosition.x + 35, cY + imagePosition.y + 20);
+            newAt.rotate(imageAngleRad);
             newAt.scale(3.0,3.0);
             newAt.translate(-cX, -cY);
             g2d.drawImage(swordAnimation.getSprite(), newAt, null);

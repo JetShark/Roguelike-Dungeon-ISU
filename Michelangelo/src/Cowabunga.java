@@ -7,6 +7,7 @@ public class Cowabunga extends JPanel{
     private Player p;
     private Audio a;
     private EnemySpawnPoints eps;
+    private ShopItems si;
     private Bone b = new Bone();
     private Weapons w;
     private PlayerCursor pc = new PlayerCursor();
@@ -26,6 +27,7 @@ public class Cowabunga extends JPanel{
         pc.setPlayer(p);
         w = new Weapons(p);
         eps = new EnemySpawnPoints("Map System/Level 1 Var 1_Entity.csv");
+        si = new ShopItems("Map System/Level 1 Var 1_Entity.csv");
         a = new Audio();
         a.setVolume(0.1f);
         for (int q = 0; q < et.length; q++) {
@@ -150,12 +152,12 @@ public class Cowabunga extends JPanel{
         if(ui.getNewGame() && !ui.getEsc()){
             g.translate(-p.getCamX(), -p.getCamY());
             level1.paint(g2d);
-            w.paint(g2d);
             for(Enemies et:et){
                 et.paint(g2d);
             }
             p.paint(g2d);
             pc.paint(g2d);
+            w.paint(g2d);
             //wp.paint(g2d);
         }
         //b.paint(g2d);
