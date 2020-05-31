@@ -55,6 +55,24 @@ public class ShopItems {
             }
             for (int i = 0; i < width; i++) {
                 for (int j = 0; j < height; j++) {
+                    if (level[i][j] == 5) {
+                        this.x = i * tileWidth * 4;
+                        this.y = j * tileHeight * 4;
+                        xt[spawnPointCount] = i * tileWidth * 4;
+                        yt[spawnPointCount] = j * tileHeight * 4;
+                        System.out.println("x, y: " + x + ", " + y + ", " + spawnPointCount);
+                        System.out.println("xt, yt: " + xt[spawnPointCount] + ", " + yt[spawnPointCount]);
+                        spawnPointCount += 1;
+                    }
+                    if (level[i][j] == 6) {
+                        this.x = i * tileWidth * 4;
+                        this.y = j * tileHeight * 4;
+                        xt[spawnPointCount] = i * tileWidth * 4;
+                        yt[spawnPointCount] = j * tileHeight * 4;
+                        System.out.println("x, y: " + x + ", " + y + ", " + spawnPointCount);
+                        System.out.println("xt, yt: " + xt[spawnPointCount] + ", " + yt[spawnPointCount]);
+                        spawnPointCount += 1;
+                    }
                     if (level[i][j] == 4) {
                         this.x = i * tileWidth * 4;
                         this.y = j * tileHeight * 4;
