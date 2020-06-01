@@ -1,0 +1,4 @@
+[1]
+RangedWeapon=Zor Mar'ulla.?0.75?Fires a black hole. Explodes on impact.?1.?5
+[2]
+information=

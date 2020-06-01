@@ -1,0 +1,4 @@
+[1]
+information=Zor Mar'ulla.?0.75?1.?5?Fires a black hole. Explodes on impact.
+[2]
+information=

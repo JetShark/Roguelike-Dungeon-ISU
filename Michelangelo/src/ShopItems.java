@@ -92,6 +92,3 @@ public class ShopItems {
             return yt[i];
         }
     }
-
-
-}
