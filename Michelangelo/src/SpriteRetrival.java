@@ -81,7 +81,7 @@ public class SpriteRetrival {
     }
     public static BufferedImage getHUDSpriteSheet(int xGrid, int yGrid){
         if(hudSprites == null){
-            hudSprites = loadSprite("Weapon-SpriteSheet");
+            hudSprites = loadSprite("HUD-SpriteSheet");
         }
         return hudSprites.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }

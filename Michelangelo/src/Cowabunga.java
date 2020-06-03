@@ -11,6 +11,7 @@ public class Cowabunga extends JPanel{
     private Bone b = new Bone();
     private Weapons w;
     private ToolTip tt;
+    private HeadsUp hud;
     private PlayerCursor pc = new PlayerCursor();
     private UserInterface ui = new UserInterface();
     //private WeaponProjectile wp = new WeaponProjectile(p);
@@ -35,6 +36,7 @@ public class Cowabunga extends JPanel{
             et[q] = new Enemies(this, (int) (4 * Math.random() - 0), eps.getX(q), eps.getY(q));
         }
         tt = new ToolTip();
+        hud = new HeadsUp(this, p);
         //w = new Weapons(p.getX(), p.getY());
         //collision = new Collision("Map System/Level 1 Var 1_Wall.csv");
 
@@ -140,6 +142,7 @@ public class Cowabunga extends JPanel{
             p.move();
             b.move();
             pc.move();
+            hud.move();
             //wp.move();
         }
     }
@@ -161,6 +164,7 @@ public class Cowabunga extends JPanel{
             pc.paint(g2d);
             w.paint(g2d);
             tt.paint(g2d);
+            hud.paint(g2d);
             //wp.paint(g2d);
         }
         //b.paint(g2d);
