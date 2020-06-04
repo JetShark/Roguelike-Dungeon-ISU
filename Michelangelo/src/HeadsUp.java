@@ -50,14 +50,81 @@ public class HeadsUp {
         g2d.fillRect(x + 6, y + 6, 347, 97);
         double sizeW = animationHearts.getSprite().getWidth() * 1.5;
         double sizeH = animationHearts.getSprite().getHeight() * 1.5;
-        g2d.drawImage(animationHearts.getSprite(), x + 10, y + 5, (int) sizeW, (int) sizeH,  null);
-        g2d.drawImage(animationHearts.getSprite(), x + animationHearts.getSprite().getWidth() + 25, y + 5, (int) sizeW, (int) sizeH,  null);
-        g2d.drawImage(animationHearts.getSprite(), x + (animationHearts.getSprite().getWidth() * 2) + 40, y + 5, (int) sizeW, (int) sizeH,  null);
-        g2d.drawImage(animationHearts.getSprite(), x + (animationHearts.getSprite().getWidth() * 3) + 55, y + 5, (int) sizeW, (int) sizeH,  null);
+        if(p.getPlayerHealth() == 12) {
+            g2d.drawImage(animationHearts.getSprite(), x + 10, y + 5, (int) sizeW, (int) sizeH, null);
+            g2d.drawImage(animationHearts.getSprite(), x + animationHearts.getSprite().getWidth() + 25, y + 5, (int) sizeW, (int) sizeH, null);
+            g2d.drawImage(animationHearts.getSprite(), x + (animationHearts.getSprite().getWidth() * 2) + 40, y + 5, (int) sizeW, (int) sizeH, null);
+        }
+        if(p.getPlayerHealth() == 11) {
+            g2d.drawImage(animationHearts.getSprite(), x + 10, y + 5, (int) sizeW, (int) sizeH, null);
+            g2d.drawImage(animationHearts.getSprite(), x + animationHearts.getSprite().getWidth() + 25, y + 5, (int) sizeW, (int) sizeH, null);
+            animationHearts = idleThreeQuarterHeart;
+            g2d.drawImage(animationHearts.getSprite(), x + (animationHearts.getSprite().getWidth() * 2) + 40, y + 5, (int) sizeW, (int) sizeH, null);
+        }
+
+        if(p.getPlayerHealth() == 10) {
+            g2d.drawImage(animationHearts.getSprite(), x + 10, y + 5, (int) sizeW, (int) sizeH, null);
+            g2d.drawImage(animationHearts.getSprite(), x + animationHearts.getSprite().getWidth() + 25, y + 5, (int) sizeW, (int) sizeH, null);
+            animationHearts = idleHalfHeart;
+            g2d.drawImage(animationHearts.getSprite(), x + (animationHearts.getSprite().getWidth() * 2) + 40, y + 5, (int) sizeW, (int) sizeH, null);
+        }
+
+        if(p.getPlayerHealth() == 9) {
+            g2d.drawImage(animationHearts.getSprite(), x + 10, y + 5, (int) sizeW, (int) sizeH, null);
+            g2d.drawImage(animationHearts.getSprite(), x + animationHearts.getSprite().getWidth() + 25, y + 5, (int) sizeW, (int) sizeH, null);
+            animationHearts = idleQuarterHeart;
+            g2d.drawImage(animationHearts.getSprite(), x + (animationHearts.getSprite().getWidth() * 2) + 40, y + 5, (int) sizeW, (int) sizeH, null);
+        }
+
+        if(p.getPlayerHealth() == 8) {
+            g2d.drawImage(animationHearts.getSprite(), x + 10, y + 5, (int) sizeW, (int) sizeH, null);
+            g2d.drawImage(animationHearts.getSprite(), x + animationHearts.getSprite().getWidth() + 25, y + 5, (int) sizeW, (int) sizeH, null);
+        }
+
+        if(p.getPlayerHealth() == 7) {
+            g2d.drawImage(animationHearts.getSprite(), x + 10, y + 5, (int) sizeW, (int) sizeH, null);
+            animationHearts = idleThreeQuarterHeart;
+            g2d.drawImage(animationHearts.getSprite(), x + animationHearts.getSprite().getWidth() + 25, y + 5, (int) sizeW, (int) sizeH, null);
+        }
+
+        if(p.getPlayerHealth() == 6) {
+            g2d.drawImage(animationHearts.getSprite(), x + 10, y + 5, (int) sizeW, (int) sizeH, null);
+            animationHearts = idleHalfHeart;
+            g2d.drawImage(animationHearts.getSprite(), x + animationHearts.getSprite().getWidth() + 25, y + 5, (int) sizeW, (int) sizeH, null);
+        }
+        if(p.getPlayerHealth() == 5) {
+            g2d.drawImage(animationHearts.getSprite(), x + 10, y + 5, (int) sizeW, (int) sizeH, null);
+            animationHearts = idleQuarterHeart;
+            g2d.drawImage(animationHearts.getSprite(), x + animationHearts.getSprite().getWidth() + 25, y + 5, (int) sizeW, (int) sizeH, null);
+        }
+
+        if(p.getPlayerHealth() == 4) {
+            g2d.drawImage(animationHearts.getSprite(), x + 10, y + 5, (int) sizeW, (int) sizeH, null);
+        }
+        if(p.getPlayerHealth() == 3) {
+            animationHearts = idleThreeQuarterHeart;
+            g2d.drawImage(animationHearts.getSprite(), x + 10, y + 5, (int) sizeW, (int) sizeH, null);
+        }
+
+        if(p.getPlayerHealth() == 2) {
+            animationHearts = idleHalfHeart;
+            g2d.drawImage(animationHearts.getSprite(), x + 10, y + 5, (int) sizeW, (int) sizeH, null);
+        }
+
+        if(p.getPlayerHealth() == 1) {
+            animationHearts = idleQuarterHeart;
+            g2d.drawImage(animationHearts.getSprite(), x + 10, y + 5, (int) sizeW, (int) sizeH, null);
+        }
+
+
+
+
+        /*g2d.drawImage(animationHearts.getSprite(), x + (animationHearts.getSprite().getWidth() * 3) + 55, y + 5, (int) sizeW, (int) sizeH, null);
         g2d.drawImage(animationHearts.getSprite(), x + (animationHearts.getSprite().getWidth() * 4) + 70, y + 5, (int) sizeW, (int) sizeH,  null);
         g2d.drawImage(animationHearts.getSprite(), x + (animationHearts.getSprite().getWidth() * 5) + 85, y + 5, (int) sizeW, (int) sizeH,  null);
         animationHearts = idleHalfHeart;
-        g2d.drawImage(animationHearts.getSprite(), x + (animationHearts.getSprite().getWidth() * 6) + 100, y + 5, (int) sizeW, (int) sizeH,  null);
+        g2d.drawImage(animationHearts.getSprite(), x + (animationHearts.getSprite().getWidth() * 6) + 100, y + 5, (int) sizeW, (int) sizeH,  null);*/
+
         kGBAnimation = idleKeys;
         kGBAnimation.start();
         g2d.drawImage(kGBAnimation.getSprite(), x + 5, y + 63, null);

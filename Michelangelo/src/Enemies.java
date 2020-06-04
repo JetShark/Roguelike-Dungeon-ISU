@@ -9,9 +9,13 @@ public class Enemies {
     private int speedX = 0, speedY = 0;
     private int ratMoveDelay = 100;
     private int i;
+    private Player p;
     private Collision c = new Collision("Map System/Level 1 Var 1_Wall.csv");
 
     private int enemyNumber;
+
+    private int hitboxX, hitboxY, hitboxXT, hitboxYT;
+    private int damage;
 
 
     private BufferedImage[] ratrunning = {SpriteRetrival.getSprite(0, 0, 3), SpriteRetrival.getSprite(3,0,3), SpriteRetrival.getSprite(0,1, 3), SpriteRetrival.getSprite(3,1,3), SpriteRetrival.getSprite(0,2,3), SpriteRetrival.getSprite(1,2,3)};
@@ -28,8 +32,9 @@ public class Enemies {
 
     private animation animation = ratRunning;
 
-    public Enemies(Cowabunga cb, int enemyNumber, int x, int y){
+    public Enemies(Cowabunga cb, int enemyNumber, int x, int y, Player p){
         this.enemyNumber = enemyNumber;
+        this.p = p;
         this.x = x;
         this.y = y;
     }
@@ -51,6 +56,11 @@ public class Enemies {
             } else if (ranNum == 3) {
                 speedY = 1;
             }
+            hitboxX = x + 9;
+            hitboxXT = x + animation.getSprite().getWidth() - 11;
+            hitboxY = y + 9;
+            hitboxYT = y + animation.getSprite().getHeight() - 9;
+            damage = 1;
         }
         if(enemyNumber == 1){
             animation = flyingBookMoving;
@@ -160,5 +170,19 @@ public class Enemies {
             g2d.drawImage(animation.getSprite(), xt[i], yt[i], animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2, null);
         }*/
         g2d.drawImage(animation.getSprite(), x, y,animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2 , null);
+    }
+    public void collision(){
+        boolean x_overlaps = (p.getHitboxX() < hitboxXT && p.getHitboxXT() > hitboxX);
+        boolean y_overlaps = (p.getHitboxY() < hitboxYT && p.getHitboxYT() > hitboxY);
+        boolean collision = x_overlaps && y_overlaps;
+        if(collision){
+          p.damage(damage);
+        }
+        /*if(p.getHitboxX() < hitboxXT && p.getHitboxXT() > hitboxX){
+            p.setPlayerHealth(1);
+        }
+        if(p.getHitboxY() < hitboxYT && p.getHitboxYT() > hitboxY){
+            p.setPlayerHealth(1);
+        }*/
     }
 }

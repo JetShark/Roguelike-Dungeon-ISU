@@ -33,7 +33,7 @@ public class Cowabunga extends JPanel{
         a = new Audio();
         a.setVolume(0.1f);
         for (int q = 0; q < et.length; q++) {
-            et[q] = new Enemies(this, (int) (4 * Math.random() - 0), eps.getX(q), eps.getY(q));
+            et[q] = new Enemies(this, (int) (4 * Math.random() - 0), eps.getX(q), eps.getY(q), p);
         }
         tt = new ToolTip();
         hud = new HeadsUp(this, p);
@@ -137,6 +137,7 @@ public class Cowabunga extends JPanel{
         if(!ui.getEsc()){
             for(Enemies et:et){
                 et.move();
+                et.collision();
             }
             w.move();
             p.move();

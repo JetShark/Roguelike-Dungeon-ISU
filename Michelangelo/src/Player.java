@@ -51,6 +51,15 @@ public class Player {
     private int mX, mY;
     private MouseEvent et;
 
+    private int health;
+    private int damage;
+    private int hitInvincibility = 100;
+    private boolean invulnerable = false;
+    private boolean hit = false;
+    private boolean alive;
+
+    private int hitboxX, hitboxY, hitboxXT, hitboxYT;
+
     private BufferedImage[] walking = {SpriteRetrival.getSprite(0,0,5), SpriteRetrival.getCharacterSpriteSheetTest(2,0), SpriteRetrival.getCharacterSpriteSheetTest(0,1), SpriteRetrival.getCharacterSpriteSheetTest(1,1)};
     private animation Walking = new animation(walking,10);
     private animation animation = Walking;
@@ -129,8 +138,10 @@ public class Player {
         camX = this.x - VIEWPORT_SIZE_X/2;
         camY = this.y - VIEWPORT_SIZE_Y/2;
         animation = IdleFront;
-    }
 
+        health = 12;
+        alive = true;
+    }
     public void keyPressed(KeyEvent e){
         if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
             animation.start();
@@ -201,6 +212,8 @@ public class Player {
     public void mouseReleased(MouseEvent e){};
     public void move(){
         //w = new Weapons(x,y);
+        playerHealth();
+        //hitInvincibility--;
         animation.update();
         int xt = x, yt = y;
         /*if (right && this.x + 32 < cb.getWidth() - 48){
@@ -260,6 +273,10 @@ public class Player {
             } else {
                 y += speedy;
             }
+            hitboxX = x + 8;
+            hitboxY = y + 5;
+            hitboxXT = x + animation.getSprite().getWidth() - 8;
+            hitboxYT = y + animation.getSprite().getHeight() - 7;
             //System.out.println("x,y = " + speedx + ", " + speedy);
 
         }
@@ -329,7 +346,49 @@ public class Player {
         }
         */
     }
+    public void damage(int damage){
+        this.damage = damage;
+        if(!invulnerable){
+            health = health - damage;
+            hit = true;
+        }
+        /*if(hit){
+            invulnerable = true;
+            if(hitInvincibility == 0){
+                invulnerable = false;
+                hitInvincibility = 100;
+                hit = false;
+            }
+        }*/
+    }
+    private void playerHealth(){
+        /*if(!invulnerable){
+            health = health - damage;
+            hit = true;
+        }*/
+        if(hit){
+            hitInvincibility--;
+            invulnerable = true;
+            if(hitInvincibility == 0){
+                invulnerable = false;
+                hitInvincibility = 100;
+                hit = false;
+                damage = 0;
+            }
+        }
+        if(health == 0){
+            alive = false;
+        }
+        //System.out.println("health: " + health);
+    }
+    public void setPlayerHealth(int health){
+        this.health = health;
+    }
+    public int getPlayerHealth(){
+        return health;
+    }
     public void paint(Graphics2D g2d){
+        //System.out.println("health: " + health);
         camX = this.x - VIEWPORT_SIZE_X/2;
         camY = this.y - VIEWPORT_SIZE_Y/2;
         if (camX > offsetMaxX) {
@@ -342,17 +401,19 @@ public class Player {
         }else if (camY < offsetMinY) {
             camY = offsetMinY;
         }
-        if(direction == 1){
-            g2d.drawImage(animation.getSprite(), x, y, animation.getSprite().getHeight(), animation.getSprite().getWidth() * 2 , null);
-        }
+        if(alive) {
+            if (direction == 1) {
+                g2d.drawImage(animation.getSprite(), x, y, animation.getSprite().getHeight(), animation.getSprite().getWidth() * 2, null);
+            }
 
-        if(direction == -1){
-            g2d.drawImage(animation.getSprite(), x + (animation.getSprite().getWidth()) , y, -animation.getSprite().getHeight(), animation.getSprite().getWidth() * 2 , null);
-        }
-        g2d.setColor(Color.RED);
-        //g2d.fillRect(x,y, 32,32);
-        if(projetile){
-            g2d.drawOval(xA,yA, 20,10);
+            if (direction == -1) {
+                g2d.drawImage(animation.getSprite(), x + (animation.getSprite().getWidth()), y, -animation.getSprite().getHeight(), animation.getSprite().getWidth() * 2, null);
+            }
+            g2d.setColor(Color.RED);
+            //g2d.fillRect(x,y, 32,32);
+            if (projetile) {
+                g2d.drawOval(xA, yA, 20, 10);
+            }
         }
         //g2d.drawArc(mX - 10,mY -10, 20, 20, 0, 360);
     }
@@ -368,6 +429,19 @@ public class Player {
     public int getY(){
         return y;
     }
+    public int getHitboxX() {
+        return hitboxX;
+    }
+    public int getHitboxY(){
+        return hitboxY;
+    }
+    public int getHitboxXT() {
+        return hitboxXT;
+    }
+    public int getHitboxYT() {
+        return hitboxYT;
+    }
+
     public void setProjetile(boolean projetile){
         this.projetile = projetile;
     }
