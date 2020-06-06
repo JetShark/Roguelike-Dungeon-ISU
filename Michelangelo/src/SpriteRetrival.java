@@ -59,7 +59,7 @@ public class SpriteRetrival {
         }
         return enemySprites.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }
-    public static BufferedImage getCharacterSpriteSheet(int xGrid, int yGrid){
+    private static BufferedImage getCharacterSpriteSheet(int xGrid, int yGrid){
         int TILE_SIZE_X = 24;
         int TILE_SIZE_Y = 34;
         if(characterSprites == null){
@@ -67,19 +67,19 @@ public class SpriteRetrival {
         }
         return characterSprites.getSubimage(xGrid * TILE_SIZE_X, yGrid * TILE_SIZE_Y, TILE_SIZE_X, TILE_SIZE_Y);
     }
-    public static BufferedImage getCharacterSpriteSheetTest(int xGrid, int yGrid){
+    private static BufferedImage getCharacterSpriteSheetTest(int xGrid, int yGrid){
         if(characterSpritesTest == null){
             characterSpritesTest = loadSprite("Test-Character-SpriteSheet");
         }
         return characterSpritesTest.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }
-    public static BufferedImage getWeaponSpriteSheet(int xGrid, int yGrid){
+    private static BufferedImage getWeaponSpriteSheet(int xGrid, int yGrid){
         if(weaponSprites == null){
             weaponSprites = loadSprite("Weapon-SpriteSheet");
         }
         return weaponSprites.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }
-    public static BufferedImage getHUDSpriteSheet(int xGrid, int yGrid){
+    private static BufferedImage getHUDSpriteSheet(int xGrid, int yGrid){
         if(hudSprites == null){
             hudSprites = loadSprite("HUD-SpriteSheet");
         }

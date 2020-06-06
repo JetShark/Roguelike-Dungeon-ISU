@@ -1,3 +1,5 @@
+import org.w3c.dom.css.Rect;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -8,6 +10,7 @@ import java.io.IOException;
 
 public class UserInterface {
     private Boolean Esc = false;
+    private Player p;
     private int on = 0;
     private int x =510, y = 40;
     private int mx, my;
@@ -15,9 +18,10 @@ public class UserInterface {
     private BufferedImage pauseMenu;
     private boolean newGame = false;
     private boolean TitleScreen;
-    public UserInterface(){
+    public UserInterface(Player p){
         TitleScreen = true;
         newGame = false;
+        this.p = p;
         try {
             titleScreen = ImageIO.read(new File("Test Screens/Test-Title-Screen.png"));
             pauseMenu = ImageIO.read(new File("Test Screens/Test-Pause-Menu.png"));
@@ -75,6 +79,15 @@ public class UserInterface {
                 System.exit(0);
             }
         }
+        if(!p.getAlive()){
+            if(mx >= p.getCamX() + 560 && mx <= p.getCamX() + 660 && my >= p.getCamY() + 430 && my <= p.getCamY() + 460){
+                TitleScreen = true;
+                newGame = false;
+            }
+            if(mx >= p.getCamX() + 450 && mx <= p.getCamX() + 550 && my >= p.getCamY() + 430 && my <= p.getCamY() + 460){
+                newGame = true;
+            }
+        }
     }
     public void mouseEntered(MouseEvent e){
 
@@ -95,6 +108,7 @@ public class UserInterface {
             titleScreen(g2d);
         }
         pauseScreen(g2d);
+        deathScreen(g2d);
     }
 
     private void titleScreen(Graphics2D g2d){
@@ -115,5 +129,48 @@ public class UserInterface {
     }
     private void collectionScreen(){
 
+    }
+    private void deathScreen(Graphics2D g2d){
+        float thickness = 4;
+        Stroke oldStroke = g2d.getStroke();
+        x = p.getCamX();
+        y = p.getCamY();
+        if(!p.getAlive()){
+            g2d.setColor(Color.BLACK);
+            g2d.setStroke(new BasicStroke(thickness));
+            g2d.drawRect(x + 255, y + 160, 510, 320);
+            g2d.setStroke(oldStroke);
+
+            g2d.setColor(new Color(0,0,225,150));
+            g2d.fillRect(x + 256, y + 162, 507, 318);
+
+            g2d.setColor(new Color(0,0,225,200));
+            g2d.fillRect(x + 281, y + 251, 123, 207);
+            g2d.fillRect(x + 486, y + 251, 147, 47);
+            g2d.fillRect(x + 486, y + 301, 147, 47);
+            g2d.fillRect(x + 486, y + 361, 147, 47);
+            g2d.fillRect(x + 451, y + 431, 97, 27);
+            g2d.fillRect(x + 561, y + 431, 97, 27);
+
+            g2d.setColor(Color.BLACK);
+            g2d.setStroke(new BasicStroke(thickness));
+            g2d.drawRect(x + 280, y + 250, 125, 210);
+            g2d.drawRect(x + 485, y + 250, 150, 50);
+            g2d.drawRect(x + 485, y + 300, 150, 50);
+            g2d.drawRect(x + 485, y + 360, 150, 50);
+            g2d.drawRect(x + 450, y + 430, 100, 30);
+            g2d.drawRect(x + 560, y + 430, 100, 30);
+            g2d.setStroke(oldStroke);
+
+            g2d.setColor(Color.WHITE);
+            Font currentFont = g2d.getFont();
+            Font smallTextFont = currentFont.deriveFont(currentFont.getSize() * 0.5f);
+            Font newFont = currentFont.deriveFont(currentFont.getSize() * 2f);
+            g2d.setFont(newFont);
+            g2d.drawString("You've Died", x + 382, y + 210);
+            g2d.setFont(smallTextFont);
+            g2d.drawString("Quick Restart", x + 463, y + 449);
+            g2d.drawString("Main Menu", x + 580, y + 449);
+        }
     }
 }

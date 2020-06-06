@@ -52,7 +52,9 @@ public class Player {
     private MouseEvent et;
 
     private int health;
+    private int numOfHearts;
     private int damage;
+    private int damageCount = 0;
     private int hitInvincibility = 100;
     private boolean invulnerable = false;
     private boolean hit = false;
@@ -60,7 +62,7 @@ public class Player {
 
     private int hitboxX, hitboxY, hitboxXT, hitboxYT;
 
-    private BufferedImage[] walking = {SpriteRetrival.getSprite(0,0,5), SpriteRetrival.getCharacterSpriteSheetTest(2,0), SpriteRetrival.getCharacterSpriteSheetTest(0,1), SpriteRetrival.getCharacterSpriteSheetTest(1,1)};
+    private BufferedImage[] walking = {SpriteRetrival.getSprite(0,0,5), SpriteRetrival.getSprite(2,0, 5), SpriteRetrival.getSprite(0,1,5), SpriteRetrival.getSprite(1,1, 5)};
     private animation Walking = new animation(walking,10);
     private animation animation = Walking;
     private int direction = 1;
@@ -140,6 +142,7 @@ public class Player {
         animation = IdleFront;
 
         health = 12;
+        numOfHearts = 3;
         alive = true;
     }
     public void keyPressed(KeyEvent e){
@@ -211,87 +214,61 @@ public class Player {
     public void mousePressed(MouseEvent e){};
     public void mouseReleased(MouseEvent e){};
     public void move(){
-        //w = new Weapons(x,y);
         playerHealth();
-        //hitInvincibility--;
-        animation.update();
-        int xt = x, yt = y;
-        /*if (right && this.x + 32 < cb.getWidth() - 48){
-            x = x + speed;
-        }
-        if (left && this.x > cb.getWidth() - 1200){
-            x = x - speed;
-        }
-        if (down && this.y + 32 < cb.getHeight() - 48){
-            y = y + speed;
-        }
-        if (up && this.y > cb.getHeight() - 720){
-            y = y - speed;
-        }
-         */
-        //c.generateHitboxs(x/tileWidth/4,y/tileHeight/4);
-        /*if(c.checkCollision(x,y)){
-            x = x - 10;
-        }
-        if(c.checkCollision(x,y)){
-           //x = x + 10;
-        }
-        if(c.checkCollision(x,y)){
-           y = y + 10;
-        }
-        if(c.checkCollision(x,y)){
-           //y = y - 10;
-        }*/
-        if (right && !dodgeRoll){
-            speedx = 3;
-        }
-        if (left && !dodgeRoll){
-            speedx = -3;
-        }
-        if (down && !dodgeRoll){
-            speedy = 3;
-        }
-        if (up && !dodgeRoll) {
-           speedy = -3;
-        }
+        if(alive) {
+            animation.update();
+            int xt = x, yt = y;
+            if (right && !dodgeRoll) {
+                speedx = 3;
+            }
+            if (left && !dodgeRoll) {
+                speedx = -3;
+            }
+            if (down && !dodgeRoll) {
+                speedy = 3;
+            }
+            if (up && !dodgeRoll) {
+                speedy = -3;
+            }
         /*
         if(dodgeRoll) {
             y = mY - 35;
             x = mX - 45;
         }
         */
-        if(speedx != 0 || speedy != 0){
-            xt += speedx;
-            yt += speedy;
-            if(c.checkCollision(xt, y) || d.checkCollision(xt, y)){
-                speedx = 0;
-            } else {
-                x += speedx;
-            }
-            if(c.checkCollision(x, yt) || d.checkCollision(x, yt)){
-                speedy = 0;
-            } else {
-                y += speedy;
-            }
-            hitboxX = x + 8;
-            hitboxY = y + 5;
-            hitboxXT = x + animation.getSprite().getWidth() - 8;
-            hitboxYT = y + animation.getSprite().getHeight() - 7;
-            //System.out.println("x,y = " + speedx + ", " + speedy);
+            if (speedx != 0 || speedy != 0) {
+                xt += speedx;
+                yt += speedy;
+                if (c.checkCollision(xt, y) || d.checkCollision(xt, y)) {
+                    speedx = 0;
+                } else {
+                    x += speedx;
+                }
+                if (c.checkCollision(x, yt) || d.checkCollision(x, yt)) {
+                    speedy = 0;
+                } else {
+                    y += speedy;
+                }
+                hitboxX = x + 8;
+                hitboxY = y + 5;
+                hitboxXT = x + animation.getSprite().getWidth() - 8;
+                hitboxYT = y + animation.getSprite().getHeight() - 7;
+                //System.out.println("x,y = " + speedx + ", " + speedy);
 
-        }
-        while (dodgeRoll) { // FIXME: 2020-05-27 not formated correctly, should possibly be changed to do something in move instead
-            if (xRollDistance > xDistanceRolled) {
-                x = (int)(x + xRollSpeed);
-                xDistanceRolled = xDistanceRolled + xRollSpeed;
             }
-            if (yRollDistance > yDistanceRolled) {
-                y = (int)(y + yRollSpeed);
-                yDistanceRolled = yDistanceRolled + yRollSpeed;
-            }
+            while (dodgeRoll) { // FIXME: 2020-05-27 not formated correctly, should possibly be changed to do something in move instead
+                if (xRollDistance > xDistanceRolled) {
+                    x = (int) (x + xRollSpeed);
+                    xDistanceRolled = xDistanceRolled + xRollSpeed;
+                }
+                if (yRollDistance > yDistanceRolled) {
+                    y = (int) (y + yRollSpeed);
+                    yDistanceRolled = yDistanceRolled + yRollSpeed;
+                }
 
-            if (xDistanceRolled >= xRollDistance && yDistanceRolled >= yRollDistance) {
-                dodgeRoll = false;
+                if (xDistanceRolled >= xRollDistance && yDistanceRolled >= yRollDistance) {
+                    dodgeRoll = false;
+                }
             }
         }
         //x = x + speed;
@@ -350,7 +327,12 @@ public class Player {
         this.damage = damage;
         if(!invulnerable){
             health = health - damage;
+            damageCount = damageCount + 1;
             hit = true;
+            if(damageCount == 4){
+                numOfHearts = numOfHearts - 1;
+                damageCount = 0;
+            }
         }
         /*if(hit){
             invulnerable = true;
@@ -360,6 +342,7 @@ public class Player {
                 hit = false;
             }
         }*/
+        //System.out.println("numOfHearts: " + numOfHearts);
     }
     private void playerHealth(){
         /*if(!invulnerable){
@@ -386,6 +369,12 @@ public class Player {
     }
     public int getPlayerHealth(){
         return health;
+    }
+    public void setNumOfHearts(int numOfHearts){
+        this.numOfHearts = numOfHearts;
+    }
+    public int getNumOfHearts(){
+        return numOfHearts;
     }
     public void paint(Graphics2D g2d){
         //System.out.println("health: " + health);
@@ -440,6 +429,9 @@ public class Player {
     }
     public int getHitboxYT() {
         return hitboxYT;
+    }
+    public boolean getAlive(){
+        return alive;
     }
 
     public void setProjetile(boolean projetile){

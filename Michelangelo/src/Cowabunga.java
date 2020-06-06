@@ -13,7 +13,7 @@ public class Cowabunga extends JPanel{
     private ToolTip tt;
     private HeadsUp hud;
     private PlayerCursor pc = new PlayerCursor();
-    private UserInterface ui = new UserInterface();
+    private UserInterface ui;
     //private WeaponProjectile wp = new WeaponProjectile(p);
 
     //@Override
@@ -31,6 +31,7 @@ public class Cowabunga extends JPanel{
         eps = new EnemySpawnPoints("Map System/Level 1 Var 1_Entity.csv");
         si = new ShopItems("Map System/Level 1 Var 1_Entity.csv");
         a = new Audio();
+        ui = new UserInterface(p);
         a.setVolume(0.1f);
         for (int q = 0; q < et.length; q++) {
             et[q] = new Enemies(this, (int) (4 * Math.random() - 0), eps.getX(q), eps.getY(q), p);
@@ -154,7 +155,6 @@ public class Cowabunga extends JPanel{
         //g2d.setColor(Color.RED);
         //g2d.setBackground(Color.black);
         //currentMap.paint(g2d);
-        ui.paint(g2d);
         if(ui.getNewGame() && !ui.getEsc()){
             g.translate(-p.getCamX(), -p.getCamY());
             level1.paint(g2d);
@@ -168,6 +168,7 @@ public class Cowabunga extends JPanel{
             hud.paint(g2d);
             //wp.paint(g2d);
         }
+        ui.paint(g2d);
         //b.paint(g2d);
         //wt.paint(g2d);
     }
