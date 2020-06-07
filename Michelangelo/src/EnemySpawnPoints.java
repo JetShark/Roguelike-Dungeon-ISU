@@ -59,8 +59,8 @@ public class EnemySpawnPoints {
                      this.y = j * tileHeight * 4;
                      xt[spawnPointCount] = i * tileWidth * 4;
                      yt[spawnPointCount] = j * tileHeight * 4;
-                     System.out.println("x, y: " + x + ", " + y + ", " + spawnPointCount);
-                     System.out.println("xt, yt: " + xt[spawnPointCount] + ", " + yt[spawnPointCount]);
+                     //System.out.println("x, y: " + x + ", " + y + ", " + spawnPointCount);
+                     //System.out.println("xt, yt: " + xt[spawnPointCount] + ", " + yt[spawnPointCount]);
                      spawnPointCount += 1;
                  }
              }

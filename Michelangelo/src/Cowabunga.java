@@ -4,7 +4,7 @@ import java.awt.event.*;
 
 public class Cowabunga extends JPanel{
     private Enemies[] et = new Enemies[14];
-    private ShopItems[] si = new ShopItems[6];
+    private ShopItems[] si = new ShopItems[5];
     private Player p;
     private Audio a;
     private EnemySpawnPoints eps;
@@ -37,8 +37,8 @@ public class Cowabunga extends JPanel{
         for (int q = 0; q < et.length; q++) {
             et[q] = new Enemies(this, (int) (6 * Math.random() - 0), eps.getX(q), eps.getY(q), p);
         }
-        for (int q = 0; q < si.length; q++) {
-            si[q] = new ShopItems(sis.getX(q), sis.getY(q), sis.getInstanceName(q), p);
+        for (int t = 0; t < si.length; t++) {
+            si[t] = new ShopItems(sis.getX(t), sis.getY(t), sis.getInstanceName(t), p);
         }
         tt = new ToolTip();
         hud = new HeadsUp(this, p);
@@ -164,6 +164,9 @@ public class Cowabunga extends JPanel{
             level1.paint(g2d);
             for(Enemies et:et){
                 et.paint(g2d);
+            }
+            for(ShopItems si:si){
+                si.paint(g2d);
             }
             p.paint(g2d);
             pc.paint(g2d);

@@ -37,7 +37,7 @@ public class Collision {
                     }
                     y++;
                 }
-                System.out.println("Map Width & Height = " + width + ", " + height);
+                //System.out.println("Map Width & Height = " + width + ", " + height);
             } catch (IOException e) {
                 e.printStackTrace();
                 System.out.println(e.toString());

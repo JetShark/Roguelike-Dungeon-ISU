@@ -45,7 +45,7 @@ public class MapLayer {
                     }
                     y++;
                 }
-                System.out.println("Map Width & Height = " + width + ", " + height);
+                //System.out.println("Map Width & Height = " + width + ", " + height);
                 img = ImageIO.read(new File(tilePath));
                 tilesAcross = img.getWidth() / tileWidth;
                 tilesDown = img.getHeight() / tileHeight;

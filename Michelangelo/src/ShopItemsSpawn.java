@@ -11,9 +11,9 @@ public class ShopItemsSpawn {
     private int height = 0;
     private int tilesAcross = 0;
     private int tilesDown = 0;
-    private int[] xt = new int[100];
-    private int[] yt = new int[100];
-    private String[] instanceName = new String[100];
+    private int[] xt = new int[6];
+    private int[] yt = new int[6];
+    private String[] instanceName = new String[5];
     private int x,y;
     private int spawnPointCount = 0;
     private static final int tileWidth = 16;
@@ -45,7 +45,7 @@ public class ShopItemsSpawn {
                     }
                     y++;
                 }
-                System.out.println("Map Width & Height = " + width + ", " + height);
+                //System.out.println("Map Width & Height = " + width + ", " + height);
             } catch (IOException e) {
                 e.printStackTrace();
                 System.out.println(e.toString());
@@ -56,26 +56,6 @@ public class ShopItemsSpawn {
         }
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                if (level[i][j] == 5) {
-                    this.x = i * tileWidth * 4;
-                    this.y = j * tileHeight * 4;
-                    xt[spawnPointCount] = i * tileWidth * 4;
-                    yt[spawnPointCount] = j * tileHeight * 4;
-                    System.out.println("x, y: " + x + ", " + y + ", " + spawnPointCount);
-                    System.out.println("xt, yt: " + xt[spawnPointCount] + ", " + yt[spawnPointCount]);
-                    instanceName[spawnPointCount] = "gearSpawn";
-                    spawnPointCount += 1;
-                }
-                if (level[i][j] == 6) {
-                    this.x = i * tileWidth * 4;
-                    this.y = j * tileHeight * 4;
-                    xt[spawnPointCount] = i * tileWidth * 4;
-                    yt[spawnPointCount] = j * tileHeight * 4;
-                    System.out.println("x, y: " + x + ", " + y + ", " + spawnPointCount);
-                    System.out.println("xt, yt: " + xt[spawnPointCount] + ", " + yt[spawnPointCount]);
-                    instanceName[spawnPointCount] = "weaponSpawn";
-                    spawnPointCount += 1;
-                }
                 if (level[i][j] == 4) {
                     this.x = i * tileWidth * 4;
                     this.y = j * tileHeight * 4;
@@ -83,15 +63,43 @@ public class ShopItemsSpawn {
                     yt[spawnPointCount] = j * tileHeight * 4;
                     System.out.println("x, y: " + x + ", " + y + ", " + spawnPointCount);
                     System.out.println("xt, yt: " + xt[spawnPointCount] + ", " + yt[spawnPointCount]);
-                    if (spawnPointCount == 3) {
+                    if(spawnPointCount == 1) {
+                        instanceName[spawnPointCount] = "gearSpawn";
+                    }
+                    System.out.println("iName: " + instanceName[spawnPointCount]);
+                    spawnPointCount += 1;
+                }
+                if (level[i][j] == 5) {
+                    this.x = i * tileWidth * 4;
+                    this.y = j * tileHeight * 4;
+                    xt[spawnPointCount] = i * tileWidth * 4;
+                    yt[spawnPointCount] = j * tileHeight * 4;
+                    System.out.println("x, y: " + x + ", " + y + ", " + spawnPointCount);
+                    System.out.println("xt, yt: " + xt[spawnPointCount] + ", " + yt[spawnPointCount]);
+                    if(spawnPointCount == 3) {
+                        instanceName[spawnPointCount] = "weaponSpawn";
+                    }
+                    System.out.println("iName: " + instanceName[spawnPointCount]);
+                    spawnPointCount += 1;
+                }
+                if (level[i][j] == 3) {
+                    this.x = i * tileWidth * 4;
+                    this.y = j * tileHeight * 4;
+                    xt[spawnPointCount] = i * tileWidth * 4;
+                    yt[spawnPointCount] = j * tileHeight * 4;
+                    System.out.println("x, y: " + x + ", " + y + ", " + spawnPointCount);
+                    System.out.println("xt, yt: " + xt[spawnPointCount] + ", " + yt[spawnPointCount]);
+                    if (spawnPointCount == 0) {
                         instanceName[spawnPointCount] = "heartsSpawn";
                     }
-                    if (spawnPointCount == 4) {
+                    if (spawnPointCount == 2) {
                         instanceName[spawnPointCount] = "keysSpawn";
                     }
-                    if (spawnPointCount == 5) {
+                    if (spawnPointCount == 4) {
                         instanceName[spawnPointCount] = "bombsSpawn";
                     }
+                    System.out.println("iName: " + instanceName[spawnPointCount]);
+                    System.out.println("i , j: " + i + ", " + j);
                     spawnPointCount += 1;
                 }
             }

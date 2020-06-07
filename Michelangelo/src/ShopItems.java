@@ -38,14 +38,21 @@ public class ShopItems {
         y = yInput;
         p = pInput;
         itemType = instanceName;
-        if (itemType == "heartSpawn") {
+        System.out.println("itemType: " + itemType);
+        if (itemType.equals("heartsSpawn")) {
             img = SpriteRetrival.getSprite(0,0,6);
         }
-        if (itemType == "keysSpawn") {
+        if (itemType.equals("keysSpawn")) {
             img = SpriteRetrival.getSprite(1,6,6);
         }
-        if (itemType == "bombsSpawn") {
+        if (itemType.equals("bombsSpawn")) {
             img = SpriteRetrival.getSprite(0,6,6);
+        }
+        if(itemType.equals("gearSpawn")){
+            img = SpriteRetrival.getSprite(0,0,4);
+        }
+        if(itemType.equals("weaponSpawn")){
+            img = SpriteRetrival.getSprite(0,1,4);
         }
     }
 
@@ -60,10 +67,10 @@ public class ShopItems {
         //animation.update();
         int sX=(int)x;
         int sY=(int)y;
-        if (p != null) {
+        /*if (p != null) {
             sX = sX - p.getCamX();
             sY = sY - p.getCamY();
-        }
+        }*/
 
         g2d.drawImage(img, sX, sY,img.getHeight() * 1, img.getWidth() * 1, null);
     }
