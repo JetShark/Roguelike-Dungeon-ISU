@@ -15,7 +15,13 @@ public class Enemies {
     private int enemyNumber;
 
     private int hitboxX, hitboxY, hitboxXT, hitboxYT;
+    private int enemyDamage;
     private int damage;
+    private int health;
+    private int hitInvincibility = 100;
+    private boolean invulnerable = false;
+    private boolean hit = false;
+    private boolean alive = true;
 
 
     private BufferedImage[] ratrunning = {SpriteRetrival.getSprite(0, 0, 3), SpriteRetrival.getSprite(3,0,3), SpriteRetrival.getSprite(0,1, 3), SpriteRetrival.getSprite(3,1,3), SpriteRetrival.getSprite(0,2,3), SpriteRetrival.getSprite(1,2,3)};
@@ -29,6 +35,33 @@ public class Enemies {
 
     private BufferedImage[] ghost = {SpriteRetrival.getSprite(0, 3, 3), SpriteRetrival.getSprite(3,3,3), SpriteRetrival.getSprite(0,4, 3), SpriteRetrival.getSprite(3,4,3), SpriteRetrival.getSprite(0,5,3), SpriteRetrival.getSprite(1,5,3)};
     private animation ghostFloating = new animation(ghost, 10);
+
+    private BufferedImage[] courtWizardAway = {SpriteRetrival.getSprite(4, 6, 3), SpriteRetrival.getSprite(7,6,3), SpriteRetrival.getSprite(4,7, 3), SpriteRetrival.getSprite(7,7,3), SpriteRetrival.getSprite(4,8,3)};
+    private animation courtWizardTeleportAway = new animation(courtWizardAway, 10);
+    private BufferedImage[] courtWizardBack = {SpriteRetrival.getSprite(5, 8, 3), SpriteRetrival.getSprite(7,8,3), SpriteRetrival.getSprite(4,9, 3), SpriteRetrival.getSprite(7,9,3), SpriteRetrival.getSprite(4,10,3), SpriteRetrival.getSprite(5, 10, 3)};
+    private animation courtWizardTeleportBack= new animation(courtWizardBack,10);
+    private BufferedImage[] courtWizard = {SpriteRetrival.getSprite(7,10,3)};
+    private animation courtWizardIdle = new animation(courtWizard, 10);
+
+    private BufferedImage[] bowKnight = {SpriteRetrival.getSprite(0, 10, 3), SpriteRetrival.getSprite(3,10,3), SpriteRetrival.getSprite(0,11, 3), SpriteRetrival.getSprite(3,11,3)};
+    private animation bowKnightIdle = new animation(bowKnight, 10);
+    private BufferedImage[] bowKnightWalk = {SpriteRetrival.getSprite(0, 12, 3), SpriteRetrival.getSprite(3,12,3), SpriteRetrival.getSprite(0,13, 3), SpriteRetrival.getSprite(1,13,3)};
+    private animation bowKnightWalking = new animation(bowKnightWalk, 10);
+
+    private BufferedImage[] spearKnight = {SpriteRetrival.getSprite(0, 14, 3), SpriteRetrival.getSprite(3,14,3), SpriteRetrival.getSprite(0,15, 3), SpriteRetrival.getSprite(3,15,3)};
+    private animation spearKnightIdle = new animation(spearKnight, 10);
+    private BufferedImage[] spearKnightWalk = {SpriteRetrival.getSprite(0, 16, 3), SpriteRetrival.getSprite(3,16,3), SpriteRetrival.getSprite(0,17, 3), SpriteRetrival.getSprite(1,17,3)};
+    private animation spearKnightWalking = new animation(spearKnightWalk, 10);
+
+    private BufferedImage[] swordKnight = {SpriteRetrival.getSprite(4, 14, 3), SpriteRetrival.getSprite(7,14,3), SpriteRetrival.getSprite(4,15, 3), SpriteRetrival.getSprite(7,15,3)};
+    private animation swordKnightIdle = new animation(swordKnight, 10);
+    private BufferedImage[] swordKnightWalk = {SpriteRetrival.getSprite(4, 16, 3), SpriteRetrival.getSprite(7,16,3), SpriteRetrival.getSprite(4,17, 3), SpriteRetrival.getSprite(5,17,3)};
+    private animation swordKnightWalking = new animation(swordKnightWalk, 10);
+
+    private BufferedImage[] shieldKnight = {SpriteRetrival.getSprite(4, 11, 3), SpriteRetrival.getSprite(7,11,3), SpriteRetrival.getSprite(4,12, 3), SpriteRetrival.getSprite(5,12,3)};
+    private animation shieldKnightIdle = new animation(shieldKnight, 10);
+    private BufferedImage[] shieldKnightWalk = {SpriteRetrival.getSprite(6, 13, 3), SpriteRetrival.getSprite(7,13,3), SpriteRetrival.getSprite(4,14, 3), SpriteRetrival.getSprite(7,14,3)};
+    private animation shieldKnightWalking = new animation(shieldKnightWalk, 10);
 
     private animation animation = ratRunning;
 
@@ -44,102 +77,120 @@ public class Enemies {
         animation.update();
         xt = x;
         yt = y;
-        if (enemyNumber == 0) {
-            animation = ratRunning;
-            int ranNum = (int) (4 * Math.random() - 0);
-            if (ranNum == 0) {
-                speedX = -1;
-            } else if (ranNum == 1) {
-                speedY = -1;
-            } else if (ranNum == 2) {
-                speedX = 1;
-            } else if (ranNum == 3) {
-                speedY = 1;
+        if(alive) {
+            if (enemyNumber == 0) {
+                animation = ratRunning;
+                int ranNum = (int) (4 * Math.random() - 0);
+                if (ranNum == 0) {
+                    speedX = -1;
+                } else if (ranNum == 1) {
+                    speedY = -1;
+                } else if (ranNum == 2) {
+                    speedX = 1;
+                } else if (ranNum == 3) {
+                    speedY = 1;
+                }
+                hitboxX = x + 9;
+                hitboxXT = x + animation.getSprite().getWidth() - 11;
+                hitboxY = y + 9;
+                hitboxYT = y + animation.getSprite().getHeight() - 9;
+                enemyDamage = 1;
+                health = 4;
             }
-            hitboxX = x + 9;
-            hitboxXT = x + animation.getSprite().getWidth() - 11;
-            hitboxY = y + 9;
-            hitboxYT = y + animation.getSprite().getHeight() - 9;
-            damage = 1;
-        }
-        if(enemyNumber == 1){
-            animation = flyingBookMoving;
+            if (enemyNumber == 1) {
+                animation = flyingBookMoving;
+                health = 8;
+                enemyDamage = 2;
+            }
+            if (enemyNumber == 2) {
+                animation = courtWizardIdle;
+                health = 10;
+                enemyDamage = 2;
+            }
+            if (enemyNumber == 3) {
+                //kinght sheild
+                animation = shieldKnightIdle;
+                health = 12;
+                enemyDamage = 4;
+            }
+            if (enemyNumber == 4) {
+                //knight bow
+                animation = bowKnightIdle;
+                health = 12;
+                enemyDamage = 2;
+            }
+            if (enemyNumber == 5) {
+                //knight spear
+                animation = spearKnightIdle;
+                health = 12;
+                enemyDamage = 4;
+            }
+            if (enemyNumber == 6){
+                //knight sword
+                animation = swordKnightIdle;
+                health = 12;
+                enemyDamage = 2;
+            }
+            if (enemyNumber == 7) {
+                //haunted armour
+            }
+            if (enemyNumber == 8) {
+                //candle
+            }
+            if (enemyNumber == 9) {
 
-        }
-        if(enemyNumber == 2){
-            animation = gaintSpiderJumping;
-        }
-        if(enemyNumber == 3){
-            animation = ghostFloating;
-        }
-        if(enemyNumber == 4){
+            }
+            if (enemyNumber == 9) {
 
-        }
-        if(enemyNumber == 5){
+            }
+            if (enemyNumber == 10) {
 
-        }
-        if(enemyNumber == 6){
+            }
+            if (enemyNumber == 11) {
 
-        }
-        if(enemyNumber == 7){
+            }
+            if (enemyNumber == 12) {
 
-        }
-        if(enemyNumber == 8){
+            }
+            if (enemyNumber == 13) {
 
-        }
-        if(enemyNumber == 9){
+            }
+            if (enemyNumber == 14) {
 
-        }
-        if(enemyNumber == 9){
+            }
+            if (enemyNumber == 15) {
 
-        }
-        if(enemyNumber == 10){
+            }
+            if (enemyNumber == 16) {
 
-        }
-        if(enemyNumber == 11){
+            }
+            if (enemyNumber == 17) {
 
-        }
-        if(enemyNumber == 12){
+            }
+            if (enemyNumber == 18) {
 
-        }
-        if(enemyNumber == 13){
+            }
+            if (enemyNumber == 19) {
 
-        }
-        if(enemyNumber == 14){
+            }
+            if (enemyNumber == 20) {
 
-        }
-        if(enemyNumber == 15){
+            }
+            if (enemyNumber == 21) {
 
-        }
-        if(enemyNumber == 16){
+            }
+            if (enemyNumber == 22) {
 
-        }
-        if(enemyNumber == 17){
+            }
+            if (enemyNumber == 23) {
 
-        }
-        if(enemyNumber == 18){
+            }
+            if (enemyNumber == 24) {
 
-        }
-        if(enemyNumber == 19){
+            }
+            if (enemyNumber == 25) {
 
-        }
-        if(enemyNumber == 20){
-
-        }
-        if(enemyNumber == 21){
-
-        }
-        if(enemyNumber == 22){
-
-        }
-        if(enemyNumber == 23){
-
-        }
-        if(enemyNumber == 24){
-
-        }
-        if(enemyNumber == 25){
-
+            }
         }
         if(speedX != 0 || speedY != 0) {
             xt += speedX;
@@ -155,6 +206,7 @@ public class Enemies {
                 y += speedY;
             }
         }
+        enemyHealth();
     }
     public void paint(Graphics2D g2d){
         /*for(int i = 0; i < width; i++){
@@ -169,14 +221,16 @@ public class Enemies {
         for(int i = 0; i < spawnNumLocation; i++) {
             g2d.drawImage(animation.getSprite(), xt[i], yt[i], animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2, null);
         }*/
-        g2d.drawImage(animation.getSprite(), x, y,animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2 , null);
+        if(alive) {
+            g2d.drawImage(animation.getSprite(), x, y, animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2, null);
+        }
     }
     public void collision(){
         boolean x_overlaps = (p.getHitboxX() < hitboxXT && p.getHitboxXT() > hitboxX);
         boolean y_overlaps = (p.getHitboxY() < hitboxYT && p.getHitboxYT() > hitboxY);
         boolean collision = x_overlaps && y_overlaps;
         if(collision){
-          p.damage(damage);
+          p.damage(enemyDamage);
         }
         /*if(p.getHitboxX() < hitboxXT && p.getHitboxXT() > hitboxX){
             p.setPlayerHealth(1);
@@ -185,4 +239,27 @@ public class Enemies {
             p.setPlayerHealth(1);
         }*/
     }
+    public void damage(int damage){
+        this.damage = damage;
+        if(!invulnerable){
+            health = health - damage;
+            hit = true;
+        }
+    }
+    private void enemyHealth(){
+        if(hit){
+            hitInvincibility--;
+            invulnerable = true;
+            if(hitInvincibility == 0){
+                invulnerable = false;
+                hitInvincibility = 100;
+                hit = false;
+                damage = 0;
+            }
+        }
+        if(health == 0){
+            alive = false;
+        }
+    }
+
 }

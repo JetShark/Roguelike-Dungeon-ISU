@@ -5,6 +5,7 @@ public class HeadsUp {
     private int x, y;
     private Cowabunga cb;
     private Player p;
+    private Weapons w;
     private int numOfHearts;
 
     private BufferedImage[] fullHeart = {SpriteRetrival.getSprite(0,0,6)};
@@ -33,6 +34,7 @@ public class HeadsUp {
     public HeadsUp(Cowabunga cb, Player p){
         this.cb = cb;
         this.p = p;
+        w = new Weapons(p);
         x = p.getCamX();
         y = p.getCamY();
         numOfHearts = p.getNumOfHearts();
@@ -45,6 +47,7 @@ public class HeadsUp {
         animationHearts = idleFullHeart;
         animationHearts.start();
 
+        weaponSwapOuts(g2d);
         float thickness = 4;
         Stroke oldStroke = g2d.getStroke();
         g2d.setColor(Color.BLACK);
@@ -81,7 +84,6 @@ public class HeadsUp {
                 }
             }
         }
-
         kGBAnimation = idleKeys;
         kGBAnimation.start();
         g2d.drawImage(kGBAnimation.getSprite(), x + 5, y + 63, null);
@@ -103,5 +105,25 @@ public class HeadsUp {
 
         animationHearts.update();
         kGBAnimation.update();
+    }
+    private void map(Graphics2D g2d){
+
+    }
+    private void weaponSwapOuts(Graphics2D g2d){
+        float thickness = 4;
+        Stroke oldStroke = g2d.getStroke();
+        g2d.setColor(Color.BLACK);
+        g2d.setStroke(new BasicStroke(thickness));
+        g2d.drawRect(x + 20,y + 500, 100,70);
+        g2d.drawRect(x + 680,y + 500, 140,70);
+        g2d.drawRect(x + 840,y + 500, 140,70);
+        g2d.setStroke(oldStroke);
+
+        g2d.setColor(new Color(0,0,225,150));
+        g2d.fillRect(x + 21, y + 501, 97, 67);
+        g2d.fillRect(x + 681,y + 501, 137,67);
+        g2d.fillRect(x + 841,y + 501, 137,67);
+
+        w.drawIdleWeaponsSprite(g2d,"sword");
     }
 }
