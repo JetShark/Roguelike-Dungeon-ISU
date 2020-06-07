@@ -126,8 +126,10 @@ public class Weapons {
     private BufferedImage[] swordSwinging = {SpriteRetrival.getSprite(4, 44, 4), SpriteRetrival.getSprite(5,44,4), SpriteRetrival.getSprite(6,44,4), SpriteRetrival.getSprite(7,44,4), SpriteRetrival.getSprite(4, 45,4)};
     private animation firingSwordSwinging = new animation(swordSwinging,100);
 
-    private animation animation;
+    private animation rangedAnimation;
     private animation swordAnimation;
+    private animation idleRanged;
+    private animation idleMelee;
     public void mouseDragged(MouseEvent e){
 
     }
@@ -163,13 +165,12 @@ public class Weapons {
 
     }
     public void paint(Graphics2D g2d){
-        animation = firingYouMonster; //set what animation to draw
-        animation.start(); //starts the animation
-        animation.update(); //updates the animation class so that it updates and will draw the new images.
-        swordAnimation.update();
-        int cx = animation.getSprite().getWidth() / 2 - 10;
+        rangedAnimation = firingYouMonster; //set what animation to draw
+        rangedAnimation.start(); //starts the animation
+
+        int cx = rangedAnimation.getSprite().getWidth() / 2 - 10;
         //int cx = animation.getSprite().getWidth() - 40;
-        int cy = animation.getSprite().getHeight() / 2 + 5;
+        int cy = rangedAnimation.getSprite().getHeight() / 2 + 5;
         AffineTransform at = new AffineTransform();
         /*at.translate(x + 60, y + 30);
         at.rotate(Math.PI/-1.05);
@@ -197,9 +198,22 @@ public class Weapons {
             g2d.drawImage(swordAnimation.getSprite(), newAt, null);
             //g2d.drawImage(swordAnimation.getSprite(), imagePosition.x, imagePosition.y, null);
         }
+        rangedAnimation.update(); //updates the animation class so that it updates and will draw the new images.
+        swordAnimation.update();
     }
 
     public void meleeWeapons(){
-        animation = firingSwordSwinging;
+
+    }
+    public void drawIdleWeaponsSprite(Graphics2D g2d, String name){
+        int x = p.getCamX();
+        int y = p.getCamY();
+        if(name.equals("sword")){
+            idleMelee = idleSword;
+        }
+        idleMelee.start();
+        g2d.drawImage(idleMelee.getSprite(), x + 42,y + 500, idleMelee.getSprite().getWidth() * 2, idleMelee.getSprite().getHeight() * 2,null);
+        idleMelee.update();
+        //idleRanged.update();
     }
 }
