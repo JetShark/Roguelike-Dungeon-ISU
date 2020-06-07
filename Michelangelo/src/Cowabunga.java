@@ -4,10 +4,11 @@ import java.awt.event.*;
 
 public class Cowabunga extends JPanel{
     private Enemies[] et = new Enemies[14];
+    private ShopItems[] si = new ShopItems[6];
     private Player p;
     private Audio a;
     private EnemySpawnPoints eps;
-    private ShopItems si;
+    private ShopItemsSpawn sis;
     private Bone b = new Bone();
     private Weapons w;
     private ToolTip tt;
@@ -29,12 +30,15 @@ public class Cowabunga extends JPanel{
         pc.setPlayer(p);
         w = new Weapons(p);
         eps = new EnemySpawnPoints("Map System/Level 1 Var 1_Entity.csv");
-        si = new ShopItems("Map System/Level 1 Var 1_Entity.csv");
+        sis = new ShopItemsSpawn("Map System/Level 1 Var 1_Entity.csv");
         a = new Audio();
         ui = new UserInterface(p);
         a.setVolume(0.1f);
         for (int q = 0; q < et.length; q++) {
-            et[q] = new Enemies(this, (int) (4 * Math.random() - 0), eps.getX(q), eps.getY(q), p);
+            et[q] = new Enemies(this, (int) (6 * Math.random() - 0), eps.getX(q), eps.getY(q), p);
+        }
+        for (int q = 0; q < si.length; q++) {
+            si[q] = new ShopItems(sis.getX(q), sis.getY(q), sis.getInstanceName(q), p);
         }
         tt = new ToolTip();
         hud = new HeadsUp(this, p);

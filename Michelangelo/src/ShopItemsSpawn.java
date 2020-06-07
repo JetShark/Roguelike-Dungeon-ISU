@@ -13,6 +13,7 @@ public class ShopItemsSpawn {
     private int tilesDown = 0;
     private int[] xt = new int[100];
     private int[] yt = new int[100];
+    private String[] instanceName = new String[100];
     private int x,y;
     private int spawnPointCount = 0;
     private static final int tileWidth = 16;
@@ -62,6 +63,7 @@ public class ShopItemsSpawn {
                     yt[spawnPointCount] = j * tileHeight * 4;
                     System.out.println("x, y: " + x + ", " + y + ", " + spawnPointCount);
                     System.out.println("xt, yt: " + xt[spawnPointCount] + ", " + yt[spawnPointCount]);
+                    instanceName[spawnPointCount] = "gearSpawn";
                     spawnPointCount += 1;
                 }
                 if (level[i][j] == 6) {
@@ -71,6 +73,7 @@ public class ShopItemsSpawn {
                     yt[spawnPointCount] = j * tileHeight * 4;
                     System.out.println("x, y: " + x + ", " + y + ", " + spawnPointCount);
                     System.out.println("xt, yt: " + xt[spawnPointCount] + ", " + yt[spawnPointCount]);
+                    instanceName[spawnPointCount] = "weaponSpawn";
                     spawnPointCount += 1;
                 }
                 if (level[i][j] == 4) {
@@ -80,6 +83,15 @@ public class ShopItemsSpawn {
                     yt[spawnPointCount] = j * tileHeight * 4;
                     System.out.println("x, y: " + x + ", " + y + ", " + spawnPointCount);
                     System.out.println("xt, yt: " + xt[spawnPointCount] + ", " + yt[spawnPointCount]);
+                    if (spawnPointCount == 3) {
+                        instanceName[spawnPointCount] = "heartsSpawn";
+                    }
+                    if (spawnPointCount == 4) {
+                        instanceName[spawnPointCount] = "keysSpawn";
+                    }
+                    if (spawnPointCount == 5) {
+                        instanceName[spawnPointCount] = "bombsSpawn";
+                    }
                     spawnPointCount += 1;
                 }
             }
@@ -91,5 +103,9 @@ public class ShopItemsSpawn {
     public int getY(int i){
         return yt[i];
     }
+    public String getInstanceName(int i){
+        return instanceName[i];
+    }
+
 }
 
