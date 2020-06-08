@@ -17,6 +17,7 @@ public class Weapons {
     private PlayerCursor pc = new PlayerCursor();
 
     private boolean rightClick = false;
+    private int meleeDelay = 500;
 
     private BufferedImage[] allen = {SpriteRetrival.getSprite(0,0,4)};
     private animation idleAllen = new animation(allen,10);
@@ -136,18 +137,18 @@ public class Weapons {
     public Weapons(Player p){
         this.p = p;
         imagePosition = new Point(p.getX(),p.getY());
-        swordAnimation = firingSwordSwinging;
     }
 
     public void mousePressed(MouseEvent e){
         if(e.getButton() == MouseEvent.BUTTON3){
-            rightClick = false;
+            //rightClick = true;
+            //swordAnimation.start();
         }
     }
     public void mouseReleased(MouseEvent e){
         if(e.getButton() == MouseEvent.BUTTON3){
             rightClick = true;
-            swordAnimation.start();
+            //swordAnimation.stop();
         }
     }
     public void move(){
@@ -167,6 +168,7 @@ public class Weapons {
     public void paint(Graphics2D g2d){
         rangedAnimation = firingYouMonster; //set what animation to draw
         rangedAnimation.start(); //starts the animation
+        meleeWeapons(g2d);
 
         int cx = rangedAnimation.getSprite().getWidth() / 2 - 10;
         //int cx = animation.getSprite().getWidth() - 40;
@@ -187,23 +189,32 @@ public class Weapons {
         //g2d.rotate(Math.toRadians(45), animation.getSprite().getWidth()/2, animation.getSprite().getHeight() / 2);
         //g2d.drawImage(animation.getSprite(),x + 5,y, animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2 ,null);
         //at.translate(x + 5, y);
-        if(rightClick){
+        rangedAnimation.update(); //updates the animation class so that it updates and will draw the new images.
+    }
+
+    public void meleeWeapons(Graphics2D g2d){
+        swordAnimation = firingSwordSwinging;
+        if(rightClick) {
+            swordAnimation.start();
+            if (meleeDelay == 0) {
+                swordAnimation.stop();
+                rightClick = false;
+                meleeDelay = 500;
+            }
+            meleeDelay--;
+        }
+        if(rightClick) {
             int cX = swordAnimation.getSprite().getWidth() / 2 - 12;
             int cY = swordAnimation.getSprite().getHeight() / 2 - 3;
             AffineTransform newAt = new AffineTransform();
-            newAt.translate(cX + imagePosition.x + 35, cY + imagePosition.y + 20);
+            newAt.translate(cX + imagePosition.x + 25, cY + imagePosition.y + 20);
             newAt.rotate(imageAngleRad);
-            newAt.scale(3.0,3.0);
+            newAt.scale(3.0, 3.0);
             newAt.translate(-cX, -cY);
             g2d.drawImage(swordAnimation.getSprite(), newAt, null);
             //g2d.drawImage(swordAnimation.getSprite(), imagePosition.x, imagePosition.y, null);
+            swordAnimation.update();
         }
-        rangedAnimation.update(); //updates the animation class so that it updates and will draw the new images.
-        swordAnimation.update();
-    }
-
-    public void meleeWeapons(){
-
     }
     public void drawIdleWeaponsSprite(Graphics2D g2d, String name){
         int x = p.getCamX();

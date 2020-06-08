@@ -40,8 +40,8 @@ public class Enemies {
     private animation courtWizardTeleportAway = new animation(courtWizardAway, 10);
     private BufferedImage[] courtWizardBack = {SpriteRetrival.getSprite(5, 8, 3), SpriteRetrival.getSprite(7,8,3), SpriteRetrival.getSprite(4,9, 3), SpriteRetrival.getSprite(7,9,3), SpriteRetrival.getSprite(4,10,3), SpriteRetrival.getSprite(5, 10, 3)};
     private animation courtWizardTeleportBack= new animation(courtWizardBack,10);
-    private BufferedImage[] courtWizard = {SpriteRetrival.getSprite(7,10,3)};
-    private animation courtWizardIdle = new animation(courtWizard, 10);
+    private BufferedImage[] courtWizard = {SpriteRetrival.getSprite(4,20,3), SpriteRetrival.getSprite(7,20,3)};
+    private animation courtWizardIdle = new animation(courtWizard, 25);
 
     private BufferedImage[] bowKnight = {SpriteRetrival.getSprite(0, 10, 3), SpriteRetrival.getSprite(3,10,3), SpriteRetrival.getSprite(0,11, 3), SpriteRetrival.getSprite(3,11,3)};
     private animation bowKnightIdle = new animation(bowKnight, 10);
