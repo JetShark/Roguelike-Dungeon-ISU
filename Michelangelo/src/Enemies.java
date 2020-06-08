@@ -101,35 +101,59 @@ public class Enemies {
                 animation = flyingBookMoving;
                 health = 8;
                 enemyDamage = 2;
+                hitboxX = x + 6;
+                hitboxXT = x + animation.getSprite().getWidth() - 7;
+                hitboxY = y + 8;
+                hitboxYT = y + animation.getSprite().getHeight() - 11;
             }
             if (enemyNumber == 2) {
                 animation = courtWizardIdle;
                 health = 10;
                 enemyDamage = 2;
+                hitboxX = x + 9;
+                hitboxXT = x + animation.getSprite().getWidth() - 9;
+                hitboxY = y + 8;
+                hitboxYT = y + animation.getSprite().getHeight();
             }
             if (enemyNumber == 3) {
                 //kinght sheild
                 animation = shieldKnightIdle;
                 health = 12;
                 enemyDamage = 4;
+                hitboxX = x + 5;
+                hitboxXT = x + animation.getSprite().getWidth() - 6;
+                hitboxY = y + 5;
+                hitboxYT = y + animation.getSprite().getHeight() - 5;
             }
             if (enemyNumber == 4) {
                 //knight bow
                 animation = bowKnightIdle;
                 health = 12;
                 enemyDamage = 2;
+                hitboxX = x + 10;
+                hitboxXT = x + animation.getSprite().getWidth() - 6;
+                hitboxY = y + 5;
+                hitboxYT = y + animation.getSprite().getHeight() - 5;
             }
             if (enemyNumber == 5) {
                 //knight spear
                 animation = spearKnightIdle;
                 health = 12;
                 enemyDamage = 4;
+                hitboxX = x + 10;
+                hitboxXT = x + animation.getSprite().getWidth() - 6;
+                hitboxY = y + 5;
+                hitboxYT = y + animation.getSprite().getHeight() - 5;
             }
             if (enemyNumber == 6){
                 //knight sword
                 animation = swordKnightIdle;
                 health = 12;
                 enemyDamage = 2;
+                hitboxX = x + 10;
+                hitboxXT = x + animation.getSprite().getWidth() - 6;
+                hitboxY = y + 5;
+                hitboxYT = y + animation.getSprite().getHeight() - 5;
             }
             if (enemyNumber == 7) {
                 //haunted armour

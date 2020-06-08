@@ -89,6 +89,8 @@ public class WeaponProjectile {
             sX = sX - p.getCamX();
             sY = sY - p.getCamY();
         }
-        g2d.drawImage(animation.getSprite(), sX, sY,animation.getSprite().getHeight() * 1, animation.getSprite().getWidth() * 1, null);
+        if(p.getAlive()) {
+            g2d.drawImage(animation.getSprite(), sX, sY, animation.getSprite().getHeight() * 1, animation.getSprite().getWidth() * 1, null);
+        }
     }
 }

@@ -66,10 +66,10 @@ public class HeadsUp {
                     g2d.drawImage(animationHearts.getSprite(), x + 10 + (47 * i), y + 5, (int) sizeW, (int) sizeH, null); //draws full hearts in a ll see slots;
                 }
             }
-            if (i <= p.getNumOfHearts()-2) {
+            if (i <= p.getNumOfHearts() - 2) {
                 g2d.drawImage(animationHearts.getSprite(), x + 10 + (47 * i), y + 5, (int) sizeW, (int) sizeH, null); // draws full hearts in the secounds two slots
             }
-            if (i == p.getNumOfHearts() - 1) {
+            if (i == p.getNumOfHearts() -1) {
                 if (p.getPlayerHealth() == 3 || p.getPlayerHealth() == 7 || p.getPlayerHealth() == 11 || p.getPlayerHealth() == 15 || p.getPlayerHealth() == 19 || p.getPlayerHealth() == 23 || p.getPlayerHealth() == 27) {
                     animationHearts = idleThreeQuarterHeart;
                     g2d.drawImage(animationHearts.getSprite(), x + 10 + (47 * i), y + 5, (int) sizeW, (int) sizeH, null); //draws three quarter hearts

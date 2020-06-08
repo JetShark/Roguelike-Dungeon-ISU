@@ -137,16 +137,17 @@ public class Cowabunga extends JPanel{
     }
 
 
-    private void move() throws InterruptedException { //Have the ball move
+    private void move() throws InterruptedException {
         // FIXME: 2020-05-05 need to have the player move function
         if(!ui.getEsc()){
-            for(Enemies et:et){
-                et.move();
-                et.collision();
+            if(p.getAlive()) {
+                for (Enemies et : et) {
+                    et.move();
+                    et.collision();
+                }
+                w.move();
+                p.move();
             }
-            w.move();
-            p.move();
-            b.move();
             pc.move();
             hud.move();
             //wp.move();

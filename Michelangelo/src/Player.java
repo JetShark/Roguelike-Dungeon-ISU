@@ -145,6 +145,14 @@ public class Player {
         numOfHearts = 3;
         alive = true;
     }
+
+    public void resetPlayer(){
+        animation = IdleFront;
+        health = 12;
+        numOfHearts = 3;
+        alive = true;
+    }
+
     public void keyPressed(KeyEvent e){
         if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
             animation.start();
@@ -327,10 +335,23 @@ public class Player {
         this.damage = damage;
         if(!invulnerable){
             health = health - damage;
-            damageCount = damageCount + 1;
+            System.out.println("health: " + health);
+            if(damage == 1) {
+                damageCount = damageCount + 1;
+            }
+            if(damage == 2) {
+                damageCount = damageCount + 2;
+            }
+            if(damage == 3) {
+                damageCount = damageCount + 3;
+            }
+            if(damage == 4) {
+               numOfHearts = numOfHearts - 1;
+            }
             hit = true;
-            if(damageCount == 4){
+            if(damageCount >= 4){
                 numOfHearts = numOfHearts - 1;
+                System.out.println("numOfHearts: " + numOfHearts);
                 damageCount = 0;
             }
         }
@@ -359,7 +380,7 @@ public class Player {
                 damage = 0;
             }
         }
-        if(health == 0){
+        if(health <= 0){
             alive = false;
         }
         //System.out.println("health: " + health);

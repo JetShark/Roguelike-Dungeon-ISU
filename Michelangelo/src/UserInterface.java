@@ -23,7 +23,7 @@ public class UserInterface {
         newGame = false;
         this.p = p;
         try {
-            titleScreen = ImageIO.read(new File("Test Screens/Test-Title-Screen.png"));
+            titleScreen = ImageIO.read(new File("Test Screens/Title-Screen.png"));
             pauseMenu = ImageIO.read(new File("Test Screens/Test-Pause-Menu.png"));
         } catch (IOException e) {
             System.out.println("No Image");
@@ -56,13 +56,20 @@ public class UserInterface {
     public void mouseReleased(MouseEvent e){
         mx = e.getX();
         my = e.getY();
-        if(mx >= 17 && mx <= 164 && my >= 510 && my <= 556){
+        if(mx >= 432 && mx <= 591 && my >= 224 && my <= 256){
             newGame = true;
             TitleScreen = false;
         }
-        if(mx >= 16 && mx <= 156 && my >= 565 && my <= 610){
+        if(mx >= 416 && mx <= 608 && my >= 336 && my <= 368){
             System.exit(0);
         }
+        if(mx >= 432 && mx <= 591 && my >= 262 && my <= 296){
+
+        }
+        if(mx >= 400 && mx <= 620 && my >= 300 && my <= 329){
+
+        }
+
         if(Esc){
             if(mx >= 391 && mx <= 630 && my >= 103 && my <= 166){
                 Esc = false;
@@ -85,7 +92,8 @@ public class UserInterface {
                 newGame = false;
             }
             if(mx >= p.getCamX() + 450 && mx <= p.getCamX() + 550 && my >= p.getCamY() + 430 && my <= p.getCamY() + 460){
-                newGame = true;
+                //newGame = true;
+                p.resetPlayer();
             }
         }
     }

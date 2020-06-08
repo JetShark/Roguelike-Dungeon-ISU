@@ -27,6 +27,29 @@ public class ToolTip {
         g2d.drawString("Damage: " + ii.getDamage(), x + 2, y + 24);
         g2d.drawString("Number of Shots: " + ii.getNumOfShots(), x + 2, y + 36);
         g2d.drawString("Reload Time: " + ii.getReloadTime() + " Seconds", x + 2, y + 48);
-        g2d.drawString("Special Effect: Knocks enemies \nback", x + 2, y + 60);
+        //g2d.drawString("Special Effect: Knocks enemies \nback", x + 2, y + 60);
+
+        String text = "Special Effect: " + ii.getSpecialEffect();
+        int lineWidth = 195;
+        int xt = x, yt = y;
+        FontMetrics m = g2d.getFontMetrics();
+        if(m.stringWidth(text) < lineWidth) {
+            g2d.drawString(text, xt + 2, yt + 60);
+        } else {
+            String[] words = text.split(" ");
+            String currentLine = words[0];
+            for(int i = 1; i < words.length; i++) {
+                if(m.stringWidth(currentLine+words[i]) < lineWidth) {
+                    currentLine += " "+words[i];
+                } else {
+                    g2d.drawString(currentLine, xt + 2, yt + 60);
+                    yt += m.getHeight() - 2;
+                    currentLine = words[i];
+                }
+            }
+            if(currentLine.trim().length() > 0) {
+                g2d.drawString(currentLine, xt + 2, yt + 60);
+            }
+        }
     }
 }
