@@ -10,6 +10,7 @@ public class Weapons {
     private int x, y;
     private int mX, mY;
     private Player p;
+    private Enemies e;
     private Cowabunga cb;
     private BufferedImage img = null;
     private double imageAngleRad = 0;
@@ -18,6 +19,9 @@ public class Weapons {
 
     private boolean rightClick = false;
     private int meleeDelay = 500;
+    private int hitboxX, hitboxY, hitboxXT, hitboxYT;
+    private int damage;
+    private int modifier;
 
     private BufferedImage[] allen = {SpriteRetrival.getSprite(0,0,4)};
     private animation idleAllen = new animation(allen,10);
@@ -134,8 +138,9 @@ public class Weapons {
     public void mouseDragged(MouseEvent e){
 
     }
-    public Weapons(Player p){
+    public Weapons(Player p, Enemies e){
         this.p = p;
+        this.e = e;
         imagePosition = new Point(p.getX(),p.getY());
     }
 
@@ -203,9 +208,9 @@ public class Weapons {
             }
             meleeDelay--;
         }
+        int cX = swordAnimation.getSprite().getWidth() / 2 - 12;
+        int cY = swordAnimation.getSprite().getHeight() / 2 - 3;
         if(rightClick) {
-            int cX = swordAnimation.getSprite().getWidth() / 2 - 12;
-            int cY = swordAnimation.getSprite().getHeight() / 2 - 3;
             AffineTransform newAt = new AffineTransform();
             newAt.translate(cX + imagePosition.x + 25, cY + imagePosition.y + 20);
             newAt.rotate(imageAngleRad);
@@ -214,6 +219,20 @@ public class Weapons {
             g2d.drawImage(swordAnimation.getSprite(), newAt, null);
             //g2d.drawImage(swordAnimation.getSprite(), imagePosition.x, imagePosition.y, null);
             swordAnimation.update();
+        }
+        modifier = 0;
+        hitboxX = imagePosition.x + cX;
+        hitboxXT = imagePosition.x + cX + swordAnimation.getSprite().getWidth() - 13 ;
+        hitboxY = imagePosition.y;
+        hitboxYT = imagePosition.y + swordAnimation.getSprite().getHeight() + 20;
+        damage = 2 + modifier;
+    }
+    public void collision(){
+        boolean x_overlaps = (e.getHitboxX() < hitboxXT && e.getHitboxXT() > hitboxX);
+        boolean y_overlaps = (e.getHitboxY() < hitboxYT && e.getHitboxYT() > hitboxY);
+        boolean collision = x_overlaps && y_overlaps;
+        if(collision){
+            e.damage(damage);
         }
     }
     public void drawIdleWeaponsSprite(Graphics2D g2d, String name){

@@ -28,7 +28,6 @@ public class Cowabunga extends JPanel{
         level1 = new MapLevel("Map System/Levels.txt", "1");
         p = new Player(this, "Map System/Level 1 Var 1_Entity.csv");
         pc.setPlayer(p);
-        w = new Weapons(p);
         eps = new EnemySpawnPoints("Map System/Level 1 Var 1_Entity.csv");
         sis = new ShopItemsSpawn("Map System/Level 1 Var 1_Entity.csv");
         a = new Audio();
@@ -40,8 +39,11 @@ public class Cowabunga extends JPanel{
         for (int t = 0; t < si.length; t++) {
             si[t] = new ShopItems(sis.getX(t), sis.getY(t), sis.getInstanceName(t), p);
         }
+        for (int h = 0; h < et.length; h++){
+            w = new Weapons(p, et[h]);
+            hud = new HeadsUp(this, p, et[h]);
+        }
         tt = new ToolTip();
-        hud = new HeadsUp(this, p);
         //w = new Weapons(p.getX(), p.getY());
         //collision = new Collision("Map System/Level 1 Var 1_Wall.csv");
 
@@ -146,6 +148,7 @@ public class Cowabunga extends JPanel{
                     et.collision();
                 }
                 w.move();
+                w.collision();
                 p.move();
             }
             pc.move();

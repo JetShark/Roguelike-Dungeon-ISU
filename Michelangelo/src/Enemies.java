@@ -268,6 +268,7 @@ public class Enemies {
         if(!invulnerable){
             health = health - damage;
             hit = true;
+            System.out.println("health: " + health);
         }
     }
     private void enemyHealth(){
@@ -284,6 +285,18 @@ public class Enemies {
         if(health == 0){
             alive = false;
         }
+    }
+    public int getHitboxX() {
+        return hitboxX;
+    }
+    public int getHitboxY(){
+        return hitboxY;
+    }
+    public int getHitboxXT() {
+        return hitboxXT;
+    }
+    public int getHitboxYT() {
+        return hitboxYT;
     }
 
 }

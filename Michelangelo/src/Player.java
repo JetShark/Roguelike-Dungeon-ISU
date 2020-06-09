@@ -82,6 +82,10 @@ public class Player {
     private BufferedImage[] walkingFront = {SpriteRetrival.getSprite(0,1, 2), SpriteRetrival.getSprite(3,1,2)};
     private animation WalkingFront = new animation(walkingFront, 10);
 
+    private animation lastMovmentButton;
+    private animation lastIdleButton;
+    private boolean moving = false;
+
     private int WORLD_WIDTH, WORLD_HEIGHT;
     private int VIEWPORT_SIZE_X = 1020, VIEWPORT_SIZE_Y = 640; //Camera Set up and things.
     private int offsetMaxX;
@@ -142,7 +146,7 @@ public class Player {
         offsetMinY = 0;
         camX = this.x - VIEWPORT_SIZE_X/2;
         camY = this.y - VIEWPORT_SIZE_Y/2;
-        animation = IdleFront;
+        lastIdleButton = IdleFront;
 
         health = 12;
         numOfHearts = 3;
@@ -158,30 +162,34 @@ public class Player {
 
     public void keyPressed(KeyEvent e){
         if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
-            animation.start();
             up = true;
             speedy = -3;
-            animation = IdleBack;
+            lastIdleButton = IdleBack;
+            lastMovmentButton = IdleBack;
+            //animation = IdleBack;
         }
         if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A){
             direction = -1;
-            animation.start();
             left = true;
             speedx = -3;
-            animation = WalkingSide;
+            lastIdleButton = IdleSide;
+            lastMovmentButton = WalkingSide;
+            //animation = WalkingSide;
         }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){
             direction = 1;
-            animation.start();
             right = true;
             speedx = 3;
-            animation = WalkingSide;
+            lastIdleButton = IdleSide;
+            lastMovmentButton = WalkingSide;
+            //animation = WalkingSide;
         }
         if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S){
-            animation.start();
             down = true;
             speedy = 3;
-            animation = WalkingFront;
+            lastIdleButton = IdleFront;
+            lastMovmentButton = WalkingFront;
+            //animation = WalkingFront;
         }
         if(e.getKeyCode() == KeyEvent.VK_C){
             //dodgeRoll = true;
@@ -189,24 +197,34 @@ public class Player {
     }
     public void keyReleased(KeyEvent e){
         if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A){
-            direction = -1;
             //animation = IdleSide;
+            if(!right && !up && !down && left){
+                moving = false;
+            }
             left = false;
             speedx = 0;
         }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){
-            direction = 1;
             //animation = IdleSide;
+            if(right && !up && !down && !left){
+                moving = false;
+            }
             right = false;
             speedx = 0;
         }
         if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
             //animation = IdleBack;
+            if(!right && up && !down && !left){
+                moving = false;
+            }
             up = false;
             speedy = 0;
         }
         if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S){
             //animation = IdleFront;
+            if(!right && !up && down && !left){
+                moving = false;
+            }
             down = false;
             speedy = 0;
         }
@@ -229,19 +247,22 @@ public class Player {
     public void move(){
         playerHealth();
         if(alive) {
-            animation.update();
             int xt = x, yt = y;
             if (right && !dodgeRoll) {
                 speedx = 3;
+                moving = true;
             }
             if (left && !dodgeRoll) {
                 speedx = -3;
+                moving = true;
             }
             if (down && !dodgeRoll) {
                 speedy = 3;
+                moving = true;
             }
             if (up && !dodgeRoll) {
                 speedy = -3;
+                moving = true;
             }
         /*
         if(dodgeRoll) {
@@ -417,12 +438,23 @@ public class Player {
             camY = offsetMinY;
         }
         if(alive) {
-            if (direction == 1) {
-                g2d.drawImage(animation.getSprite(), x, y, animation.getSprite().getHeight(), animation.getSprite().getWidth() * 2, null);
+            animation = IdleFront;
+            if(!moving){
+                animation = (lastIdleButton);
             }
+            if(moving){
+                animation = lastMovmentButton;
+            }
+            if(animation != null) {
+                animation.start();
+                if (direction == 1) {
+                    g2d.drawImage(animation.getSprite(), x, y, animation.getSprite().getHeight(), animation.getSprite().getWidth() * 2, null);
+                }
 
-            if (direction == -1) {
-                g2d.drawImage(animation.getSprite(), x + (animation.getSprite().getWidth()), y, -animation.getSprite().getHeight(), animation.getSprite().getWidth() * 2, null);
+                if (direction == -1) {
+                    g2d.drawImage(animation.getSprite(), x + (animation.getSprite().getWidth()), y, -animation.getSprite().getHeight(), animation.getSprite().getWidth() * 2, null);
+                }
+                animation.update();
             }
             g2d.setColor(Color.RED);
             //g2d.fillRect(x,y, 32,32);
