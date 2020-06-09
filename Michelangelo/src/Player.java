@@ -76,8 +76,11 @@ public class Player {
     private BufferedImage[] idleSide = {SpriteRetrival.getSprite(2,0, 2)};
     private animation IdleSide = new animation(idleSide, 10);
 
-    private BufferedImage[] walkingSide = {SpriteRetrival.getSprite(4,0, 2), SpriteRetrival.getSprite(6,0,2)};
+    private BufferedImage[] walkingSide = {SpriteRetrival.getSprite(4,0, 2), SpriteRetrival.getSprite(7,0,2)};
     private animation WalkingSide = new animation(walkingSide, 10);
+
+    private BufferedImage[] walkingFront = {SpriteRetrival.getSprite(0,1, 2), SpriteRetrival.getSprite(3,1,2)};
+    private animation WalkingFront = new animation(walkingFront, 10);
 
     private int WORLD_WIDTH, WORLD_HEIGHT;
     private int VIEWPORT_SIZE_X = 1020, VIEWPORT_SIZE_Y = 640; //Camera Set up and things.
@@ -165,20 +168,20 @@ public class Player {
             animation.start();
             left = true;
             speedx = -3;
-            animation = IdleSide;
+            animation = WalkingSide;
         }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){
             direction = 1;
             animation.start();
             right = true;
             speedx = 3;
-            animation = IdleSide;
+            animation = WalkingSide;
         }
         if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S){
             animation.start();
             down = true;
             speedy = 3;
-            animation = IdleFront;
+            animation = WalkingFront;
         }
         if(e.getKeyCode() == KeyEvent.VK_C){
             //dodgeRoll = true;
@@ -186,22 +189,24 @@ public class Player {
     }
     public void keyReleased(KeyEvent e){
         if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A){
-            animation.stop();
+            direction = -1;
+            //animation = IdleSide;
             left = false;
             speedx = 0;
         }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){
-            animation.stop();
+            direction = 1;
+            //animation = IdleSide;
             right = false;
             speedx = 0;
         }
         if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
-            animation.stop();
+            //animation = IdleBack;
             up = false;
             speedy = 0;
         }
         if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S){
-            animation.stop();
+            //animation = IdleFront;
             down = false;
             speedy = 0;
         }
