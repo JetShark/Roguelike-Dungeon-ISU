@@ -35,12 +35,12 @@ public class Cowabunga extends JPanel{
         a.setVolume(0.1f);
         for (int q = 0; q < et.length; q++) {
             et[q] = new Enemies(this, (int) (6 * Math.random() - 0), eps.getX(q), eps.getY(q), p);
+            w = new Weapons(p, et[q]);
         }
         for (int t = 0; t < si.length; t++) {
             si[t] = new ShopItems(sis.getX(t), sis.getY(t), sis.getInstanceName(t), p);
         }
         for (int h = 0; h < et.length; h++){
-            w = new Weapons(p, et[h]);
             hud = new HeadsUp(this, p, et[h]);
         }
         tt = new ToolTip();
@@ -148,7 +148,7 @@ public class Cowabunga extends JPanel{
                     et.collision();
                 }
                 w.move();
-                w.collision();
+                //w.collision();
                 p.move();
             }
             pc.move();

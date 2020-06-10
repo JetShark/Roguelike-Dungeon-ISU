@@ -211,6 +211,13 @@ public class Weapons {
         int cX = swordAnimation.getSprite().getWidth() / 2 - 12;
         int cY = swordAnimation.getSprite().getHeight() / 2 - 3;
         if(rightClick) {
+            modifier = 0;
+            hitboxX = imagePosition.x + cX + 25;
+            hitboxXT = imagePosition.x + cX + swordAnimation.getSprite().getWidth();
+            hitboxY = imagePosition.y;
+            hitboxYT = imagePosition.y + cY + 20 + swordAnimation.getSprite().getHeight();
+            damage = 2 + modifier;
+            collision();
             AffineTransform newAt = new AffineTransform();
             newAt.translate(cX + imagePosition.x + 25, cY + imagePosition.y + 20);
             newAt.rotate(imageAngleRad);
@@ -220,16 +227,11 @@ public class Weapons {
             //g2d.drawImage(swordAnimation.getSprite(), imagePosition.x, imagePosition.y, null);
             swordAnimation.update();
         }
-        modifier = 0;
-        hitboxX = imagePosition.x + cX;
-        hitboxXT = imagePosition.x + cX + swordAnimation.getSprite().getWidth() - 13 ;
-        hitboxY = imagePosition.y;
-        hitboxYT = imagePosition.y + swordAnimation.getSprite().getHeight() + 20;
-        damage = 2 + modifier;
     }
     public void collision(){
-        boolean x_overlaps = (e.getHitboxX() < hitboxXT && e.getHitboxXT() > hitboxX);
-        boolean y_overlaps = (e.getHitboxY() < hitboxYT && e.getHitboxYT() > hitboxY);
+        //System.out.println("hitX, hitY, hitXT, hitYT: " + hitboxX + ", " + hitboxY + ", " + hitboxXT + ", " + hitboxYT);
+        boolean x_overlaps = (e.getHitboxX() <= hitboxXT && e.getHitboxXT() >= hitboxX);
+        boolean y_overlaps = (e.getHitboxY() <= hitboxYT && e.getHitboxYT() >= hitboxY);
         boolean collision = x_overlaps && y_overlaps;
         if(collision){
             e.damage(damage);

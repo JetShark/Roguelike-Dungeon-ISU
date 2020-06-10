@@ -264,11 +264,11 @@ public class Enemies {
         }*/
     }
     public void damage(int damage){
-        this.damage = damage;
+        //this.damage = damage;
         if(!invulnerable){
             health = health - damage;
             hit = true;
-            System.out.println("health: " + health);
+            System.out.println("ehealth, damage: " + health + ", " + damage);
         }
     }
     private void enemyHealth(){
