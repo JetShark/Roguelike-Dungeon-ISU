@@ -10,7 +10,7 @@ public class Weapons {
     private int x, y;
     private int mX, mY;
     private Player p;
-    private Enemies e;
+    private Enemies et;
     private Cowabunga cb;
     private BufferedImage img = null;
     private double imageAngleRad = 0;
@@ -138,9 +138,8 @@ public class Weapons {
     public void mouseDragged(MouseEvent e){
 
     }
-    public Weapons(Player p, Enemies e){
+    public Weapons(Player p){
         this.p = p;
-        this.e = e;
         imagePosition = new Point(p.getX(),p.getY());
     }
 
@@ -155,10 +154,6 @@ public class Weapons {
             rightClick = true;
             //swordAnimation.stop();
         }
-    }
-    public void move(){
-        imagePosition.x = p.getX();
-        imagePosition.y = p.getY();
     }
     public void mouseMoved(MouseEvent e){
         mX = e.getX() + p.getCamX(); //set the mX and mY to the location of the cursor on the screen
@@ -184,12 +179,13 @@ public class Weapons {
         at.scale(2.0,2.0);
         at.translate(-animation.getSprite().getWidth() / 2, -animation.getSprite().getHeight() / 2);*/
 
-        at.translate(cx + imagePosition.x + 35, cy + imagePosition.y + 20);
+        at.translate(cx + imagePosition.x + 25, cy + imagePosition.y + 15);
         at.rotate(imageAngleRad);
-        at.scale(3.0,3.0);
+        at.scale(1.5,1.5);
         at.translate(-cx, -cy);
-
-        //g2d.drawImage(animation.getSprite(), at, null);
+        if(!rightClick) {
+            g2d.drawImage(rangedAnimation.getSprite(), at, null);
+        }
 
         //g2d.rotate(Math.toRadians(45), animation.getSprite().getWidth()/2, animation.getSprite().getHeight() / 2);
         //g2d.drawImage(animation.getSprite(),x + 5,y, animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2 ,null);
@@ -210,14 +206,10 @@ public class Weapons {
         }
         int cX = swordAnimation.getSprite().getWidth() / 2 - 12;
         int cY = swordAnimation.getSprite().getHeight() / 2 - 3;
+        modifier = 0;
+        damage = 2 + modifier;
         if(rightClick) {
-            modifier = 0;
-            hitboxX = imagePosition.x + cX + 25;
-            hitboxXT = imagePosition.x + cX + swordAnimation.getSprite().getWidth();
-            hitboxY = imagePosition.y;
-            hitboxYT = imagePosition.y + cY + 20 + swordAnimation.getSprite().getHeight();
-            damage = 2 + modifier;
-            collision();
+            //collision();
             AffineTransform newAt = new AffineTransform();
             newAt.translate(cX + imagePosition.x + 25, cY + imagePosition.y + 20);
             newAt.rotate(imageAngleRad);
@@ -228,15 +220,25 @@ public class Weapons {
             swordAnimation.update();
         }
     }
-    public void collision(){
+    public void move(){
+        imagePosition.x = p.getX();
+        imagePosition.y = p.getY();
+        hitboxX = imagePosition.x + 14 + 25;
+        hitboxXT = imagePosition.x + 14 + 32;
+        hitboxY = imagePosition.y;
+        hitboxYT = imagePosition.y + 13 + 20 + 32;
+    }
+    /*public void collision(){
         //System.out.println("hitX, hitY, hitXT, hitYT: " + hitboxX + ", " + hitboxY + ", " + hitboxXT + ", " + hitboxYT);
-        boolean x_overlaps = (e.getHitboxX() <= hitboxXT && e.getHitboxXT() >= hitboxX);
-        boolean y_overlaps = (e.getHitboxY() <= hitboxYT && e.getHitboxYT() >= hitboxY);
+        /*boolean x_overlaps = (et.getHitboxX() < hitboxXT && et.getHitboxXT() > hitboxX);
+        boolean y_overlaps = (et.getHitboxY() < hitboxYT && et.getHitboxYT() > hitboxY);
+        boolean x_overlaps = (hitboxX < et.getHitboxXT() && hitboxXT > et.getHitboxX());
+        boolean y_overlaps = (hitboxY < et.getHitboxYT() && hitboxYT > et.getHitboxY());
         boolean collision = x_overlaps && y_overlaps;
         if(collision){
-            e.damage(damage);
+            et.damage(damage);
         }
-    }
+    }*/
     public void drawIdleWeaponsSprite(Graphics2D g2d, String name){
         int x = p.getCamX();
         int y = p.getCamY();
@@ -247,5 +249,20 @@ public class Weapons {
         g2d.drawImage(idleMelee.getSprite(), x + 42,y + 500, idleMelee.getSprite().getWidth() * 2, idleMelee.getSprite().getHeight() * 2,null);
         idleMelee.update();
         //idleRanged.update();
+    }
+    public int getHitboxX() {
+        return hitboxX;
+    }
+    public int getHitboxY(){
+        return hitboxY;
+    }
+    public int getHitboxXT() {
+        return hitboxXT;
+    }
+    public int getHitboxYT() {
+        return hitboxYT;
+    }
+    public int getDamage(){
+        return damage;
     }
 }

@@ -10,6 +10,7 @@ public class Enemies {
     private int ratMoveDelay = 100;
     private int i;
     private Player p;
+    private Weapons w;
     private Collision c = new Collision("Map System/Level 1 Var 1_Wall.csv");
 
     private int enemyNumber;
@@ -70,6 +71,7 @@ public class Enemies {
         this.p = p;
         this.x = x;
         this.y = y;
+        this.w = new Weapons(p);
     }
 
     public void move(){
@@ -263,12 +265,20 @@ public class Enemies {
             p.setPlayerHealth(1);
         }*/
     }
+    public void weaponCollision(){
+        boolean x_overlaps = (w.getHitboxX() < hitboxXT && w.getHitboxXT() > hitboxX);
+        boolean y_overlaps = (w.getHitboxY() < hitboxYT && w.getHitboxYT() > hitboxY);
+        boolean collision = x_overlaps && y_overlaps;
+        if(collision){
+            damage(w.getDamage());
+        }
+    }
     public void damage(int damage){
+        System.out.println("ehealth, damage: " + health + ", " + damage);
         //this.damage = damage;
         if(!invulnerable){
             health = health - damage;
             hit = true;
-            System.out.println("ehealth, damage: " + health + ", " + damage);
         }
     }
     private void enemyHealth(){

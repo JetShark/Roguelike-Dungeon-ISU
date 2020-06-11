@@ -31,10 +31,10 @@ public class HeadsUp {
     private animation emptyHeartA = emptyHeart;
     private animation kGBAnimation;
 
-    public HeadsUp(Cowabunga cb, Player p, Enemies et){
+    public HeadsUp(Cowabunga cb, Player p){
         this.cb = cb;
         this.p = p;
-        w = new Weapons(p, et);
+        w = new Weapons(p);
         x = p.getCamX();
         y = p.getCamY();
         numOfHearts = p.getNumOfHearts();
