@@ -56,18 +56,20 @@ public class UserInterface {
     public void mouseReleased(MouseEvent e){
         mx = e.getX();
         my = e.getY();
-        if(mx >= 432 && mx <= 591 && my >= 224 && my <= 256){
-            newGame = true;
-            TitleScreen = false;
-        }
-        if(mx >= 416 && mx <= 608 && my >= 336 && my <= 368){
-            System.exit(0);
-        }
-        if(mx >= 432 && mx <= 591 && my >= 262 && my <= 296){
+        if(!newGame) {
+            if (mx >= 432 && mx <= 591 && my >= 224 && my <= 256) {
+                newGame = true;
+                TitleScreen = false;
+            }
+            if (mx >= 416 && mx <= 608 && my >= 336 && my <= 368) {
+                System.exit(0);
+            }
+            if (mx >= 432 && mx <= 591 && my >= 262 && my <= 296) {
 
-        }
-        if(mx >= 400 && mx <= 620 && my >= 300 && my <= 329){
+            }
+            if (mx >= 400 && mx <= 620 && my >= 300 && my <= 329) {
 
+            }
         }
 
         if(Esc){
