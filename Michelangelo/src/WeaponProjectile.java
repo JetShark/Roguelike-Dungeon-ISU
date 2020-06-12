@@ -28,23 +28,22 @@ public class WeaponProjectile {
 
     public WeaponProjectile(Player p, double mX, double mY) {
         // FIXME: 2020-05-26 suck an egg
-        System.out.println("here1 "+xa);
 
         if (p != null) {
             this.p = p;
             int pX = p.getX();
             int pY = p.getY();
-            xa = (mX + p.getCamX() - pX);
-            System.out.println("xa:"+xa+"ya:"+ya+"px:"+pX+"pY:"+pY+"mX:"+mX+"camX:"+p.getCamX());
-            //xa = (mX);
+            //System.out.println("xa:"+xa+" ya:"+ya+" px:"+pX+" pY:"+pY+" mX:"+mX+" camX:"+p.getCamX()+" camY:"+p.getCamY());
             ya = (mY + p.getCamY() - pY);
+            xa = (mX + p.getCamX() - pX);
             double magnitude = Math.sqrt(xa * xa + ya * ya);
             if (magnitude > 0) {
                 xa = xa / magnitude * 3;
                 ya = ya / magnitude * 3;
             }
-            x = pX + p.getCamX();
-            y = pY + p.getCamY();
+
+            x = pX;
+            y = pY;
         }
     }
 
@@ -76,23 +75,20 @@ public class WeaponProjectile {
     }
 
     public void move() {
-        x = (int)(x + xa);
-        y = (int)(y + ya);
+        x = x + xa;
+        y = y + ya;
     }
     public void paint(Graphics2D g2d){
         animation = idleYouMonster;
         animation.start();
         animation.update();
-        int sX=(int)x;
-        int sY=(int)y;
-        /*
-        if (p != null) {
-            sX = sX - p.getCamX();
-            sY = sY - p.getCamY();
-        }
-        */
+        int width = animation.getSprite().getWidth() * 1;
+        int height = animation.getSprite().getHeight() * 1;
+        int sX=(int)(x - width/2);
+        int sY=(int)(y - height/2);
+
         if(p.getAlive()) {
-            g2d.drawImage(animation.getSprite(), sX, sY, animation.getSprite().getHeight() * 1, animation.getSprite().getWidth() * 1, null);
+            g2d.drawImage(animation.getSprite(), sX, sY, width, height, null);
         }
     }
 }
