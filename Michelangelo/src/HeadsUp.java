@@ -9,27 +9,27 @@ public class HeadsUp {
     private int numOfHearts;
 
     private BufferedImage[] fullHeart = {SpriteRetrival.getSprite(0,0,6)};
-    private animation idleFullHeart = new animation(fullHeart,10);
+    private Animation idleFullHeart = new Animation(fullHeart,10);
     private BufferedImage[] halfHeart = {SpriteRetrival.getSprite(6,2,6)};
-    private animation idleHalfHeart = new animation(halfHeart,10);
+    private Animation idleHalfHeart = new Animation(halfHeart,10);
     private BufferedImage[] quarterHeart = {SpriteRetrival.getSprite(1,4,6)};
-    private animation idleQuarterHeart = new animation(quarterHeart,10);
+    private Animation idleQuarterHeart = new Animation(quarterHeart,10);
     private BufferedImage[] threeQuarterHeart = {SpriteRetrival.getSprite(3,1,6)};
-    private animation idleThreeQuarterHeart = new animation(threeQuarterHeart,10);
+    private Animation idleThreeQuarterHeart = new Animation(threeQuarterHeart,10);
 
     private BufferedImage[] emptyHeartImg = {SpriteRetrival.getSprite(2,5,6)};
-    private animation emptyHeart = new animation(emptyHeartImg, 10);
+    private Animation emptyHeart = new Animation(emptyHeartImg, 10);
 
     private BufferedImage[] keys = {SpriteRetrival.getSprite(1, 6,6)};
-    private animation idleKeys = new animation(keys,10);
+    private Animation idleKeys = new Animation(keys,10);
     private BufferedImage[] bombs = {SpriteRetrival.getSprite(0, 6,6)};
-    private animation idleBombs = new animation(bombs,10);
+    private Animation idleBombs = new Animation(bombs,10);
     private BufferedImage[] gold = {SpriteRetrival.getSprite(2, 6,6)};
-    private animation idleGold = new animation(gold,10);
+    private Animation idleGold = new Animation(gold,10);
 
-    private animation animationHearts;
-    private animation emptyHeartA = emptyHeart;
-    private animation kGBAnimation;
+    private Animation animationHearts;
+    private Animation emptyHeartA = emptyHeart;
+    private Animation kGBAnimation;
 
     public HeadsUp(Cowabunga cb, Player p){
         this.cb = cb;

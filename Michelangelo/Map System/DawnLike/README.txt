@@ -14,7 +14,7 @@ But I still wasn't satisfied. I lurked the web and discovered famous tilesets li
 
  - 400+ Unique characters sprites including demons, humanoids, animals, elementals, etc.
  - 800+ Item sprites including books, potions, scrolls, currency, etc.
- - Basic 2-frame animation for all characters.
+ - Basic 2-frame Animation for all characters.
  - 6 Playable races with 8-16 classes each.
  - Simple menus and GUI.
  - 48 robust wall/floor tilesets.
@@ -103,7 +103,7 @@ Feel free to create any tiles you see here and send them to me at DragonDePlatin
 == UPDATE 4/2/14 ==
  - A few dozen more animal sprites, mostly from DawnFortress.
  - 16 pieces of bone decor and 3 fences.
- - A few examples of status effects and creative uses of animation.
+ - A few examples of status effects and creative uses of Animation.
  - 4 more GUI bubbles.
  - Cracked, vine-covered and direction-independent walls.
 

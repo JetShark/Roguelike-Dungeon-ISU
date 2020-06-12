@@ -2,18 +2,18 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class animation {
+public class Animation {
     private int frameCount;                 // Counts ticks for change
     private int frameDelay;                 // frame delay 1-12 (You will have to play around with this)
     private int currentFrame;               // animations current frame
-    private int animationDirection;         // animation direction (i.e counting forward or backward)
-    private int totalFrames;                // total amount of frames for your animation
+    private int animationDirection;         // Animation direction (i.e counting forward or backward)
+    private int totalFrames;                // total amount of frames for your Animation
 
     private boolean stopped;                // has animations stopped
 
     private List<Frame> frames = new ArrayList<Frame>();    // Arraylist of frames
 
-    public animation(BufferedImage[] frames, int frameDelay) {
+    public Animation(BufferedImage[] frames, int frameDelay) {
         this.frameDelay = frameDelay;
         this.stopped = true;
 

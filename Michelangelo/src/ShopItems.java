@@ -63,8 +63,8 @@ public class ShopItems {
 //Methods
     public void paint(Graphics2D g2d){
 
-        //animation.start();
-        //animation.update();
+        //Animation.start();
+        //Animation.update();
         int sX=(int)x;
         int sY=(int)y;
         /*if (p != null) {

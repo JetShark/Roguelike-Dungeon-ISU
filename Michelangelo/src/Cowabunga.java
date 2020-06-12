@@ -28,6 +28,7 @@ public class Cowabunga extends JPanel{
         level1 = new MapLevel("Map System/Levels.txt", "1");
         p = new Player(this, "Map System/Level 1 Var 1_Entity.csv");
         pc.setPlayer(p);
+        CoordConversion.setPlayer(p);
         eps = new EnemySpawnPoints("Map System/Level 1 Var 1_Entity.csv");
         sis = new ShopItemsSpawn("Map System/Level 1 Var 1_Entity.csv");
         a = new Audio();

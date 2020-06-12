@@ -8,7 +8,7 @@ public class WeaponProjectile {
 
     //Attributes
     private BufferedImage[] youMonster = {SpriteRetrival.getSprite(1,18,1)};
-    private animation idleYouMonster = new animation(youMonster,10);
+    private Animation idleYouMonster = new Animation(youMonster,10);
     private double x = 10;
     private double y = 10;
     private int direction = 0;
@@ -22,7 +22,7 @@ public class WeaponProjectile {
 
 
 
-    private animation animation;
+    private Animation animation;
 
     //Constructor
 
@@ -85,10 +85,12 @@ public class WeaponProjectile {
         animation.update();
         int sX=(int)x;
         int sY=(int)y;
+        /*
         if (p != null) {
             sX = sX - p.getCamX();
             sY = sY - p.getCamY();
         }
+        */
         if(p.getAlive()) {
             g2d.drawImage(animation.getSprite(), sX, sY, animation.getSprite().getHeight() * 1, animation.getSprite().getWidth() * 1, null);
         }

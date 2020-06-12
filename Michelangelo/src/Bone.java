@@ -4,8 +4,8 @@ import java.awt.image.BufferedImage;
 
 public class Bone {
     private BufferedImage[] bone5 = {SpriteRetrival.getSprite(0,13, 1), SpriteRetrival.getSprite(3,13, 1), SpriteRetrival.getSprite(0,14, 1),  SpriteRetrival.getSprite(3,14, 1), SpriteRetrival.getSprite(0,15, 1), SpriteRetrival.getSprite(3,15, 1), SpriteRetrival.getSprite(0,16, 1), SpriteRetrival.getSprite(3,16, 1)};
-    private animation spin = new animation(bone5, 10);
-    private animation animation = spin;
+    private Animation spin = new Animation(bone5, 10);
+    private Animation animation = spin;
     private int x = 100, y = 100;
 
     public Bone(){

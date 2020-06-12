@@ -63,27 +63,27 @@ public class Player {
     private int hitboxX, hitboxY, hitboxXT, hitboxYT;
 
     private BufferedImage[] walking = {SpriteRetrival.getSprite(0,0,5), SpriteRetrival.getSprite(2,0, 5), SpriteRetrival.getSprite(0,1,5), SpriteRetrival.getSprite(1,1, 5)};
-    private animation Walking = new animation(walking,10);
-    private animation animation = Walking;
+    private Animation Walking = new Animation(walking,10);
+    private Animation animation = Walking;
     private int direction = 1;
 
     private BufferedImage[] idleFront = {SpriteRetrival.getSprite(0,0, 2)};
-    private animation IdleFront = new animation(idleFront, 10);
+    private Animation IdleFront = new Animation(idleFront, 10);
 
     private BufferedImage[] idleBack = {SpriteRetrival.getSprite(1,0, 2)};
-    private animation IdleBack = new animation(idleBack, 10);
+    private Animation IdleBack = new Animation(idleBack, 10);
 
     private BufferedImage[] idleSide = {SpriteRetrival.getSprite(2,0, 2)};
-    private animation IdleSide = new animation(idleSide, 10);
+    private Animation IdleSide = new Animation(idleSide, 10);
 
     private BufferedImage[] walkingSide = {SpriteRetrival.getSprite(4,0, 2), SpriteRetrival.getSprite(7,0,2)};
-    private animation WalkingSide = new animation(walkingSide, 10);
+    private Animation WalkingSide = new Animation(walkingSide, 10);
 
     private BufferedImage[] walkingFront = {SpriteRetrival.getSprite(0,1, 2), SpriteRetrival.getSprite(3,1,2)};
-    private animation WalkingFront = new animation(walkingFront, 10);
+    private Animation WalkingFront = new Animation(walkingFront, 10);
 
-    private animation lastMovmentButton;
-    private animation lastIdleButton;
+    private Animation lastMovmentButton;
+    private Animation lastIdleButton;
     private boolean moving = false;
 
     private int WORLD_WIDTH, WORLD_HEIGHT;
@@ -166,7 +166,7 @@ public class Player {
             speedy = -3;
             lastIdleButton = IdleBack;
             lastMovmentButton = IdleBack;
-            //animation = IdleBack;
+            //Animation = IdleBack;
         }
         if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A){
             direction = -1;
@@ -174,7 +174,7 @@ public class Player {
             speedx = -3;
             lastIdleButton = IdleSide;
             lastMovmentButton = WalkingSide;
-            //animation = WalkingSide;
+            //Animation = WalkingSide;
         }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){
             direction = 1;
@@ -182,14 +182,14 @@ public class Player {
             speedx = 3;
             lastIdleButton = IdleSide;
             lastMovmentButton = WalkingSide;
-            //animation = WalkingSide;
+            //Animation = WalkingSide;
         }
         if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S){
             down = true;
             speedy = 3;
             lastIdleButton = IdleFront;
             lastMovmentButton = WalkingFront;
-            //animation = WalkingFront;
+            //Animation = WalkingFront;
         }
         if(e.getKeyCode() == KeyEvent.VK_C){
             //dodgeRoll = true;
@@ -197,7 +197,7 @@ public class Player {
     }
     public void keyReleased(KeyEvent e){
         if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A){
-            //animation = IdleSide;
+            //Animation = IdleSide;
             if(!right && !up && !down && left){
                 moving = false;
             }
@@ -205,7 +205,7 @@ public class Player {
             speedx = 0;
         }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){
-            //animation = IdleSide;
+            //Animation = IdleSide;
             if(right && !up && !down && !left){
                 moving = false;
             }
@@ -213,7 +213,7 @@ public class Player {
             speedx = 0;
         }
         if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
-            //animation = IdleBack;
+            //Animation = IdleBack;
             if(!right && up && !down && !left){
                 moving = false;
             }
@@ -221,7 +221,7 @@ public class Player {
             speedy = 0;
         }
         if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S){
-            //animation = IdleFront;
+            //Animation = IdleFront;
             if(!right && !up && down && !left){
                 moving = false;
             }

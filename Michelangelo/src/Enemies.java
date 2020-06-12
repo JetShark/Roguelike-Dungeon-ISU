@@ -1,7 +1,5 @@
 import java.awt.*;
-import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.*;
 
 public class Enemies {
     private int xt,yt;
@@ -26,45 +24,45 @@ public class Enemies {
 
 
     private BufferedImage[] ratrunning = {SpriteRetrival.getSprite(0, 0, 3), SpriteRetrival.getSprite(3,0,3), SpriteRetrival.getSprite(0,1, 3), SpriteRetrival.getSprite(3,1,3), SpriteRetrival.getSprite(0,2,3), SpriteRetrival.getSprite(1,2,3)};
-    private animation ratRunning = new animation(ratrunning, 10);
+    private Animation ratRunning = new Animation(ratrunning, 10);
 
     private BufferedImage[] flyingBook = {SpriteRetrival.getSprite(4,2,3), SpriteRetrival.getSprite(7, 2,3),SpriteRetrival.getSprite(4,3,3), SpriteRetrival.getSprite(7, 3,3), SpriteRetrival.getSprite(4,4,3), SpriteRetrival.getSprite(7, 4,3), SpriteRetrival.getSprite(4,5,3), SpriteRetrival.getSprite(7, 5,3)};
-    private animation flyingBookMoving = new animation(flyingBook, 10);
+    private Animation flyingBookMoving = new Animation(flyingBook, 10);
 
     private BufferedImage[] gaintSpider = {SpriteRetrival.getSprite(0,6,3), SpriteRetrival.getSprite(3,6,3), SpriteRetrival.getSprite(0,7,3), SpriteRetrival.getSprite(3,7,3), SpriteRetrival.getSprite(0,8,3), SpriteRetrival.getSprite(3,8,3), SpriteRetrival.getSprite(0,9,3), SpriteRetrival.getSprite(3,9,3)};
-    private animation gaintSpiderJumping = new animation(gaintSpider, 10);
+    private Animation gaintSpiderJumping = new Animation(gaintSpider, 10);
 
     private BufferedImage[] ghost = {SpriteRetrival.getSprite(0, 3, 3), SpriteRetrival.getSprite(3,3,3), SpriteRetrival.getSprite(0,4, 3), SpriteRetrival.getSprite(3,4,3), SpriteRetrival.getSprite(0,5,3), SpriteRetrival.getSprite(1,5,3)};
-    private animation ghostFloating = new animation(ghost, 10);
+    private Animation ghostFloating = new Animation(ghost, 10);
 
     private BufferedImage[] courtWizardAway = {SpriteRetrival.getSprite(4, 6, 3), SpriteRetrival.getSprite(7,6,3), SpriteRetrival.getSprite(4,7, 3), SpriteRetrival.getSprite(7,7,3), SpriteRetrival.getSprite(4,8,3)};
-    private animation courtWizardTeleportAway = new animation(courtWizardAway, 10);
+    private Animation courtWizardTeleportAway = new Animation(courtWizardAway, 10);
     private BufferedImage[] courtWizardBack = {SpriteRetrival.getSprite(5, 8, 3), SpriteRetrival.getSprite(7,8,3), SpriteRetrival.getSprite(4,9, 3), SpriteRetrival.getSprite(7,9,3), SpriteRetrival.getSprite(4,10,3), SpriteRetrival.getSprite(5, 10, 3)};
-    private animation courtWizardTeleportBack= new animation(courtWizardBack,10);
+    private Animation courtWizardTeleportBack= new Animation(courtWizardBack,10);
     private BufferedImage[] courtWizard = {SpriteRetrival.getSprite(4,20,3), SpriteRetrival.getSprite(7,20,3)};
-    private animation courtWizardIdle = new animation(courtWizard, 25);
+    private Animation courtWizardIdle = new Animation(courtWizard, 25);
 
     private BufferedImage[] bowKnight = {SpriteRetrival.getSprite(0, 10, 3), SpriteRetrival.getSprite(3,10,3), SpriteRetrival.getSprite(0,11, 3), SpriteRetrival.getSprite(3,11,3)};
-    private animation bowKnightIdle = new animation(bowKnight, 10);
+    private Animation bowKnightIdle = new Animation(bowKnight, 10);
     private BufferedImage[] bowKnightWalk = {SpriteRetrival.getSprite(0, 12, 3), SpriteRetrival.getSprite(3,12,3), SpriteRetrival.getSprite(0,13, 3), SpriteRetrival.getSprite(1,13,3)};
-    private animation bowKnightWalking = new animation(bowKnightWalk, 10);
+    private Animation bowKnightWalking = new Animation(bowKnightWalk, 10);
 
     private BufferedImage[] spearKnight = {SpriteRetrival.getSprite(0, 14, 3), SpriteRetrival.getSprite(3,14,3), SpriteRetrival.getSprite(0,15, 3), SpriteRetrival.getSprite(3,15,3)};
-    private animation spearKnightIdle = new animation(spearKnight, 10);
+    private Animation spearKnightIdle = new Animation(spearKnight, 10);
     private BufferedImage[] spearKnightWalk = {SpriteRetrival.getSprite(0, 16, 3), SpriteRetrival.getSprite(3,16,3), SpriteRetrival.getSprite(0,17, 3), SpriteRetrival.getSprite(1,17,3)};
-    private animation spearKnightWalking = new animation(spearKnightWalk, 10);
+    private Animation spearKnightWalking = new Animation(spearKnightWalk, 10);
 
     private BufferedImage[] swordKnight = {SpriteRetrival.getSprite(4, 14, 3), SpriteRetrival.getSprite(7,14,3), SpriteRetrival.getSprite(4,15, 3), SpriteRetrival.getSprite(7,15,3)};
-    private animation swordKnightIdle = new animation(swordKnight, 10);
+    private Animation swordKnightIdle = new Animation(swordKnight, 10);
     private BufferedImage[] swordKnightWalk = {SpriteRetrival.getSprite(4, 16, 3), SpriteRetrival.getSprite(7,16,3), SpriteRetrival.getSprite(4,17, 3), SpriteRetrival.getSprite(5,17,3)};
-    private animation swordKnightWalking = new animation(swordKnightWalk, 10);
+    private Animation swordKnightWalking = new Animation(swordKnightWalk, 10);
 
     private BufferedImage[] shieldKnight = {SpriteRetrival.getSprite(4, 11, 3), SpriteRetrival.getSprite(7,11,3), SpriteRetrival.getSprite(4,12, 3), SpriteRetrival.getSprite(5,12,3)};
-    private animation shieldKnightIdle = new animation(shieldKnight, 10);
+    private Animation shieldKnightIdle = new Animation(shieldKnight, 10);
     private BufferedImage[] shieldKnightWalk = {SpriteRetrival.getSprite(6, 13, 3), SpriteRetrival.getSprite(7,13,3), SpriteRetrival.getSprite(4,14, 3), SpriteRetrival.getSprite(7,14,3)};
-    private animation shieldKnightWalking = new animation(shieldKnightWalk, 10);
+    private Animation shieldKnightWalking = new Animation(shieldKnightWalk, 10);
 
-    private animation animation = ratRunning;
+    private Animation animation = ratRunning;
 
     public Enemies(Cowabunga cb, int enemyNumber, int x, int y, Player p){
         this.enemyNumber = enemyNumber;
@@ -240,12 +238,12 @@ public class Enemies {
                 if(level[i][j] == 1){
                     this.x = i * tileWidth * 4;
                     this.y = j * tileHeight * 4;
-                    g2d.drawImage(animation.getSprite(), x, y,animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2 , null);
+                    g2d.drawImage(Animation.getSprite(), x, y,Animation.getSprite().getHeight() * 2, Animation.getSprite().getWidth() * 2 , null);
                 }
             }
         }
         for(int i = 0; i < spawnNumLocation; i++) {
-            g2d.drawImage(animation.getSprite(), xt[i], yt[i], animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2, null);
+            g2d.drawImage(Animation.getSprite(), xt[i], yt[i], Animation.getSprite().getHeight() * 2, Animation.getSprite().getWidth() * 2, null);
         }*/
         if(alive) {
             g2d.drawImage(animation.getSprite(), x, y, animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2, null);
