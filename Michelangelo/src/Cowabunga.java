@@ -13,6 +13,7 @@ public class Cowabunga extends JPanel{
     private Weapons w;
     private ToolTip tt;
     private HeadsUp hud;
+    private Collection c;
     private PlayerCursor pc = new PlayerCursor();
     private UserInterface ui;
     //private WeaponProjectile wp = new WeaponProjectile(p);
@@ -33,6 +34,7 @@ public class Cowabunga extends JPanel{
         sis = new ShopItemsSpawn("Map System/Level 1 Var 1_Entity.csv");
         a = new Audio();
         ui = new UserInterface(p);
+        c = new Collection(ui);
         a.setVolume(0.1f);
         for (int q = 0; q < et.length; q++) {
             et[q] = new Enemies(this, (int) (6 * Math.random() - 0), eps.getX(q), eps.getY(q), p);
@@ -122,6 +124,7 @@ public class Cowabunga extends JPanel{
                 //list[0].keyReleased(e);
                 p.keyReleased(e);
                 ui.keyReleased(e);
+                c.keyReleased(e);
             }
 
             @Override
@@ -130,6 +133,7 @@ public class Cowabunga extends JPanel{
                 //list[0].keyPressed(e);
                 p.keyPressed(e);
                 ui.keyPressed(e);
+                c.keyPressed(e);
             }
         }); //NOTE THE SEMI-COLON!!!!
 

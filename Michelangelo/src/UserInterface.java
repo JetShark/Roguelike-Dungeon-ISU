@@ -11,6 +11,7 @@ import java.io.IOException;
 public class UserInterface {
     private Boolean Esc = false;
     private Player p;
+    private Collection c;
     private int on = 0;
     private int x =510, y = 40;
     private int mx, my;
@@ -18,10 +19,13 @@ public class UserInterface {
     private BufferedImage pauseMenu;
     private boolean newGame = false;
     private boolean TitleScreen;
+    private boolean collectionScreen = false;
+
     public UserInterface(Player p){
         TitleScreen = true;
         newGame = false;
         this.p = p;
+        c = new Collection(this);
         try {
             titleScreen = ImageIO.read(new File("Test Screens/Title-Screen.png"));
             pauseMenu = ImageIO.read(new File("Test Screens/Test-Pause-Menu.png"));
@@ -31,19 +35,23 @@ public class UserInterface {
     }
     public void keyPressed(KeyEvent e){
         if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
-            if(on == 0){
-                Esc = true;
-            }
-            if(on == 1){
-                Esc = false;
+            if(newGame) {
+                if (on == 0) {
+                    Esc = true;
+                }
+                if (on == 1) {
+                    Esc = false;
+                }
             }
         }
     }
     public void keyReleased(KeyEvent e){
         if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
-            on = 1;
-            if(!Esc){
-                on = 0;
+            if(newGame) {
+                on = 1;
+                if (!Esc) {
+                    on = 0;
+                }
             }
         }
     }
@@ -56,7 +64,7 @@ public class UserInterface {
     public void mouseReleased(MouseEvent e){
         mx = e.getX();
         my = e.getY();
-        if(!newGame) {
+        if(!newGame && !collectionScreen) {
             if (mx >= 432 && mx <= 591 && my >= 224 && my <= 256) {
                 newGame = true;
                 TitleScreen = false;
@@ -68,7 +76,7 @@ public class UserInterface {
 
             }
             if (mx >= 400 && mx <= 620 && my >= 300 && my <= 329) {
-
+               collectionScreen = true;
             }
         }
 
@@ -112,6 +120,12 @@ public class UserInterface {
     public boolean getEsc(){
         return Esc;
     }
+    public void setCollectionScreen(boolean collectionScreen){
+        this.collectionScreen = collectionScreen;
+    }
+    public void setTitleScreen(boolean titleScreen){
+        this.TitleScreen = titleScreen;
+    }
 
     public void paint(Graphics2D g2d){
         if(!newGame || TitleScreen){
@@ -119,6 +133,7 @@ public class UserInterface {
         }
         pauseScreen(g2d);
         deathScreen(g2d);
+        collectionScreen(g2d);
     }
 
     private void titleScreen(Graphics2D g2d){
@@ -137,8 +152,10 @@ public class UserInterface {
     private void optionsScreen(){
 
     }
-    private void collectionScreen(){
-
+    private void collectionScreen(Graphics2D g2d){
+        if(collectionScreen) {
+            c.paint(g2d);
+        }
     }
     private void deathScreen(Graphics2D g2d){
         float thickness = 4;
