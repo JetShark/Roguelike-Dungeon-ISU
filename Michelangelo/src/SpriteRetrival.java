@@ -11,7 +11,12 @@ public class SpriteRetrival {
     private static BufferedImage characterSpritesTest;
     private static BufferedImage weaponSprites;
     private static BufferedImage hudSprites;
+
+    private static java.util.Map<Integer, BufferedImage> cachedImage = new java.util.HashMap<Integer, BufferedImage>();
+
     private static final int TILE_SIZE = 32; //tile size of the tiles on the spread sheet.
+    private static final int TILES_ACROSS = 100; //tile size of the tiles on the spread sheet.
+    private static final int TILES_DOWN = 100; //tile size of the tiles on the spread sheet.
 
     private static BufferedImage loadSprite(String file){
 
@@ -33,7 +38,7 @@ public class SpriteRetrival {
             return getCharacterSpriteSheet(xGrid, yGrid);
         }
         if(spriteNumber == 3){
-            //return getEnemySprites(xGrid, yGrid);
+            //return getEnemsySprites(xGrid, yGrid);
             return getEnemySprites(xGrid, yGrid);
         }
         if(spriteNumber == 4){
@@ -51,13 +56,34 @@ public class SpriteRetrival {
         if(projectileSprites == null){
             projectileSprites = loadSprite("Projectile-SpriteSheet"); // sets projectileSprites to the spritesheet if it does not have on yet
         }
-        return projectileSprites.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE); // returns the sub images based on the x,y values given.
+
+        int key=xGrid+yGrid*TILES_ACROSS+1*TILES_ACROSS*TILES_DOWN;
+        BufferedImage subimage;
+        if (cachedImage.containsKey(key)) {
+            subimage = cachedImage.get(key);
+        } else {
+            subimage = projectileSprites.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE); // returns the sub images based on the x,y values given.
+            cachedImage.put(key, subimage);
+        }
+
+        return subimage;
     }
     private static BufferedImage getEnemySprites(int xGrid, int yGrid){
         if(enemySprites == null){
             enemySprites = loadSprite("Ennemy-SpriteSheet");
         }
-        return enemySprites.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+
+        int key=xGrid+yGrid*TILES_ACROSS+2*TILES_ACROSS*TILES_DOWN;
+        BufferedImage subimage;
+        if (cachedImage.containsKey(key)) {
+            subimage = cachedImage.get(key);
+        } else {
+            subimage = enemySprites.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE); // returns the sub images based on the x,y values given.
+            cachedImage.put(key, subimage);
+        }
+
+        return subimage;
+
     }
     private static BufferedImage getCharacterSpriteSheet(int xGrid, int yGrid){
         int TILE_SIZE_X = 24;
@@ -65,24 +91,62 @@ public class SpriteRetrival {
         if(characterSprites == null){
             characterSprites = loadSprite("Character-SpriteSheet");
         }
-        return characterSprites.getSubimage(xGrid * TILE_SIZE_X, yGrid * TILE_SIZE_Y, TILE_SIZE_X, TILE_SIZE_Y);
+        int key=xGrid+yGrid*TILES_ACROSS+3*TILES_ACROSS*TILES_DOWN;
+        BufferedImage subimage;
+        if (cachedImage.containsKey(key)) {
+            subimage = cachedImage.get(key);
+        } else {
+            subimage = characterSprites.getSubimage(xGrid * TILE_SIZE_X, yGrid * TILE_SIZE_Y, TILE_SIZE_X, TILE_SIZE_Y); // returns the sub images based on the x,y values given.
+            cachedImage.put(key, subimage);
+        }
+
+        return subimage;
     }
     private static BufferedImage getCharacterSpriteSheetTest(int xGrid, int yGrid){
         if(characterSpritesTest == null){
             characterSpritesTest = loadSprite("Test-Character-SpriteSheet");
         }
-        return characterSpritesTest.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        int key=xGrid+yGrid*TILES_ACROSS+4*TILES_ACROSS*TILES_DOWN;
+        BufferedImage subimage;
+        if (cachedImage.containsKey(key)) {
+            subimage = cachedImage.get(key);
+        } else {
+            subimage = characterSpritesTest.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE); // returns the sub images based on the x,y values given.
+            cachedImage.put(key, subimage);
+        }
+
+        return subimage;
     }
     private static BufferedImage getWeaponSpriteSheet(int xGrid, int yGrid){
         if(weaponSprites == null){
             weaponSprites = loadSprite("Weapon-SpriteSheet");
         }
-        return weaponSprites.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+
+        int key=xGrid+yGrid*TILES_ACROSS+5*TILES_ACROSS*TILES_DOWN;
+        BufferedImage subimage;
+        if (cachedImage.containsKey(key)) {
+            subimage = cachedImage.get(key);
+        } else {
+            subimage = weaponSprites.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE); // returns the sub images based on the x,y values given.
+            cachedImage.put(key, subimage);
+        }
+
+        return subimage;
     }
     private static BufferedImage getHUDSpriteSheet(int xGrid, int yGrid){
         if(hudSprites == null){
             hudSprites = loadSprite("HUD-SpriteSheet");
         }
-        return hudSprites.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+
+        int key=xGrid+yGrid*TILES_ACROSS+6*TILES_ACROSS*TILES_DOWN;
+        BufferedImage subimage;
+        if (cachedImage.containsKey(key)) {
+            subimage = cachedImage.get(key);
+        } else {
+            subimage = hudSprites.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE); // returns the sub images based on the x,y values given.
+            cachedImage.put(key, subimage);
+        }
+
+        return subimage;
     }
 }

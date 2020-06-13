@@ -43,7 +43,7 @@ public class ShopItems {
             img = SpriteRetrival.getSprite(0,0,6);
         }
         if (itemType.equals("keysSpawn")) {
-            img = SpriteRetrival.getSprite(1,6,6);
+            img = SpriteRetrival.getSprite(3,6,6);
         }
         if (itemType.equals("bombsSpawn")) {
             img = SpriteRetrival.getSprite(0,6,6);
@@ -65,13 +65,23 @@ public class ShopItems {
 
         //Animation.start();
         //Animation.update();
-        int sX=(int)x;
-        int sY=(int)y;
+
         /*if (p != null) {
             sX = sX - p.getCamX();
             sY = sY - p.getCamY();
         }*/
+        int width = (int)(img.getWidth() * 1);
+        int height = (int)(img.getHeight() * 1);
 
-        g2d.drawImage(img, sX, sY,img.getHeight() * 1, img.getWidth() * 1, null);
+        /*
+        if (itemType.equals("keysSpawn")) {
+            width = (int) (img.getWidth() * 1.25);
+            height = (int) (img.getHeight() * 1.25);
+        }
+        */
+
+        int sX=(int)(x + (width/2));
+        int sY=(int)(y + (height/3));
+        g2d.drawImage(img, sX, sY, width, height, null);
     }
 }

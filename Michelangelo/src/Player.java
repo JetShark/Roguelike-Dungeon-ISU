@@ -63,24 +63,27 @@ public class Player {
     private int hitboxX, hitboxY, hitboxXT, hitboxYT;
 
     private BufferedImage[] walking = {SpriteRetrival.getSprite(0,0,5), SpriteRetrival.getSprite(2,0, 5), SpriteRetrival.getSprite(0,1,5), SpriteRetrival.getSprite(1,1, 5)};
-    private Animation Walking = new Animation(walking,10);
+    private Animation Walking = new Animation(walking,25);
     private Animation animation = Walking;
     private int direction = 1;
 
     private BufferedImage[] idleFront = {SpriteRetrival.getSprite(0,0, 2)};
-    private Animation IdleFront = new Animation(idleFront, 10);
+    private Animation IdleFront = new Animation(idleFront, 25);
 
     private BufferedImage[] idleBack = {SpriteRetrival.getSprite(1,0, 2)};
-    private Animation IdleBack = new Animation(idleBack, 10);
+    private Animation IdleBack = new Animation(idleBack, 25);
 
     private BufferedImage[] idleSide = {SpriteRetrival.getSprite(2,0, 2)};
-    private Animation IdleSide = new Animation(idleSide, 10);
+    private Animation IdleSide = new Animation(idleSide, 25);
 
     private BufferedImage[] walkingSide = {SpriteRetrival.getSprite(4,0, 2), SpriteRetrival.getSprite(7,0,2)};
-    private Animation WalkingSide = new Animation(walkingSide, 10);
+    private Animation WalkingSide = new Animation(walkingSide, 25);
 
-    private BufferedImage[] walkingFront = {SpriteRetrival.getSprite(0,1, 2), SpriteRetrival.getSprite(3,1,2)};
-    private Animation WalkingFront = new Animation(walkingFront, 10);
+    private BufferedImage[] walkingFront = {SpriteRetrival.getSprite(0,1, 2), SpriteRetrival.getSprite(1,1,2), SpriteRetrival.getSprite(2,1,2), SpriteRetrival.getSprite(3,1,2)};
+    private Animation WalkingFront = new Animation(walkingFront, 15);
+
+    private BufferedImage[] walkingBack = {SpriteRetrival.getSprite(4,1, 2), SpriteRetrival.getSprite(7,1,2)};
+    private Animation WalkingBack = new Animation(walkingBack, 25);
 
     private Animation lastMovmentButton;
     private Animation lastIdleButton;
@@ -165,7 +168,7 @@ public class Player {
             up = true;
             speedy = -3;
             lastIdleButton = IdleBack;
-            lastMovmentButton = IdleBack;
+            lastMovmentButton = WalkingBack;
             //Animation = IdleBack;
         }
         if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A){
