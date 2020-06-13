@@ -19,9 +19,6 @@ public class Player {
     private PlayerCursor pc;
     private Cowabunga cb;
     private MapLevel ml;
-    private MapLayer mp;
-    private Collision c = new Collision("Map System/Level 1 Var 1_Wall.csv");
-    private Collision d = new Collision("Map System/Level 1 Var 1_Collision_Required_Decoration.csv");
 
     private boolean dodgeRoll = false;
     private int xRollDistance = 0;
@@ -100,6 +97,7 @@ public class Player {
 
     public Player(Cowabunga cb, String mapPath){
         this.cb = cb;
+        ml = cb.getMapLevel();
         try {
             BufferedReader csvReader = new BufferedReader(new FileReader(mapPath));
             try {
@@ -276,12 +274,12 @@ public class Player {
             if (speedx != 0 || speedy != 0) {
                 xt += speedx;
                 yt += speedy;
-                if (c.checkCollision(xt, y) || d.checkCollision(xt, y)) {
+                if (ml.checkCollision(xt, y)) {
                     speedx = 0;
                 } else {
                     x += speedx;
                 }
-                if (c.checkCollision(x, yt) || d.checkCollision(x, yt)) {
+                if (ml.checkCollision(x, yt)) {
                     speedy = 0;
                 } else {
                     y += speedy;
@@ -493,6 +491,9 @@ public class Player {
     }
     public boolean getAlive(){
         return alive;
+    }
+    public MapLevel getML(){
+        return ml;
     }
 
     public void setProjetile(boolean projetile){

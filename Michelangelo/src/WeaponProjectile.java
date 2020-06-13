@@ -19,6 +19,7 @@ public class WeaponProjectile {
     private Player p;
     boolean active = false;
     private boolean clicked = false;
+    private boolean collision = false;
 
 
 
@@ -75,8 +76,29 @@ public class WeaponProjectile {
     }
 
     public void move() {
-        x = x + xa;
-        y = y + ya;
+        int xt = (int)x;
+        int yt = (int)y;
+        //if (speedx != 0 || speedy != 0) {
+            xt += (int) xa;
+            yt += (int) ya;
+            if (p.getML().checkCollision(xt, (int)y)) {
+                x += 0;
+                collision = true;
+            } else {
+               x = x + xa;
+            }
+            if (p.getML().checkCollision((int)x, yt)) {
+                x += 0;
+                collision = true;
+            } else {
+                y = y + ya;
+            }
+        //}
+        /*x = x + xa;
+        y = y + ya;*/
+    }
+    public boolean getCollision(){
+        return collision;
     }
     public void paint(Graphics2D g2d){
         animation = idleYouMonster;

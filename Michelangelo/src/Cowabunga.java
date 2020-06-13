@@ -14,6 +14,7 @@ public class Cowabunga extends JPanel{
     private ToolTip tt;
     private HeadsUp hud;
     private Collection c;
+    private Collision collision;
     private PlayerCursor pc = new PlayerCursor();
     private UserInterface ui;
     //private WeaponProjectile wp = new WeaponProjectile(p);
@@ -22,7 +23,6 @@ public class Cowabunga extends JPanel{
 
     MapLayer currentMap;
     MapLevel level1;
-    Collision collision;
 
     public Cowabunga() throws Exception {
         //currentMap = new MapLayer("Map System/Test Map_Map.csv", "Map System/DawnLike/Objects/floor.png");
@@ -38,7 +38,8 @@ public class Cowabunga extends JPanel{
         a.setVolume(0.1f);
         for (int q = 0; q < et.length; q++) {
             et[q] = new Enemies(this, (int) (6 * Math.random() - 0), eps.getX(q), eps.getY(q), p);
-
+            collision = new Collision(p, et[q], w);
+            //collision.setClasses(p,et[q],w);
         }
         for (int t = 0; t < si.length; t++) {
             si[t] = new ShopItems(sis.getX(t), sis.getY(t), sis.getInstanceName(t), p);
@@ -46,6 +47,7 @@ public class Cowabunga extends JPanel{
         hud = new HeadsUp(this, p);
         w = new Weapons(p);
         tt = new ToolTip();
+
         //w = new Weapons(p.getX(), p.getY());
         //collision = new Collision("Map System/Level 1 Var 1_Wall.csv");
 
@@ -142,19 +144,25 @@ public class Cowabunga extends JPanel{
         setFocusable(true);
     }
 
-
+    public MapLevel getMapLevel(){
+        return level1;
+    }
+    public Collision getCollision(){
+        return collision;
+    }
     private void move() throws InterruptedException {
         // FIXME: 2020-05-05 need to have the player move function
         if(!ui.getEsc()){
             if(p.getAlive()) {
                 for (Enemies et : et) {
                     et.move();
-                    et.collision();
+                    //et.collision();
                     et.weaponCollision();
                 }
                 w.move();
                 //w.collision();
                 p.move();
+                collision.playerCollision();
             }
             pc.move();
             hud.move();

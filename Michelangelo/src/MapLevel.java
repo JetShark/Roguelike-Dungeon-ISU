@@ -82,4 +82,30 @@ public class MapLevel {
 
         //level[1].paint(g);
     }
+    public boolean checkCollision(int x, int y){
+        boolean any_collision = false;
+        for(int t = 0; t < level.length - 1; t++ ) {
+            if(t == 1 || t == 2 || t == 4) {
+                for (int i = 0; i < level[t].getWidth(); i++) {
+                    for (int j = 0; j < level[t].getHeight(); j++) {
+                        int id = level[t].getLevel(i, j); //Finds the id of the tiles
+                        if (id != -1) { //check if the tile is not -1
+                            int xt = i * level[t].getTileWidth() * 4; // creates the x and y values for the tile
+                            int yt = j * level[t].getTileHeight() * 4;
+                            boolean x_overlaps = (x < xt + (level[t].getTileWidth() * 4)) && (x + 32 > xt); //checks if the x values overlap. right, left
+                            boolean y_overlaps = (y < yt + (level[t].getTileHeight() * 4)) && (y + 32 > yt); //checks if the y values overlap. bottom, top
+                            boolean Collision = x_overlaps && y_overlaps;
+                            if (Collision) { //checks if there is collision
+                                any_collision = true;
+                            }
+                        }
+                    }
+                }
+                if (any_collision) {
+                    return true; //returns that tshe player is colliding
+                }
+            }
+        }
+        return false;
+    }
 }

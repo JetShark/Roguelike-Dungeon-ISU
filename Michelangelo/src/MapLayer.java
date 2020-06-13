@@ -69,6 +69,8 @@ public class MapLayer {
     public int getHeight(){
         return height;
     }
+    public int getTileWidth(){return tileWidth;}
+    public int getTileHeight(){return tileHeight;}
 //Mutators
 
 //Methods

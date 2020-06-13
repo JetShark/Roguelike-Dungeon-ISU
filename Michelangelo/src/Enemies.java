@@ -9,7 +9,8 @@ public class Enemies {
     private int i;
     private Player p;
     private Weapons w;
-    private Collision c = new Collision("Map System/Level 1 Var 1_Wall.csv");
+    private Cowabunga cb;
+    private Collision c;
 
     private int enemyNumber;
 
@@ -65,11 +66,14 @@ public class Enemies {
     private Animation animation = ratRunning;
 
     public Enemies(Cowabunga cb, int enemyNumber, int x, int y, Player p){
+
         this.enemyNumber = enemyNumber;
         this.p = p;
+        this.cb = cb;
         this.x = x;
         this.y = y;
         this.w = new Weapons(p);
+        this.c = cb.getCollision();
     }
 
     public void move(){
@@ -124,6 +128,7 @@ public class Enemies {
                 hitboxXT = x + animation.getSprite().getWidth() - 6;
                 hitboxY = y + 5;
                 hitboxYT = y + animation.getSprite().getHeight() - 5;
+
             }
             if (enemyNumber == 4) {
                 //knight bow
@@ -219,17 +224,18 @@ public class Enemies {
         if(speedX != 0 || speedY != 0) {
             xt += speedX;
             yt += speedY;
-            if (c.checkCollision(xt, y)) {
+            if (cb.getMapLevel().checkCollision(xt, y)) {
                 speedX = 0;
             } else {
                 x += speedX;
             }
-            if (c.checkCollision(x, yt)) {
+            if (cb.getMapLevel().checkCollision(x, yt)) {
                 speedY = 0;
             } else {
                 y += speedY;
             }
         }
+        //c.playerCollision();
         enemyHealth();
     }
     public void paint(Graphics2D g2d){
@@ -306,5 +312,6 @@ public class Enemies {
     public int getHitboxYT() {
         return hitboxYT;
     }
+    public int getEnemyDamage(){return enemyDamage;}
 
 }

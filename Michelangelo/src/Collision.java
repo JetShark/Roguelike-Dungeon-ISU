@@ -5,6 +5,9 @@ import java.io.*;
 public class Collision {
     private Cowabunga ba;
     private Player p;
+    private Enemies e;
+    private Weapons w;
+
     private int width = 0;
     private int height = 0;
     private static final int tileWidth = 16;
@@ -14,38 +17,30 @@ public class Collision {
     //private boolean any_collision, Collision, x_overlaps, y_overlaps;
     private boolean left = false, right = false, top = false, bottom;
 
-    public Collision(String mapPath){
-        try {
-            BufferedReader csvReader = new BufferedReader(new FileReader(mapPath));
-            try {
-                String row;
-                while ((row = csvReader.readLine()) != null) {
-                    String[] data = row.split(",");
-                    height++;
-                    if (data.length > width) {
-                        width = data.length;
-                    }
-                }
-                csvReader.close();
-                collision = new int[width][height];
-                csvReader = new BufferedReader(new FileReader(mapPath));
-                int y = 0;
-                while ((row = csvReader.readLine()) != null) {
-                    String[] data = row.split(",");
-                    for (int x = 0; x < data.length; x++){
-                        collision[x][y]= Integer.parseInt(data[x]);
-                    }
-                    y++;
-                }
-                //System.out.println("Map Width & Height = " + width + ", " + height);
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println(e.toString());
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            System.out.println(e.toString());
+    public Collision(Player p, Enemies e, Weapons w){
+        this.p = p;
+        this.e = e;
+        this.w = w;
+    }
+    public void setClasses(Player p, Enemies e, Weapons w){
+        this.p = p;
+        this.e = e;
+        this.w = w;
+    }
+    public void playerCollision(){
+        boolean x_overlaps = (p.getHitboxX() < e.getHitboxXT() && p.getHitboxXT() > e.getHitboxX());
+        boolean y_overlaps = (p.getHitboxY() < e.getHitboxYT() && p.getHitboxYT() > e.getHitboxY());
+        boolean collision = x_overlaps && y_overlaps;
+        if(collision){
+            p.damage(e.getEnemyDamage());
         }
+        System.out.println("px, ex: " + p.getHitboxX() + ", " + e.getHitboxX());
+    }
+    public void enemyCollision(){
+
+    }
+    public void weaponCollision(){
+
     }
     /*private void generateHitBox(){  //failed attempt at collision
         for(int i = 0; i < width; i++){
@@ -59,7 +54,7 @@ public class Collision {
             }
         }
     }*/
-    public boolean checkCollision(int x, int y){
+    /*public boolean checkCollision(int x, int y){
         boolean any_collision = false;
         for(int i = 0; i < width; i++){
             for(int j = 0; j < height; j++){
@@ -80,5 +75,6 @@ public class Collision {
             return true; //returns that the player is colliding
         }
         return false;
-    }
+    }*/
+
 }
