@@ -3,6 +3,12 @@ import java.awt.image.BufferedImage;
 
 public class Enemies {
     private int xt,yt;
+    private int px, py;
+    private double xa, ya;
+    private double xd, yd;
+    private double magnitude;
+    private static int diameter = 50;
+    private boolean collision = false;
     private int x,y;
     private int speedX = 0, speedY = 0;
     private int ratMoveDelay = 100;
@@ -72,35 +78,33 @@ public class Enemies {
         this.x = x;
         this.y = y;
         this.w = new Weapons(p);
-        if(alive) {
-            if (enemyNumber == 0) {
-                enemyDamage = 1;
-                health = 4;
-            }
-            if (enemyNumber == 1) {
-                health = 8;
-                enemyDamage = 2;
-            }
-            if (enemyNumber == 2) {
-                health = 10;
-                enemyDamage = 2;
-            }
-            if (enemyNumber == 3) {
-                health = 12;
-                enemyDamage = 4;
-            }
-            if (enemyNumber == 4) {
-                health = 12;
-                enemyDamage = 2;
-            }
-            if (enemyNumber == 5) {
-                health = 12;
-                enemyDamage = 4;
-            }
-            if (enemyNumber == 6){
-                health = 12;
-                enemyDamage = 2;
-            }
+        if (enemyNumber == 0) {
+            enemyDamage = 1;
+            health = 4;
+        }
+        if (enemyNumber == 1) {
+            health = 8;
+            enemyDamage = 2;
+        }
+        if (enemyNumber == 2) {
+            health = 10;
+            enemyDamage = 2;
+        }
+        if (enemyNumber == 3) {
+            health = 12;
+            enemyDamage = 4;
+        }
+        if (enemyNumber == 4) {
+            health = 12;
+            enemyDamage = 2;
+        }
+        if (enemyNumber == 5) {
+            health = 12;
+            enemyDamage = 4;
+        }
+        if (enemyNumber == 6){
+            health = 12;
+            enemyDamage = 2;
         }
     }
 
@@ -109,6 +113,12 @@ public class Enemies {
         animation.update();
         xt = x;
         yt = y;
+
+        px = p.getX();
+        py = p.getY();
+        xd = x;
+        yd = y;
+
         if(alive) {
             if (enemyNumber == 0) {
                 animation = ratRunning;
@@ -156,7 +166,13 @@ public class Enemies {
                 hitboxXT = x + animation.getSprite().getWidth() - 6;
                 hitboxY = y + 5;
                 hitboxYT = y + animation.getSprite().getHeight() - 5;
-
+                xa = (px - xd);
+                ya = (py - yd);
+                magnitude = Math.sqrt(xa * xa + ya * ya);
+                if(magnitude > 0){
+                    xa = xa / magnitude * 1.25;
+                    ya = ya / magnitude * 1.25;
+                }
             }
             if (enemyNumber == 4) {
                 //knight bow
@@ -177,6 +193,15 @@ public class Enemies {
                 hitboxXT = x + animation.getSprite().getWidth() - 6;
                 hitboxY = y + 5;
                 hitboxYT = y + animation.getSprite().getHeight() - 5;
+                xa = (px - xd);
+                ya = (py - yd);
+                speedX = 2;
+                speedY = 2;
+                magnitude = Math.sqrt(xa * xa + ya * ya);
+                if(magnitude > 0){
+                    xa = xa / magnitude * speedX;
+                    ya = ya / magnitude * speedY;
+                }
             }
             if (enemyNumber == 6){
                 //knight sword
@@ -187,6 +212,15 @@ public class Enemies {
                 hitboxXT = x + animation.getSprite().getWidth() - 6;
                 hitboxY = y + 5;
                 hitboxYT = y + animation.getSprite().getHeight() - 5;
+                xa = (px - xd);
+                ya = (py - yd);
+                speedX = 2;
+                speedY = 2;
+                magnitude = Math.sqrt(xa * xa + ya * ya);
+                if(magnitude > 0){
+                    xa = xa / magnitude * speedX;
+                    ya = ya / magnitude * speedY;
+                }
             }
             if (enemyNumber == 7) {
                 //haunted armour
@@ -194,76 +228,37 @@ public class Enemies {
             if (enemyNumber == 8) {
                 //candle
             }
-            if (enemyNumber == 9) {
-
+        }
+        if(collision) {
+            if (speedX != 0 || speedY != 0 && enemyNumber != 3) {
+                xt += speedX;
+                yt += speedY;
+                if (cb.getMapLevel().checkCollision(xt, y)) {
+                    speedX = 0;
+                } else {
+                    x += speedX;
+                }
+                if (cb.getMapLevel().checkCollision(x, yt)) {
+                    speedY = 0;
+                } else {
+                    y += speedY;
+                }
             }
-            if (enemyNumber == 9) {
-
-            }
-            if (enemyNumber == 10) {
-
-            }
-            if (enemyNumber == 11) {
-
-            }
-            if (enemyNumber == 12) {
-
-            }
-            if (enemyNumber == 13) {
-
-            }
-            if (enemyNumber == 14) {
-
-            }
-            if (enemyNumber == 15) {
-
-            }
-            if (enemyNumber == 16) {
-
-            }
-            if (enemyNumber == 17) {
-
-            }
-            if (enemyNumber == 18) {
-
-            }
-            if (enemyNumber == 19) {
-
-            }
-            if (enemyNumber == 20) {
-
-            }
-            if (enemyNumber == 21) {
-
-            }
-            if (enemyNumber == 22) {
-
-            }
-            if (enemyNumber == 23) {
-
-            }
-            if (enemyNumber == 24) {
-
-            }
-            if (enemyNumber == 25) {
-
+            if (enemyNumber == 3 || enemyNumber == 5 || enemyNumber == 6) {
+                xt += (int) xa;
+                yt += (int) ya;
+                if (cb.getMapLevel().checkCollision(xt, (int) yd)) {
+                    xa += 0;
+                } else {
+                    xd = xd + xa;
+                }
+                if (cb.getMapLevel().checkCollision((int) xd, yt)) {
+                    ya += 0;
+                } else {
+                    yd = yd + ya;
+                }
             }
         }
-        if(speedX != 0 || speedY != 0) {
-            xt += speedX;
-            yt += speedY;
-            if (cb.getMapLevel().checkCollision(xt, y)) {
-                speedX = 0;
-            } else {
-                x += speedX;
-            }
-            if (cb.getMapLevel().checkCollision(x, yt)) {
-                speedY = 0;
-            } else {
-                y += speedY;
-            }
-        }
-        //c.playerCollision();
         cb.getCollision().setEnemiesHitboxs(hitboxX, hitboxY, hitboxXT, hitboxYT);
         cb.getCollision().setEnemyDamage(enemyDamage);
         cb.getCollision().setAlive(alive);
@@ -276,39 +271,26 @@ public class Enemies {
         }
         enemyHealth();
     }
+    public void collision(Enemies e){
+        boolean x_Overlaps = (e.hitboxX < hitboxXT && e.hitboxXT > hitboxX);
+        boolean y_overlaps = (e.hitboxY < hitboxYT && e.hitboxYT > hitboxY);
+        boolean any_Collision = x_Overlaps && y_overlaps;
+        if(any_Collision){
+            collision = true;
+        }
+    }
     public void paint(Graphics2D g2d){
-        /*for(int i = 0; i < width; i++){
-            for(int j = 0; j < height; j++){
-                if(level[i][j] == 1){
-                    this.x = i * tileWidth * 4;
-                    this.y = j * tileHeight * 4;
-                    g2d.drawImage(Animation.getSprite(), x, y,Animation.getSprite().getHeight() * 2, Animation.getSprite().getWidth() * 2 , null);
-                }
+        if(alive) {
+            if(enemyNumber != 3 || enemyNumber != 5 || enemyNumber != 6) {
+                g2d.drawImage(animation.getSprite(), x, y, animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2, null);
+            }
+            if(enemyNumber == 3 || enemyNumber == 5 || enemyNumber == 6) {
+                x = (int) xd;
+                y = (int) yd;
+                g2d.drawImage(animation.getSprite(), x, y, animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2, null);
             }
         }
-        for(int i = 0; i < spawnNumLocation; i++) {
-            g2d.drawImage(Animation.getSprite(), xt[i], yt[i], Animation.getSprite().getHeight() * 2, Animation.getSprite().getWidth() * 2, null);
-        }*/
-        if(alive) {
-            g2d.drawImage(animation.getSprite(), x, y, animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2, null);
-        }
     }
-    /*public void collision(){
-        boolean x_overlaps = (p.getHitboxX() < hitboxXT && p.getHitboxXT() > hitboxX);
-        boolean y_overlaps = (p.getHitboxY() < hitboxYT && p.getHitboxYT() > hitboxY);
-        boolean collision = x_overlaps && y_overlaps;
-        if(collision){
-          p.damage(enemyDamage);
-        }
-    }
-    public void weaponCollision(){
-        boolean x_overlaps = (w.getHitboxX() < hitboxXT && w.getHitboxXT() > hitboxX);
-        boolean y_overlaps = (w.getHitboxY() < hitboxYT && w.getHitboxYT() > hitboxY);
-        boolean collision = x_overlaps && y_overlaps;
-        if(collision){
-            damage(w.getDamage());
-        }
-    }*/
     public void damage(int damage){
         this.damage = damage;
         if(!invulnerable){
@@ -348,4 +330,22 @@ public class Enemies {
     }
     public int getEnemyDamage(){return enemyDamage;}
 
+
+
+    /*public void collision(){
+        boolean x_overlaps = (p.getHitboxX() < hitboxXT && p.getHitboxXT() > hitboxX);
+        boolean y_overlaps = (p.getHitboxY() < hitboxYT && p.getHitboxYT() > hitboxY);
+        boolean collision = x_overlaps && y_overlaps;
+        if(collision){
+          p.damage(enemyDamage);
+        }
+    }
+    public void weaponCollision(){
+        boolean x_overlaps = (w.getHitboxX() < hitboxXT && w.getHitboxXT() > hitboxX);
+        boolean y_overlaps = (w.getHitboxY() < hitboxYT && w.getHitboxYT() > hitboxY);
+        boolean collision = x_overlaps && y_overlaps;
+        if(collision){
+            damage(w.getDamage());
+        }
+    }*/
 }

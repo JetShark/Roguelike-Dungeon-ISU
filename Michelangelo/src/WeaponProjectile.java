@@ -42,7 +42,6 @@ public class WeaponProjectile {
                 xa = xa / magnitude * 3;
                 ya = ya / magnitude * 3;
             }
-
             x = pX;
             y = pY;
         }
@@ -88,7 +87,7 @@ public class WeaponProjectile {
                x = x + xa;
             }
             if (p.getML().checkCollision((int)x, yt)) {
-                x += 0;
+                y += 0;
                 collision = true;
             } else {
                 y = y + ya;
