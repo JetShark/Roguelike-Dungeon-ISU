@@ -103,6 +103,10 @@ public class HeadsUp {
         g2d.drawImage(kGBAnimation.getSprite(), x + 165, y + 63, null);
         g2d.drawString("55", x + 200, y + 89);
 
+        g2d.drawString("x" + (int)(p.getX()/64), x + 260, y + 89);
+
+        g2d.drawString("y" + (p.getY()/64), x + 320, y + 89);
+
         animationHearts.update();
         kGBAnimation.update();
     }

@@ -46,7 +46,7 @@ public class PlayerCursor {
     public void paint(Graphics2D g2d){
         //g2d.drawArc(x + mX,y + mY, 30,30,0,360);
         for (WeaponProjectile wp:projectileList) {
-            if (wp != null) {
+            if (wp != null && !wp.getCollision()) {
                 wp.paint(g2d);
             }
         }

@@ -63,6 +63,8 @@ public class MapLevel {
             e.printStackTrace();
             System.out.println(e.toString());
         }
+        findRooms();
+        System.out.println(roomList.size());
     }
     //Accessors
     public MapLayer getLevel(){
@@ -105,11 +107,19 @@ public class MapLevel {
     }
 
     public void paint(Graphics2D g) {
+        int i=0;
+
         for (int y = 0; y < level.length - 1; y++) {
             if(y == 0){
                 level[y].fillEmptySpaces(g);
             }
             level[y].paint(g);
+        }
+
+        for (Room room:roomList) {
+            g.setColor(new Color(255*((i/4)&1),255*(((i>>1)&1)),255*(i&1),128));
+            room.paint(g);
+            i++;
         }
 
         //level[1].paint(g);
@@ -122,5 +132,107 @@ public class MapLevel {
         // if it is a new room, it will log it, then read tiles sequentially upwards,
         // and downwards until it finds a wall, then from there read left and right until it finds a wall,
         // then back up, and down,
+        int x;
+        int y;
+        for (y = 1; y < level[2].getHeight()-1; y++) {
+            for (x = 1; x < level[2].getWidth()-1; x++) {
+                if (level[2].getLevel(x, y) != -1) {
+                    findRoomsNearDoor(x, y);
+
+                }
+            }
+        }
+    }
+//Layer[2] is doors, layer[1] is door
+    private void findRoomsNearDoor(int x, int y) {
+        System.out.println("findroomsneardoor"+x+", "+y);
+        if (level[1].getLevel(x,y-1) == -1) {
+            findRoomDirection(x,y,0,-1);
+        }
+        if (level[1].getLevel(x,y+1) == -1) {
+            findRoomDirection(x,y,0,+1);
+        }
+        if (level[1].getLevel(x-1,y) == -1) {
+            findRoomDirection(x,y,-1,0);
+        }
+        if (level[1].getLevel(x+1,y) == -1) {
+            findRoomDirection(x,y,+1, 0);
+        }
+    }
+
+    private void findRoomDirection(int x, int y, int deltaX, int deltaY) {
+        int width = 0;
+        int height = 0;
+        for (Room room:roomList) {
+            if (room.isTileInRoom(x+deltaX, y+deltaY)) {
+                return;
+            }
+        }
+        int distance = 0;
+        int negaDistance = 0;
+        distance = findWall(x,y,deltaX,deltaY) -1;
+        System.out.println("this is first find wall"+x+", "+y+", "+deltaX+", "+deltaY+", "+distance);
+        width = distance * deltaX;
+        height = distance * deltaY;
+        distance = findWall(x + deltaX, y + deltaY, + deltaY, -deltaX); //rotate 90 degrees to find the other axis
+        negaDistance = findWall(x + deltaX, y + deltaY, -deltaY, +deltaX); //rotate -90 degrees
+        //distance = 1;
+        //negaDistance = 1;
+
+        width += (distance+negaDistance-1)*deltaY;
+        height += (distance+negaDistance-1)*deltaX;
+
+
+        int x0 = Math.min(x-distance*deltaY, x-distance*deltaY+width);
+        int y0 = Math.min(y-distance*deltaX, y-distance*deltaX+height);
+        int x1 = Math.max(x-distance*deltaY, x-distance*deltaY+width);
+        int y1 = Math.max(y-distance*deltaX, y-distance*deltaX+height);
+        if (deltaX==0 && deltaY==1) {
+            x0 = Math.min(x-negaDistance*deltaY, x-negaDistance*deltaY+width);
+            y0 = Math.min(y-negaDistance*deltaX, y-negaDistance*deltaX+height);
+            x1 = Math.max(x-negaDistance*deltaY, x-negaDistance*deltaY+width);
+            y1 = Math.max(y-negaDistance*deltaX, y-negaDistance*deltaX+height);
+        }
+        if(deltaX == 1 || deltaY ==1) {
+            x0++;
+            y0++;
+            x1++;
+            y1++;
+        }
+        Room room = new Room(x0, y0, x1, y1);
+        roomList.push(room);
+        //addDoorsToRoom(room, x0, y0, x1, y1);
+    }
+
+    private void addDoorsToRoom(Room room, int x0, int y0, int x1, int y1) {
+        int x;
+        int y;
+
+        for (x=x0; x<=x1; x++) {
+            if (level[2].getLevel(x, y0) != -1) {
+              room.addDoor(x,y0);
+            }
+            if (level[2].getLevel(x, y1) != -1) {
+              room.addDoor(x,y1);
+            }
+        }
+        for (y=y0; y<=y1; y++) {
+            if (level[2].getLevel(x0, y) != -1) {
+              room.addDoor(x0,y);
+            }
+            if (level[2].getLevel(x1, y) != -1) {
+              room.addDoor(x1,y);
+            }
+        }
+    }
+
+    private int findWall(int x, int y, int deltaX, int deltaY) {
+        int distance = 0;
+        do {
+            x = x+deltaX;
+            y = y+deltaY;
+            distance++;
+        } while (level[1].getLevel(x, y) == -1);
+        return distance;
     }
 }

@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public class Room {
     //Attributes
     private int leftMostTile;
@@ -18,6 +20,8 @@ public class Room {
         rightMostTile = x1;
         bottomMostTile = y1;
         doorCount = 0;
+
+        System.out.println("x0:"+x0+"ydw0:"+y0+"x1:"+x1+"y1:"+y1);
     }
 
 //Accessors
@@ -48,6 +52,12 @@ public class Room {
             return false;
         }
         return true;
+    }
+
+    public void paint(Graphics2D g) {
+        //g.setColor(new Color(0,0,255,128));
+        g.fillRect(leftMostTile*TILE_SIZE,topMostTile*TILE_SIZE, (rightMostTile-leftMostTile)*TILE_SIZE,(bottomMostTile-topMostTile)*TILE_SIZE);
+
     }
 
 }
