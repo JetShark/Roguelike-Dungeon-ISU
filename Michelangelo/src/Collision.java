@@ -3,57 +3,70 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 public class Collision {
-    private Cowabunga ba;
+    private Cowabunga cb;
     private Player p;
     private Enemies e;
     private Weapons w;
 
-    private int width = 0;
-    private int height = 0;
-    private static final int tileWidth = 16;
-    private static final int tileHeight = 16;
-    private BufferedImage img = null;
-    private int[][] collision;
-    //private boolean any_collision, Collision, x_overlaps, y_overlaps;
-    private boolean left = false, right = false, top = false, bottom;
+    private int hitboxX, hitboxY, hitboxXT, hitboxYT;
+    private int enemyDamage;
+    private boolean hit;
+    private boolean alive;
 
-    public Collision(Player p, Enemies e, Weapons w){
+    public Collision(Player p, Weapons w, Cowabunga cb){
+        this.p = p;
+        this.cb = cb;
+        this.w = w;
+    }
+    /*public void setClasses(Player p, Enemies e, Weapons w){
         this.p = p;
         this.e = e;
         this.w = w;
-    }
-    public void setClasses(Player p, Enemies e, Weapons w){
-        this.p = p;
-        this.e = e;
-        this.w = w;
-    }
+    }*/
+
     public void playerCollision(){
-        boolean x_overlaps = (p.getHitboxX() < e.getHitboxXT() && p.getHitboxXT() > e.getHitboxX());
-        boolean y_overlaps = (p.getHitboxY() < e.getHitboxYT() && p.getHitboxYT() > e.getHitboxY());
+        boolean x_overlaps;
+        boolean y_overlaps;
+        x_overlaps = (p.getHitboxX() < hitboxXT && p.getHitboxXT() > hitboxX);
+        y_overlaps = (p.getHitboxY() < hitboxYT && p.getHitboxYT() > hitboxY);
+        boolean collision = x_overlaps && y_overlaps;
+        if(alive) {
+            if (collision) {
+                p.damage(enemyDamage);
+            }
+        }
+        //System.out.println("px, ex: " + p.getHitboxX() + ", " + e.getHitboxX());
+    }
+    public void weaponCollision(){
+        boolean x_overlaps;
+        boolean y_overlaps;
+        x_overlaps = (w.getHitboxX() < hitboxXT && w.getHitboxXT() > hitboxX);
+        y_overlaps = (w.getHitboxY() < hitboxYT && w.getHitboxYT() > hitboxY);
         boolean collision = x_overlaps && y_overlaps;
         if(collision){
-            p.damage(e.getEnemyDamage());
+            hit = true;
+        } else {
+            hit = false;
         }
-        System.out.println("px, ex: " + p.getHitboxX() + ", " + e.getHitboxX());
     }
     public void enemyCollision(){
 
     }
-    public void weaponCollision(){
-
+    public void setEnemiesHitboxs(int hitboxX, int hitboxY, int hitboxXT, int hitboxYT){
+        this.hitboxX = hitboxX;
+        this.hitboxY = hitboxY;
+        this.hitboxXT = hitboxXT;
+        this.hitboxYT = hitboxYT;
     }
-    /*private void generateHitBox(){  //failed attempt at collision
-        for(int i = 0; i < width; i++){
-            for(int j = 0; j < height; j++){
-                int id = collision[i][j];
-                if(id != -1){
-                    left = i;
-                    right = left + (tileWidth * 4);
-
-                }
-            }
-        }
-    }*/
+    public void setEnemyDamage(int enemyDamage){
+        this.enemyDamage = enemyDamage;
+    }
+    public boolean getHit(){
+        return hit;
+    }
+    public void setAlive(boolean alive){
+        this.alive = alive;
+    }
     /*public boolean checkCollision(int x, int y){
         boolean any_collision = false;
         for(int i = 0; i < width; i++){
