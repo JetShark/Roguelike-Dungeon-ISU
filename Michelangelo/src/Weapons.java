@@ -203,10 +203,15 @@ public class Weapons {
         }
         int cX = swordAnimation.getSprite().getWidth() / 2 - 12;
         int cY = swordAnimation.getSprite().getHeight() / 2 - 3;
-        modifier = 0;
-        damage = 2 + modifier;
+
+
         if(rightClick) {
-            //collision();
+            hitboxX = imagePosition.x + 14 + 25;
+            hitboxXT = imagePosition.x + 14 + 32;
+            hitboxY = imagePosition.y;
+            hitboxYT = imagePosition.y + 13 + 20 + 32;
+            modifier = 0;
+            damage = 2 + modifier;
             AffineTransform newAt = new AffineTransform();
             newAt.translate(cX + imagePosition.x + 25, cY + imagePosition.y + 20);
             newAt.rotate(imageAngleRad);
@@ -220,10 +225,6 @@ public class Weapons {
     public void move(){
         imagePosition.x = p.getX();
         imagePosition.y = p.getY();
-        hitboxX = imagePosition.x + 14 + 25;
-        hitboxXT = imagePosition.x + 14 + 32;
-        hitboxY = imagePosition.y;
-        hitboxYT = imagePosition.y + 13 + 20 + 32;
     }
     /*public void collision(){
         //System.out.println("hitX, hitY, hitXT, hitYT: " + hitboxX + ", " + hitboxY + ", " + hitboxXT + ", " + hitboxYT);

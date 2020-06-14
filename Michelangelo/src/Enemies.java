@@ -10,7 +10,6 @@ public class Enemies {
     private Player p;
     private Weapons w;
     private Cowabunga cb;
-    private Collision c;
 
     private int enemyNumber;
 
@@ -73,7 +72,36 @@ public class Enemies {
         this.x = x;
         this.y = y;
         this.w = new Weapons(p);
-        this.c = cb.getCollision();
+        if(alive) {
+            if (enemyNumber == 0) {
+                enemyDamage = 1;
+                health = 4;
+            }
+            if (enemyNumber == 1) {
+                health = 8;
+                enemyDamage = 2;
+            }
+            if (enemyNumber == 2) {
+                health = 10;
+                enemyDamage = 2;
+            }
+            if (enemyNumber == 3) {
+                health = 12;
+                enemyDamage = 4;
+            }
+            if (enemyNumber == 4) {
+                health = 12;
+                enemyDamage = 2;
+            }
+            if (enemyNumber == 5) {
+                health = 12;
+                enemyDamage = 4;
+            }
+            if (enemyNumber == 6){
+                health = 12;
+                enemyDamage = 2;
+            }
+        }
     }
 
     public void move(){
@@ -98,13 +126,13 @@ public class Enemies {
                 hitboxXT = x + animation.getSprite().getWidth() - 11;
                 hitboxY = y + 9;
                 hitboxYT = y + animation.getSprite().getHeight() - 9;
-                enemyDamage = 1;
-                health = 4;
+                //enemyDamage = 1;
+                //health = 4;
             }
             if (enemyNumber == 1) {
                 animation = flyingBookMoving;
-                health = 8;
-                enemyDamage = 2;
+                //health = 8;
+                //enemyDamage = 2;
                 hitboxX = x + 6;
                 hitboxXT = x + animation.getSprite().getWidth() - 7;
                 hitboxY = y + 8;
@@ -112,8 +140,8 @@ public class Enemies {
             }
             if (enemyNumber == 2) {
                 animation = courtWizardIdle;
-                health = 10;
-                enemyDamage = 2;
+                //health = 10;
+                //enemyDamage = 2;
                 hitboxX = x + 9;
                 hitboxXT = x + animation.getSprite().getWidth() - 9;
                 hitboxY = y + 8;
@@ -122,8 +150,8 @@ public class Enemies {
             if (enemyNumber == 3) {
                 //kinght sheild
                 animation = shieldKnightIdle;
-                health = 12;
-                enemyDamage = 4;
+                //health = 12;
+                //enemyDamage = 4;
                 hitboxX = x + 5;
                 hitboxXT = x + animation.getSprite().getWidth() - 6;
                 hitboxY = y + 5;
@@ -133,8 +161,8 @@ public class Enemies {
             if (enemyNumber == 4) {
                 //knight bow
                 animation = bowKnightIdle;
-                health = 12;
-                enemyDamage = 2;
+                //health = 12;
+                //enemyDamage = 2;
                 hitboxX = x + 10;
                 hitboxXT = x + animation.getSprite().getWidth() - 6;
                 hitboxY = y + 5;
@@ -143,8 +171,8 @@ public class Enemies {
             if (enemyNumber == 5) {
                 //knight spear
                 animation = spearKnightIdle;
-                health = 12;
-                enemyDamage = 4;
+                //health = 12;
+                //enemyDamage = 4;
                 hitboxX = x + 10;
                 hitboxXT = x + animation.getSprite().getWidth() - 6;
                 hitboxY = y + 5;
@@ -153,8 +181,8 @@ public class Enemies {
             if (enemyNumber == 6){
                 //knight sword
                 animation = swordKnightIdle;
-                health = 12;
-                enemyDamage = 2;
+                //health = 12;
+                //enemyDamage = 2;
                 hitboxX = x + 10;
                 hitboxXT = x + animation.getSprite().getWidth() - 6;
                 hitboxY = y + 5;
@@ -236,6 +264,16 @@ public class Enemies {
             }
         }
         //c.playerCollision();
+        cb.getCollision().setEnemiesHitboxs(hitboxX, hitboxY, hitboxXT, hitboxYT);
+        cb.getCollision().setEnemyDamage(enemyDamage);
+        cb.getCollision().setAlive(alive);
+        cb.getCollision().playerCollision();
+        cb.getCollision().weaponCollision();
+        if(alive) {
+            if (cb.getCollision().getHit() && !invulnerable) {
+                damage(cb.getWeapons().getDamage());
+            }
+        }
         enemyHealth();
     }
     public void paint(Graphics2D g2d){
@@ -255,19 +293,13 @@ public class Enemies {
             g2d.drawImage(animation.getSprite(), x, y, animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2, null);
         }
     }
-    public void collision(){
+    /*public void collision(){
         boolean x_overlaps = (p.getHitboxX() < hitboxXT && p.getHitboxXT() > hitboxX);
         boolean y_overlaps = (p.getHitboxY() < hitboxYT && p.getHitboxYT() > hitboxY);
         boolean collision = x_overlaps && y_overlaps;
         if(collision){
           p.damage(enemyDamage);
         }
-        /*if(p.getHitboxX() < hitboxXT && p.getHitboxXT() > hitboxX){
-            p.setPlayerHealth(1);
-        }
-        if(p.getHitboxY() < hitboxYT && p.getHitboxYT() > hitboxY){
-            p.setPlayerHealth(1);
-        }*/
     }
     public void weaponCollision(){
         boolean x_overlaps = (w.getHitboxX() < hitboxXT && w.getHitboxXT() > hitboxX);
@@ -276,14 +308,15 @@ public class Enemies {
         if(collision){
             damage(w.getDamage());
         }
-    }
+    }*/
     public void damage(int damage){
-        System.out.println("ehealth, damage: " + health + ", " + damage);
-        //this.damage = damage;
+        this.damage = damage;
         if(!invulnerable){
             health = health - damage;
             hit = true;
+            System.out.println("ehealth, damage: " + health + ", " + damage);
         }
+
     }
     private void enemyHealth(){
         if(hit){
@@ -292,8 +325,9 @@ public class Enemies {
             if(hitInvincibility == 0){
                 invulnerable = false;
                 hitInvincibility = 100;
-                hit = false;
                 damage = 0;
+                hit = false;
+
             }
         }
         if(health == 0){
