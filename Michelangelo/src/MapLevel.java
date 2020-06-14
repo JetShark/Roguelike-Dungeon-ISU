@@ -9,6 +9,7 @@ public class MapLevel {
     //Attributes
     private MapLayer[] level = new MapLayer[7];
     private String mapPath;
+    private java.util.LinkedList<Room> roomList = new java.util.LinkedList<Room>();
     //private Collision[] c = new Collision[5];
     //level = new MapLayer[6];
 
@@ -70,18 +71,12 @@ public class MapLevel {
 
     //Mutators
 
+    public void openDoor(int x, int y) {
+        // FIXME: 2020-06-13 in progress
+    }
+
     //Methods
 
-    public void paint(Graphics2D g) {
-        for (int y = 0; y < level.length - 1; y++) {
-            if(y == 0){
-                level[y].fillEmptySpaces(g);
-            }
-            level[y].paint(g);
-        }
-
-        //level[1].paint(g);
-    }
     public boolean checkCollision(int x, int y){
         boolean any_collision = false;
         for(int t = 0; t < level.length - 1; t++ ) {
@@ -107,5 +102,25 @@ public class MapLevel {
             }
         }
         return false;
+    }
+
+    public void paint(Graphics2D g) {
+        for (int y = 0; y < level.length - 1; y++) {
+            if(y == 0){
+                level[y].fillEmptySpaces(g);
+            }
+            level[y].paint(g);
+        }
+
+        //level[1].paint(g);
+    }
+
+    private void findRooms() {
+        //this should start with finding all the doors
+        //then check to the left, and the right for walls, and if it finds none,
+        //than it will check to see if that room has already been logged,
+        // if it is a new room, it will log it, then read tiles sequentially upwards,
+        // and downwards until it finds a wall, then from there read left and right until it finds a wall,
+        // then back up, and down,
     }
 }
