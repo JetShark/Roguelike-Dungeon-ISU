@@ -160,7 +160,7 @@ public class Cowabunga extends JPanel{
             if(p.getAlive()) {
                 for (Enemies et : et) {
                     et.move();
-                    //et.collision();
+                    et.collision(et);
                 }
                 w.move();
                 //w.collision();
