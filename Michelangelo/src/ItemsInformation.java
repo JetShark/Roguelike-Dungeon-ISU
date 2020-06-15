@@ -64,7 +64,6 @@ public class ItemsInformation {
             System.out.println(e.toString());
         }
     }
-
     public String getName(){
         return name;
     }

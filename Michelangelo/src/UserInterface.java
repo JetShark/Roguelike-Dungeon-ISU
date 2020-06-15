@@ -126,6 +126,9 @@ public class UserInterface {
     public void setTitleScreen(boolean titleScreen){
         this.TitleScreen = titleScreen;
     }
+    public Player getP(){
+        return p;
+    }
 
     public void paint(Graphics2D g2d){
         if(!newGame || TitleScreen){

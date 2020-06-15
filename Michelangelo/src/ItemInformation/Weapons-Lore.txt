@@ -1,0 +1,40 @@
+[1]
+name=Zor Mar'Ulla
+type=Ranged
+lore=This ancient primordial being is an amalgamation of bodily components that make up an interdimensional species known as the apothicons. It appears to have entered the castle through an interdimensional rift created during the fractures.
+[2]
+name=Shotgun
+type=Ranged
+lore=
+[3]
+name=The Hat
+type=Ranged
+lore=
+[4]
+name=Overloading Energy Turbine
+type=Ranged
+lore=
+[5]
+name=The Controller
+type=Ranged
+lore=
+[6]
+name=The Catalyst
+type=Ranged
+lore=
+[7]
+name=The PDC
+type=Ranged
+lore=
+[8]
+name=
+type=
+lore=
+[9]
+name=
+type=
+lore=
+[10]
+name=
+type=
+lore=
