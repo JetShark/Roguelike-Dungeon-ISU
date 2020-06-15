@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
 public class Weapons {
@@ -19,6 +20,7 @@ public class Weapons {
     private int hitboxX, hitboxY, hitboxXT, hitboxYT;
     private int damage;
     private int modifier;
+    private int direction;
 
     private BufferedImage[] allen = {SpriteRetrival.getSprite(0,0,4)};
     private Animation idleAllen = new Animation(allen,10);
@@ -155,6 +157,7 @@ public class Weapons {
     public void mouseMoved(MouseEvent e){
         mX = e.getX() + p.getCamX(); //set the mX and mY to the location of the cursor on the screen
         mY = e.getY() + p.getCamY();
+        //System.out.println("mx, my: " + mX + ", " + mY);
         double dx = mX - imagePosition.getX(); //find s the distance from the cursur to the weapon
         double dy = mY - imagePosition.getY();
         imageAngleRad = Math.atan2(dy,dx); //find the angle of the weapon to the cursor
@@ -166,17 +169,33 @@ public class Weapons {
         rangedAnimation = firingYouMonster; //set what Animation to draw
         rangedAnimation.start(); //starts the Animation
         meleeWeapons(g2d);
+        if(mX < p.getX() + 7){
+            direction = -1;
+        } else {
+            direction = 1;
+        }
 
         int cx = rangedAnimation.getSprite().getWidth() / 2 - 10;
         //int cx = Animation.getSprite().getWidth() - 40;
         int cy = rangedAnimation.getSprite().getHeight() / 2 + 5;
         AffineTransform at = new AffineTransform();
+        /*AffineTransformOp op; = new AffineTransformOp(at, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);*/
         /*at.translate(x + 60, y + 30);
         at.rotate(Math.PI/-1.05);
         at.scale(2.0,2.0);
         at.translate(-Animation.getSprite().getWidth() / 2, -Animation.getSprite().getHeight() / 2);*/
 
-        at.translate(cx + imagePosition.x + 25, cy + imagePosition.y + 15);
+        if(direction == 1) {
+            at.translate(cx + imagePosition.x + 25, cy + imagePosition.y + 15);
+            /*at.translate(0, rangedAnimation.getSprite().getHeight(null));
+            op = new AffineTransformOp(at, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+            op.filter(rangedAnimation.getSprite(), null);*/
+        }
+        if(direction == -1){
+            at.translate(cx + imagePosition.x, cy + imagePosition.y + 15);
+            AffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+            op.filter(rangedAnimation.getSprite(), null);
+        }
         at.rotate(imageAngleRad);
         at.scale(1.5,1.5);
         at.translate(-cx, -cy);
@@ -206,14 +225,28 @@ public class Weapons {
 
 
         if(rightClick) {
-            hitboxX = imagePosition.x + 14 + 25;
-            hitboxXT = imagePosition.x + 14 + 32;
-            hitboxY = imagePosition.y;
-            hitboxYT = imagePosition.y + 13 + 20 + 32;
+            //System.out.println("direction: " + direction);
+            if(direction == 1) {
+                hitboxX = imagePosition.x + 14 + 25;
+                hitboxXT = imagePosition.x + 14 + 32;
+                hitboxY = imagePosition.y;
+                hitboxYT = imagePosition.y + 13 + 20 + 32;
+            }
+            if(direction == -1) {
+                hitboxX = imagePosition.x - 37;
+                hitboxXT = imagePosition.x - 5;
+                hitboxY = imagePosition.y;
+                hitboxYT = imagePosition.y + 45;
+            }
             modifier = 0;
             damage = 2 + modifier;
             AffineTransform newAt = new AffineTransform();
-            newAt.translate(cX + imagePosition.x + 25, cY + imagePosition.y + 20);
+            if(direction == 1){
+                newAt.translate(cX + imagePosition.x + 25, cY + imagePosition.y + 20);
+            }
+            if(direction == -1){
+                newAt.translate(cX + imagePosition.x, cY + imagePosition.y + 20);
+            }
             newAt.rotate(imageAngleRad);
             newAt.scale(3.0, 3.0);
             newAt.translate(-cX, -cY);

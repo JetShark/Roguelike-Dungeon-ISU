@@ -20,6 +20,8 @@ public class Enemies {
     private int enemyNumber;
 
     private int hitboxX, hitboxY, hitboxXT, hitboxYT;
+    private int inRangeX, inRangeY, inRangeXT, inRangeYT;
+    private boolean canMove;
     private int enemyDamage;
     private int damage;
     private int health;
@@ -65,7 +67,7 @@ public class Enemies {
 
     private BufferedImage[] shieldKnight = {SpriteRetrival.getSprite(4, 11, 3), SpriteRetrival.getSprite(7,11,3), SpriteRetrival.getSprite(4,12, 3), SpriteRetrival.getSprite(5,12,3)};
     private Animation shieldKnightIdle = new Animation(shieldKnight, 10);
-    private BufferedImage[] shieldKnightWalk = {SpriteRetrival.getSprite(6, 13, 3), SpriteRetrival.getSprite(7,13,3), SpriteRetrival.getSprite(4,14, 3), SpriteRetrival.getSprite(7,14,3)};
+    private BufferedImage[] shieldKnightWalk = {SpriteRetrival.getSprite(6, 12, 3), SpriteRetrival.getSprite(7,12,3), SpriteRetrival.getSprite(4,13, 3), SpriteRetrival.getSprite(7,13,3)};
     private Animation shieldKnightWalking = new Animation(shieldKnightWalk, 10);
 
     private Animation animation = ratRunning;
@@ -78,6 +80,7 @@ public class Enemies {
         this.x = x;
         this.y = y;
         this.w = new Weapons(p);
+        canMove = false;
         if (enemyNumber == 0) {
             enemyDamage = 1;
             health = 4;
@@ -173,6 +176,9 @@ public class Enemies {
                     xa = xa / magnitude * 1.25;
                     ya = ya / magnitude * 1.25;
                 }
+                if(canMove){
+                    animation = shieldKnightWalking;
+                }
             }
             if (enemyNumber == 4) {
                 //knight bow
@@ -229,7 +235,7 @@ public class Enemies {
                 //candle
             }
         }
-        if(collision) {
+        if(canMove) {
             if (speedX != 0 || speedY != 0 && enemyNumber != 3) {
                 xt += speedX;
                 yt += speedY;
@@ -259,6 +265,7 @@ public class Enemies {
                 }
             }
         }
+        //System.out.println("canMove: " + canMove);
         cb.getCollision().setEnemiesHitboxs(hitboxX, hitboxY, hitboxXT, hitboxYT);
         cb.getCollision().setEnemyDamage(enemyDamage);
         cb.getCollision().setAlive(alive);
@@ -272,11 +279,23 @@ public class Enemies {
         enemyHealth();
     }
     public void collision(Enemies e){
-        boolean x_Overlaps = (e.hitboxX < hitboxXT && e.hitboxXT > hitboxX);
-        boolean y_overlaps = (e.hitboxY < hitboxYT && e.hitboxYT > hitboxY);
+        boolean x_Overlaps = (e.hitboxX < hitboxXT) && (e.hitboxXT > hitboxX);
+        boolean y_overlaps = (e.hitboxY < hitboxYT) && (e.hitboxYT > hitboxY);
         boolean any_Collision = x_Overlaps && y_overlaps;
         if(any_Collision){
-            collision = true;
+            canMove = false;
+        }
+    }
+    public void inRange(){
+        inRangeX = hitboxX - 200;
+        inRangeXT = hitboxXT + 200;
+        inRangeY = hitboxY - 200;
+        inRangeYT = hitboxYT + 200;
+        boolean x_Overlaps = (p.getHitboxX() < inRangeXT) && (p.getHitboxXT() > inRangeX);
+        boolean y_overlaps = (p.getHitboxY() < inRangeYT) && (p.getHitboxYT() > inRangeY);
+        boolean in_Range = x_Overlaps && y_overlaps;
+        if(in_Range){
+            canMove = true;
         }
     }
     public void paint(Graphics2D g2d){
@@ -309,7 +328,6 @@ public class Enemies {
                 hitInvincibility = 100;
                 damage = 0;
                 hit = false;
-
             }
         }
         if(health == 0){

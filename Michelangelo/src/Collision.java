@@ -27,8 +27,8 @@ public class Collision {
     public void playerCollision(){
         boolean x_overlaps;
         boolean y_overlaps;
-        x_overlaps = (p.getHitboxX() < hitboxXT && p.getHitboxXT() > hitboxX);
-        y_overlaps = (p.getHitboxY() < hitboxYT && p.getHitboxYT() > hitboxY);
+        x_overlaps = (p.getHitboxX() < hitboxXT) && (p.getHitboxXT() > hitboxX);
+        y_overlaps = (p.getHitboxY() < hitboxYT) && (p.getHitboxYT() > hitboxY);
         boolean collision = x_overlaps && y_overlaps;
         if(alive) {
             if (collision) {
@@ -40,8 +40,8 @@ public class Collision {
     public void weaponCollision(){
         boolean x_overlaps;
         boolean y_overlaps;
-        x_overlaps = (w.getHitboxX() < hitboxXT && w.getHitboxXT() > hitboxX);
-        y_overlaps = (w.getHitboxY() < hitboxYT && w.getHitboxYT() > hitboxY);
+        x_overlaps = (w.getHitboxX() < hitboxXT) && (w.getHitboxXT() > hitboxX);
+        y_overlaps = (w.getHitboxY() < hitboxYT) && (w.getHitboxYT() > hitboxY);
         boolean collision = x_overlaps && y_overlaps;
         if(collision){
             hit = true;
