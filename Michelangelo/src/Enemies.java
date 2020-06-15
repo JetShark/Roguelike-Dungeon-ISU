@@ -30,6 +30,9 @@ public class Enemies {
     private boolean hit = false;
     private boolean alive = true;
 
+    private int secondMovment;
+    private int firstMovment = 0;
+    private int ranNum;
 
     private BufferedImage[] ratrunning = {SpriteRetrival.getSprite(0, 0, 3), SpriteRetrival.getSprite(3,0,3), SpriteRetrival.getSprite(0,1, 3), SpriteRetrival.getSprite(3,1,3), SpriteRetrival.getSprite(0,2,3), SpriteRetrival.getSprite(1,2,3)};
     private Animation ratRunning = new Animation(ratrunning, 10);
@@ -125,15 +128,17 @@ public class Enemies {
         if(alive) {
             if (enemyNumber == 0) {
                 animation = ratRunning;
-                int ranNum = (int) (4 * Math.random() - 0);
-                if (ranNum == 0) {
-                    speedX = -1;
-                } else if (ranNum == 1) {
-                    speedY = -1;
-                } else if (ranNum == 2) {
-                    speedX = 1;
-                } else if (ranNum == 3) {
-                    speedY = 1;
+                if(canMove) {
+                    int ranNum = (int) (4 * Math.random() - 0);
+                    if (ranNum == 0) {
+                        speedX = -1;
+                    } else if (ranNum == 1) {
+                        speedY = -1;
+                    } else if (ranNum == 2) {
+                        speedX = 1;
+                    } else if (ranNum == 3) {
+                        speedY = 1;
+                    }
                 }
                 hitboxX = x + 9;
                 hitboxXT = x + animation.getSprite().getWidth() - 11;
@@ -150,7 +155,49 @@ public class Enemies {
                 hitboxXT = x + animation.getSprite().getWidth() - 7;
                 hitboxY = y + 8;
                 hitboxYT = y + animation.getSprite().getHeight() - 11;
-            }
+                if(firstMovment == 0) {
+                    ranNum = (int) (4 * Math.random() - 0);
+                    if (ranNum == 0) {
+                        speedX = -1;
+                        secondMovment = 50;
+                    } else if (ranNum == 1) {
+                        speedY = -1;
+                        secondMovment = 50;
+                    } else if (ranNum == 2) {
+                        speedX = 1;
+                        secondMovment = 50;
+                    } else if (ranNum == 3) {
+                        speedY = 1;
+                        secondMovment = 50;
+                    }
+                    secondMovment--;
+                }
+                if(secondMovment == 0){
+                    int ranNum2 = (int) (2 * Math.random() - 0);
+                    if(ranNum == 0 || ranNum == 2) {
+                        if (ranNum2 == 0) {
+                            speedY = -1;
+                            firstMovment = 50;
+                        }
+                        if (ranNum2 == 1) {
+                            speedY = 1;
+                            firstMovment = 50;
+                        }
+                        firstMovment--;
+                    }
+                    if(ranNum == 1 || ranNum == 3) {
+                        if (ranNum2 == 0) {
+                            speedX = -1;
+                            firstMovment = 50;
+                        }
+                        if (ranNum2 == 1) {
+                            speedX = 1;
+                            firstMovment = 50;
+                        }
+                        firstMovment--;
+                    }
+                }
+        }
             if (enemyNumber == 2) {
                 animation = courtWizardIdle;
                 //health = 10;
@@ -159,6 +206,7 @@ public class Enemies {
                 hitboxXT = x + animation.getSprite().getWidth() - 9;
                 hitboxY = y + 8;
                 hitboxYT = y + animation.getSprite().getHeight();
+
             }
             if (enemyNumber == 3) {
                 //kinght sheild
@@ -347,7 +395,9 @@ public class Enemies {
         return hitboxYT;
     }
     public int getEnemyDamage(){return enemyDamage;}
-
+    public Boolean isAlive(){
+        return alive;
+    }
 
 
     /*public void collision(){

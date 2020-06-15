@@ -410,22 +410,6 @@ public class Player {
         if(health <= 0){
             alive = false;
         }
-        //System.out.println("health: " + health);
-    }
-    public void setPlayerHealth(int health){
-        this.health = health;
-    }
-    public int getPlayerHealth(){
-        return health;
-    }
-    public void setNumOfHearts(int numOfHearts){
-        this.numOfHearts = numOfHearts;
-    }
-    public int getNumOfHearts(){
-        return numOfHearts;
-    }
-    public void paint(Graphics2D g2d){
-        //System.out.println("health: " + health);
         camX = this.x - VIEWPORT_SIZE_X/2;
         camY = this.y - VIEWPORT_SIZE_Y/2;
         if (camX > offsetMaxX) {
@@ -438,6 +422,24 @@ public class Player {
         }else if (camY < offsetMinY) {
             camY = offsetMinY;
         }
+        //System.out.println("health: " + health);
+    }
+
+    public void setPlayerHealth(int health){
+        this.health = health;
+    }
+    public int getPlayerHealth(){
+        return health;
+    }
+    public void setNumOfHearts(int numOfHearts){
+        this.numOfHearts = numOfHearts;
+    }
+    public int getNumOfHearts(){
+        return numOfHearts;
+    }
+
+    public void paint(Graphics2D g2d){
+        //System.out.println("health: " + health);
         if(alive) {
             animation = IdleFront;
             if(!moving){

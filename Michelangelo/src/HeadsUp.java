@@ -35,8 +35,8 @@ public class HeadsUp {
         this.cb = cb;
         this.p = p;
         w = new Weapons(p);
-        x = p.getCamX();
-        y = p.getCamY();
+        //x = p.getCamX();
+        //y = p.getCamY();
         numOfHearts = p.getNumOfHearts();
     }
     public void move(){
