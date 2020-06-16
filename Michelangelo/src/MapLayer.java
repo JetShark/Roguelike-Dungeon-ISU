@@ -108,4 +108,8 @@ public class MapLayer {
             }
         }
     }
+
+    public void setLevelTile(int tileX, int tileY, int tileID) {
+        level[tileX][tileY] = tileID;
+    }
 }

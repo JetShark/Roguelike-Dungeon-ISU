@@ -73,8 +73,8 @@ public class MapLevel {
 
     //Mutators
 
-    public void openDoor(int x, int y) {
-        // FIXME: 2020-06-13 in progress
+    public void openDoor(int doorX, int doorY) {
+        level[2].setLevelTile(doorX,doorY,-1);
     }
 
     //Methods
@@ -201,7 +201,7 @@ public class MapLevel {
         }
         Room room = new Room(x0, y0, x1, y1);
         roomList.push(room);
-        //addDoorsToRoom(room, x0, y0, x1, y1);
+        addDoorsToRoom(room, x0, y0, x1, y1);
     }
 
     private void addDoorsToRoom(Room room, int x0, int y0, int x1, int y1) {
@@ -209,19 +209,19 @@ public class MapLevel {
         int y;
 
         for (x=x0; x<=x1; x++) {
-            if (level[2].getLevel(x, y0) != -1) {
-              room.addDoor(x,y0);
+            if (level[2].getLevel(x, y0-1) != -1) {
+              room.addDoor(x, y0-1, level[2].getLevel(x, y0-1));
             }
-            if (level[2].getLevel(x, y1) != -1) {
-              room.addDoor(x,y1);
+            if (level[2].getLevel(x, y1-0) != -1) {
+              room.addDoor(x, y1, level[2].getLevel(x, y1-0));
             }
         }
         for (y=y0; y<=y1; y++) {
-            if (level[2].getLevel(x0, y) != -1) {
-              room.addDoor(x0,y);
+            if (level[2].getLevel(x0-1, y) != -1) {
+              room.addDoor(x0-1, y, level[2].getLevel(x0-1, y));
             }
-            if (level[2].getLevel(x1, y) != -1) {
-              room.addDoor(x1,y);
+            if (level[2].getLevel(x1+0, y) != -1) {
+              room.addDoor(x1, y, level[2].getLevel(x1+0, y));
             }
         }
     }
@@ -234,5 +234,23 @@ public class MapLevel {
             distance++;
         } while (level[1].getLevel(x, y) == -1);
         return distance;
+    }
+
+    public Room getPlayerRoom(Player player) {
+        for (Room room:roomList) {
+            if (room.isPlayerInRoom(player.getX(), player.getY())) {
+                return room;
+            }
+        }
+        return null;
+    }
+
+    public void closeDoor(int doorX, int doorY, int doorTile) {
+        level[2].setLevelTile(doorX,doorY,doorTile);
+    }
+    public void closeAllDoors() {
+        for (Room room:roomList) {
+            room.closeDoors(this);
+        }
     }
 }

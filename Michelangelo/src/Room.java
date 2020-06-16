@@ -9,6 +9,7 @@ public class Room {
     private int doorCount;
     private int[] doorX = new int[3];
     private int[] doorY = new int[3];
+    private int[] doorTile = new int[3];
     private final int TILE_SIZE = 64; //tile size of the tiles on the spread sheet.
 
 
@@ -21,16 +22,18 @@ public class Room {
         bottomMostTile = y1;
         doorCount = 0;
 
-        System.out.println("x0:"+x0+"ydw0:"+y0+"x1:"+x1+"y1:"+y1);
+        System.out.println("x0:"+x0+"y0:"+y0+"x1:"+x1+"y1:"+y1);
     }
 
 //Accessors
 
 //Mutators
-    public void addDoor(int tileX, int tileY) {
+    public void addDoor(int tileX, int tileY, int tile) {
         doorX[doorCount] = tileX;
         doorY[doorCount] = tileY;
+        doorTile[doorCount] = tile;
         doorCount ++;
+        System.out.println("Added door at:"+tileX+", "+tileY+", "+doorCount);
     }
 //Methods
     public void openDoors(MapLevel levelIn) {
@@ -40,6 +43,14 @@ public class Room {
         }
     }
 
+    public void closeDoors(MapLevel levelIn) {
+        int i;
+        for (i = 0; i<doorCount; i++) {
+            levelIn.closeDoor(doorX[i], doorY[i], doorTile[i]);
+        }
+    }
+
+
     public boolean isTileInRoom(int x, int y) {
         if (x < leftMostTile || x > rightMostTile || y < topMostTile || y > bottomMostTile) {
             return false;
@@ -48,7 +59,7 @@ public class Room {
     }
 
     public boolean isPlayerInRoom(int x, int y) {
-        if (x < leftMostTile*TILE_SIZE || x > rightMostTile*TILE_SIZE || y < topMostTile*TILE_SIZE || y > bottomMostTile*TILE_SIZE) {
+        if (x < leftMostTile*TILE_SIZE || x > rightMostTile*TILE_SIZE || y < topMostTile*TILE_SIZE || y  > bottomMostTile*TILE_SIZE) {
             return false;
         }
         return true;
@@ -56,7 +67,12 @@ public class Room {
 
     public void paint(Graphics2D g) {
         //g.setColor(new Color(0,0,255,128));
+        //g.fillRect(leftMostTile*TILE_SIZE,topMostTile*TILE_SIZE, (rightMostTile-leftMostTile)*TILE_SIZE,(bottomMostTile-topMostTile)*TILE_SIZE);
+
         g.fillRect(leftMostTile*TILE_SIZE,topMostTile*TILE_SIZE, (rightMostTile-leftMostTile)*TILE_SIZE,(bottomMostTile-topMostTile)*TILE_SIZE);
+        g.setColor(Color.cyan);
+        g.drawString(("x0:"+leftMostTile+"y0:"+topMostTile+"x1:"+rightMostTile+"y1:"+bottomMostTile+"doors:"+doorCount), leftMostTile*TILE_SIZE,topMostTile*TILE_SIZE);
+        g.drawString(("x0:"+leftMostTile+"y0:"+topMostTile+"x1:"+rightMostTile+"y1:"+bottomMostTile+"doors:"+doorCount), leftMostTile*TILE_SIZE,bottomMostTile *TILE_SIZE);
 
     }
 
