@@ -11,6 +11,7 @@ public class Room {
     private int[] doorY = new int[3];
     private int[] doorTile = new int[3];
     private final int TILE_SIZE = 64; //tile size of the tiles on the spread sheet.
+    private boolean firstCleared = false;
 
 
 //Constructor
@@ -26,6 +27,23 @@ public class Room {
     }
 
 //Accessors
+    public boolean isTileInRoom(int x, int y) {
+        if (x < leftMostTile || x > rightMostTile || y < topMostTile || y > bottomMostTile) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isPlayerInRoom(int x, int y) {
+        if (x < leftMostTile*TILE_SIZE || x > rightMostTile*TILE_SIZE || y < topMostTile*TILE_SIZE || y  > bottomMostTile*TILE_SIZE) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean getFirstCleared() {
+        return firstCleared;
+    }
 
 //Mutators
     public void addDoor(int tileX, int tileY, int tile) {
@@ -35,7 +53,7 @@ public class Room {
         doorCount ++;
         System.out.println("Added door at:"+tileX+", "+tileY+", "+doorCount);
     }
-//Methods
+
     public void openDoors(MapLevel levelIn) {
         int i;
         for (i = 0; i<doorCount; i++) {
@@ -50,20 +68,12 @@ public class Room {
         }
     }
 
-
-    public boolean isTileInRoom(int x, int y) {
-        if (x < leftMostTile || x > rightMostTile || y < topMostTile || y > bottomMostTile) {
-            return false;
+    public void setFirstCleared() {
+        if (!firstCleared) {
+            firstCleared = true;
         }
-        return true;
     }
-
-    public boolean isPlayerInRoom(int x, int y) {
-        if (x < leftMostTile*TILE_SIZE || x > rightMostTile*TILE_SIZE || y < topMostTile*TILE_SIZE || y  > bottomMostTile*TILE_SIZE) {
-            return false;
-        }
-        return true;
-    }
+//Methods
 
     public void paint(Graphics2D g) {
         //g.setColor(new Color(0,0,255,128));
