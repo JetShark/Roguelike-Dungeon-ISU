@@ -196,8 +196,9 @@ public class MapLevel {
         if(deltaX == 1 || deltaY ==1) {
             x0++;
             y0++;
-            x1++;
-            y1++;
+        } else {
+            x1--;
+            y1--;
         }
         Room room = new Room(x0, y0, x1, y1);
         roomList.push(room);

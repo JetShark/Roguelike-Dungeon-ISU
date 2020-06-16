@@ -69,10 +69,12 @@ public class Room {
         //g.setColor(new Color(0,0,255,128));
         //g.fillRect(leftMostTile*TILE_SIZE,topMostTile*TILE_SIZE, (rightMostTile-leftMostTile)*TILE_SIZE,(bottomMostTile-topMostTile)*TILE_SIZE);
 
-        g.fillRect(leftMostTile*TILE_SIZE,topMostTile*TILE_SIZE, (rightMostTile-leftMostTile)*TILE_SIZE,(bottomMostTile-topMostTile)*TILE_SIZE);
+        g.fillRect(leftMostTile*TILE_SIZE,topMostTile*TILE_SIZE, (rightMostTile-leftMostTile+1)*TILE_SIZE,(bottomMostTile-topMostTile+1)*TILE_SIZE);
         g.setColor(Color.cyan);
         g.drawString(("x0:"+leftMostTile+"y0:"+topMostTile+"x1:"+rightMostTile+"y1:"+bottomMostTile+"doors:"+doorCount), leftMostTile*TILE_SIZE,topMostTile*TILE_SIZE);
+        g.drawString(("x0:"+leftMostTile+"y0:"+topMostTile+"x1:"+rightMostTile+"y1:"+bottomMostTile+"doors:"+doorCount), rightMostTile*TILE_SIZE,topMostTile*TILE_SIZE);
         g.drawString(("x0:"+leftMostTile+"y0:"+topMostTile+"x1:"+rightMostTile+"y1:"+bottomMostTile+"doors:"+doorCount), leftMostTile*TILE_SIZE,bottomMostTile *TILE_SIZE);
+        g.drawString(("x0:"+leftMostTile+"y0:"+topMostTile+"x1:"+rightMostTile+"y1:"+bottomMostTile+"doors:"+doorCount), rightMostTile*TILE_SIZE,bottomMostTile *TILE_SIZE);
 
     }
 
