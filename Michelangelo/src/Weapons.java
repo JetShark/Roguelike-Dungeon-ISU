@@ -231,12 +231,14 @@ public class Weapons {
                 hitboxXT = imagePosition.x + 14 + 32;
                 hitboxY = imagePosition.y;
                 hitboxYT = imagePosition.y + 13 + 20 + 32;
+                g2d.fillRect(hitboxX, hitboxY, 46, 65);
             }
             if(direction == -1) {
                 hitboxX = imagePosition.x - 37;
                 hitboxXT = imagePosition.x - 5;
                 hitboxY = imagePosition.y;
                 hitboxYT = imagePosition.y + 45;
+                g2d.fillRect(hitboxX, hitboxY, 37, 45);
             }
             modifier = 0;
             damage = 2 + modifier;
