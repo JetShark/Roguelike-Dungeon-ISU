@@ -27,55 +27,25 @@ public class WorldDrops {
 
     public WorldDrops(Cowabunga cb){
         this.cb = cb;
-        r = cb.getMapLevel().getPlayerRoom(cb.getP());
         wdsp = new WorldDropSpawnPoints();
-        /*try {
-            BufferedReader csvReader = new BufferedReader(new FileReader(mapPath));
-            try {
-                String row;
-
-                while ((row = csvReader.readLine()) != null) {
-                    String[] data = row.split(",");
-                    height++;
-                    if (data.length > width) {
-                        width = data.length;
-                    }
-                }
-                csvReader.close();
-                level = new int[width][height];
-                csvReader = new BufferedReader(new FileReader(mapPath));
-                int y = 0;
-                while ((row = csvReader.readLine()) != null) {
-                    String[] data = row.split(",");
-                    for (int x = 0; x < data.length; x++){
-                        level[x][y]= Integer.parseInt(data[x]);
-                    }
-                    y++;
-                }
-                //System.out.println("Map Width & Height = " + width + ", " + height);
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println(e.toString());
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            System.out.println(e.toString());
-        }
-        int xp;
-        int yp;*/
+        //itemDrop((int) (3 * Math.random() - 0));
+    }
+    public void setSpawn(){
         for(int i = 0; i < wdsp.getWidth(); i++){
             for(int j = 0; j < wdsp.getHeight(); j++){
                 if(wdsp.getLevel(i,j) == 7) {
-                    if (r.isTileInRoom(i, j)) {
-                        x = wdsp.getX(i);
-                        y = wdsp.getY(j);
+                    //System.out.println("level, i , j: " + wdsp.getLevel(i,j) + ", " + i +  ", " + j);
+                    //System.out.println("isinroom: " + cb.getMapLevel().getPlayerRoom(cb.getP()).isTileInRoom(i,j));
+                    if (cb.getMapLevel().getPlayerRoom(cb.getP()).isTileInRoom(i, j)) {
+                        x = i * tileHeight * 4;
+                        y = j * tileHeight * 4;
+                        //System.out.println("x,y: " + x + ", " + y);
                     }
                 }
             }
         }
-        itemDrop((int) (3 * Math.random() - 0));
     }
-    private void itemDrop(int ranNum){
+    public void setItemDrop(int ranNum){
         if(ranNum == 0){
             img = SpriteRetrival.getSprite(0,0,6);
         }
@@ -110,6 +80,7 @@ public class WorldDrops {
         //goldTotal = goldTotal + gold;
     }
     public void paint(Graphics2D g2d){
+        r = cb.getMapLevel().getPlayerRoom(cb.getP());
         gold();
         //System.out.println("x,y: " + x + ", " + y);
         g2d.drawImage(img, x, y, null);

@@ -56,7 +56,7 @@ public class WorldDropSpawnPoints {
                     yt[spawnPointCount] = j * tileHeight * 4;
                     spawnPointCount += 1;
                 }
-            }
+            } //!!iwantdie!!
         }
     }
 
