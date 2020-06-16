@@ -17,6 +17,7 @@ public class Cowabunga extends JPanel{
     private Collision collision;
     private PlayerCursor pc = new PlayerCursor();
     private UserInterface ui;
+    private int enemiesInRoom = 0;
     //private WeaponProjectile wp = new WeaponProjectile(p);
 
     //@Override
@@ -154,14 +155,28 @@ public class Cowabunga extends JPanel{
     public Weapons getWeapons(){
         return w;
     }
+
+    public int getEnemiesInRoom() {
+        return enemiesInRoom;
+    }
     private void move() throws InterruptedException {
         // FIXME: 2020-05-05 need to have the player move function
         if(!ui.getEsc()){
             if(p.getAlive()) {
+                Room playerRoom = getMapLevel().getPlayerRoom(p);
+                enemiesInRoom = 0;
                 for (Enemies et : et) {
                     et.move();
                     et.collision(et);
+                    if (et!=null && playerRoom!=null && et.isAlive() && playerRoom.isPlayerInRoom(et.getHitboxX(), et.getHitboxY())) {
+                        enemiesInRoom++;
+                    }
                 }
+                getMapLevel().closeAllDoors();
+                if (enemiesInRoom == 0) {
+                    if(playerRoom != null) playerRoom.openDoors(getMapLevel());
+                }
+
                 w.move();
                 //w.collision();
                 p.move();
@@ -182,6 +197,13 @@ public class Cowabunga extends JPanel{
         if(ui.getNewGame() && !ui.getEsc()){
             g.translate(-p.getCamX(), -p.getCamY());
             level1.paint(g2d);
+
+            Room playerRoom = getMapLevel().getPlayerRoom(p);
+            int i = (int) Math.random()*7;
+            g.setColor(new Color(255*((i/4)&1),255*(((i>>1)&1)),255*(i&1),128));
+            if (playerRoom != null) {
+                playerRoom.paint(g2d);
+            }
             for(Enemies et:et){
                 et.paint(g2d);
             }
