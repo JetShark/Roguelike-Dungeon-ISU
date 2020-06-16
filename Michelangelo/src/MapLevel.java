@@ -215,16 +215,16 @@ public class MapLevel {
             if (level[2].getLevel(x, y0-1) != -1) {
               room.addDoor(x, y0-1, level[2].getLevel(x, y0-1));
             }
-            if (level[2].getLevel(x, y1-0) != -1) {
-              room.addDoor(x, y1, level[2].getLevel(x, y1-0));
+            if (level[2].getLevel(x, y1+1) != -1) {
+              room.addDoor(x, y1+1, level[2].getLevel(x, y1+1));
             }
         }
         for (y=y0; y<=y1; y++) {
             if (level[2].getLevel(x0-1, y) != -1) {
               room.addDoor(x0-1, y, level[2].getLevel(x0-1, y));
             }
-            if (level[2].getLevel(x1+0, y) != -1) {
-              room.addDoor(x1, y, level[2].getLevel(x1+0, y));
+            if (level[2].getLevel(x1+1, y) != -1) {
+              room.addDoor(x1+1, y, level[2].getLevel(x1+1, y));
             }
         }
     }
