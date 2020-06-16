@@ -199,10 +199,12 @@ public class MapLevel {
         } else {
             x1--;
             y1--;
+            //x1++;
+            //y1++;
         }
         Room room = new Room(x0, y0, x1, y1);
         roomList.push(room);
-        addDoorsToRoom(room, x0, y0, x1, y1);
+        //addDoorsToRoom(room, x0, y0, x1, y1);
     }
 
     private void addDoorsToRoom(Room room, int x0, int y0, int x1, int y1) {
@@ -233,6 +235,9 @@ public class MapLevel {
             x = x+deltaX;
             y = y+deltaY;
             distance++;
+            if (x<0 || y<0 || x>= level[1].getWidth() || y>= level[1].getHeight()) {
+                break;
+            }
         } while (level[1].getLevel(x, y) == -1);
         return distance;
     }
