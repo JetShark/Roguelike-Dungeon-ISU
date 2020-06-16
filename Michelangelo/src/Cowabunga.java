@@ -46,7 +46,7 @@ public class Cowabunga extends JPanel{
             //collision.setClasses(p,et[q],w);
         }
         for (int t = 0; t < si.length; t++) {
-            si[t] = new ShopItems(sis.getX(t), sis.getY(t), sis.getInstanceName(t), p);
+            si[t] = new ShopItems(sis.getX(t), sis.getY(t), sis.getInstanceName(t), p, this);
         }
         hud = new HeadsUp(this, p);
         w = new Weapons(p);
@@ -159,6 +159,13 @@ public class Cowabunga extends JPanel{
     }
     public Weapons getWeapons(){
         return w;
+    }
+    public ShopItemsSpawn getSis(){
+        return sis;
+    }
+
+    public ToolTip getTt() {
+        return tt;
     }
 
     public int getEnemiesInRoom() {

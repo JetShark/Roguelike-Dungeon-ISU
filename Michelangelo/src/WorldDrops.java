@@ -90,7 +90,7 @@ public class WorldDrops {
 
     }
     public void paint(Graphics2D g2d){
-        System.out.println("x,y: " + x + ", " + y);
+        //System.out.println("x,y: " + x + ", " + y);
         g2d.drawImage(img, x, y, null);
     }
     public void move(){

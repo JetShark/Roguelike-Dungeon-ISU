@@ -26,17 +26,22 @@ public class ShopItems {
     private int x,y;
     private String itemType;
     private Player p;
+    private ToolTip tt;
+    private ShopItemsSpawn sis;
     private int spawnPointCount = 0;
     private static final int tileWidth = 16;
     private static final int tileHeight = 16;
     private BufferedImage img;
     private int[][] level;
+    private int hitboxX, hitboxY, hitboxXT, hitboxYT;
 
 //Constructor
-    public ShopItems(int xInput, int yInput, String instanceName, Player pInput){
+    public ShopItems(int xInput, int yInput, String instanceName, Player pInput, Cowabunga cb){
         x = xInput;
         y = yInput;
         p = pInput;
+        this.cb = cb;
+        sis = cb.getSis();
         itemType = instanceName;
         System.out.println("itemType: " + itemType);
         if (itemType.equals("heartsSpawn")) {
@@ -61,6 +66,38 @@ public class ShopItems {
 //Mutators
 
 //Methods
+    public void currentItem(){
+        tt = cb.getTt();
+        hitboxX = x - 20;
+        hitboxY = y - 10;
+        hitboxXT = x + 84;
+        hitboxYT = y + 74;
+        boolean x_overlaps;
+        boolean y_overlaps;
+        x_overlaps = (p.getHitboxX() < hitboxXT) && (p.getHitboxXT() > hitboxX);
+        y_overlaps = (p.getHitboxY() < hitboxYT) && (p.getHitboxYT() > hitboxY);
+        boolean collision = x_overlaps && y_overlaps;
+        if(collision){
+            //System.out.println("collison" + collision);
+            tt.setX(x);
+            tt.setY(y);
+            if (itemType.equals("heartsSpawn")) {
+                tt.setItem(true, "heart");
+            }
+            if (itemType.equals("keysSpawn")) {
+                tt.setItem(true, "key");
+            }
+            if (itemType.equals("bombsSpawn")) {
+                tt.setItem(true, "bomb");
+            }
+            if(itemType.equals("gearSpawn")){
+                tt.setItem(false, "false");
+            }
+            if(itemType.equals("weaponSpawn")){
+                tt.setItem(false, "false");
+            }
+        }
+    }
     public void paint(Graphics2D g2d){
 
         //Animation.start();
@@ -83,5 +120,6 @@ public class ShopItems {
         int sX=(int)(x + (width/2));
         int sY=(int)(y + (height/3));
         g2d.drawImage(img, sX, sY, width, height, null);
+        currentItem();
     }
 }
