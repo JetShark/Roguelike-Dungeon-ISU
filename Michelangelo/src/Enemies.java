@@ -84,7 +84,6 @@ public class Enemies {
         this.x = x;
         this.y = y;
         this.w = new Weapons(p);
-        wd = new WorldDrops(cb);
         canMove = false;
         if (enemyNumber == 0) {
             enemyDamage = 1;

@@ -1,17 +1,9 @@
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class WorldDrops {
-    private int x,y;
-    private int xp = 0,yp = 0;
-    private Cowabunga cb;
-    private BufferedImage img;
-    private WorldDropSpawnPoints wdsp;
-
+public class WorldDropSpawnPoints {
     private int width = 0;
     private int height = 0;
     private int tilesAcross = 0;
@@ -20,13 +12,12 @@ public class WorldDrops {
     private static final int tileHeight = 16;
     private static final String mapPath = "Map System/Level 1 Var 1_Entity.csv";
     private int[][] level;
-    private Room r;
+    private int[] xt = new int[100];
+    private int[] yt = new int[100];
+    private int spawnPointCount = 0;
 
-    public WorldDrops(Cowabunga cb){
-        this.cb = cb;
-        r = cb.getMapLevel().getPlayerRoom(cb.getP());
-        wdsp = new WorldDropSpawnPoints();
-        /*try {
+    public WorldDropSpawnPoints(){
+        try {
             BufferedReader csvReader = new BufferedReader(new FileReader(mapPath));
             try {
                 String row;
@@ -58,42 +49,22 @@ public class WorldDrops {
             e.printStackTrace();
             System.out.println(e.toString());
         }
-        int xp;
-        int yp;*/
-        for(int i = 0; i < wdsp.getWidth(); i++){
-            for(int j = 0; j < wdsp.getHeight(); j++){
-                if(wdsp.getLevel(i,j) == 7) {
-                    if (r.isTileInRoom(i, j)) {
-                        x = wdsp.getX(i);
-                        y = wdsp.getY(j);
-                    }
+        for(int i = 0; i < width; i++){
+            for(int j = 0; j < height; j++){
+                if(level[i][j] == 7){
+                    xt[spawnPointCount] = i * tileWidth * 4;
+                    yt[spawnPointCount] = j * tileHeight * 4;
+                    spawnPointCount += 1;
                 }
             }
         }
-        itemDrop((int) (3 * Math.random() - 0));
     }
-    private void itemDrop(int ranNum){
-        if(ranNum == 0){
-            img = SpriteRetrival.getSprite(0,0,6);
-        }
-        if(ranNum == 1){
-            img = SpriteRetrival.getSprite(0,6,6);
-        }
-        if(ranNum == 2){
-            img = SpriteRetrival.getSprite(1,6,6);
-        }
-    }
-    private void weaponDrop(){
 
+    public int getX(int i) { return xt[i]; }
+    public int getY(int i){
+        return yt[i];
     }
-    private void equipmentDrop(){
-
-    }
-    public void paint(Graphics2D g2d){
-        System.out.println("x,y: " + x + ", " + y);
-        g2d.drawImage(img, x, y, null);
-    }
-    public void move(){
-
-    }
+    public int getWidth(){return width;}
+    public int getHeight(){return height;}
+    public int getLevel(int i, int j){return level[i][j];}
 }

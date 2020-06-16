@@ -19,6 +19,7 @@ public class Cowabunga extends JPanel{
     private PlayerCursor pc = new PlayerCursor();
     private UserInterface ui;
     private WorldDrops wd;
+    private Room playerRoom;
     private int enemiesInRoom = 0;
     //private WeaponProjectile wp = new WeaponProjectile(p);
 
@@ -167,7 +168,7 @@ public class Cowabunga extends JPanel{
         // FIXME: 2020-05-05 need to have the player move function
         if(!ui.getEsc()){
             if(p.getAlive()) {
-                Room playerRoom = getMapLevel().getPlayerRoom(p);
+                playerRoom = getMapLevel().getPlayerRoom(p);
                 enemiesInRoom = 0;
                 for (Enemies et : et) {
                     et.move();
@@ -198,7 +199,12 @@ public class Cowabunga extends JPanel{
             //wp.move();
         }
     }
-
+    public Room getPlayerRoom(){
+        return playerRoom;
+    }
+    public Player getP(){
+        return p;
+    }
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
