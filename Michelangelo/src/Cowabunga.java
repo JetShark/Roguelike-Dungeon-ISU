@@ -7,6 +7,7 @@ public class Cowabunga extends JPanel{
     private ShopItems[] si = new ShopItems[5];
     private Player p;
     private Audio a;
+    private Bosses boss;
     private EnemySpawnPoints eps;
     private ShopItemsSpawn sis;
     private Bone b = new Bone();
@@ -48,6 +49,7 @@ public class Cowabunga extends JPanel{
         w = new Weapons(p);
         tt = new ToolTip();
         collision = new Collision(p, w, this);
+        boss = new Bosses(this);
 
         //w = new Weapons(p.getX(), p.getY());
         //collision = new Collision("Map System/Level 1 Var 1_Wall.csv");
@@ -161,10 +163,12 @@ public class Cowabunga extends JPanel{
                 for (Enemies et : et) {
                     et.move();
                     et.collision(et);
+                    et.inRange();
                 }
                 w.move();
                 //w.collision();
                 p.move();
+                boss.move();
                 //collision.playerCollision();
             }
             pc.move();
@@ -193,6 +197,7 @@ public class Cowabunga extends JPanel{
             w.paint(g2d);
             tt.paint(g2d);
             hud.paint(g2d);
+            boss.paint(g2d);
             //wp.paint(g2d);
         }
         ui.paint(g2d);

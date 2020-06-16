@@ -69,8 +69,6 @@ public class Collection {
             g2d.setColor(Color.BLACK);
             g2d.setFont(customFont);
             g2d.drawString(lc.getName(), x + 701 - (strWidth / 2), y + 74);
-
-
         }
 
     }

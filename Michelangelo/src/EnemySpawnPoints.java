@@ -3,6 +3,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.logging.Level;
 
 public class EnemySpawnPoints {
     private Cowabunga cb;
@@ -71,6 +72,15 @@ public class EnemySpawnPoints {
     }
     public int getY(int i){
         return yt[i];
+    }
+    public int getLevel(int i, int j){
+        return level[i][j];
+    }
+    public int getWidth(){
+        return width;
+    }
+    public int getHeight(){
+        return height;
     }
 }
 
