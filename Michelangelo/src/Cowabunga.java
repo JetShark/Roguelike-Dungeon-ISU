@@ -160,6 +160,9 @@ public class Cowabunga extends JPanel{
     public Weapons getWeapons(){
         return w;
     }
+    public WorldDrops getWd(){
+        return wd;
+    }
     public ShopItemsSpawn getSis(){
         return sis;
     }

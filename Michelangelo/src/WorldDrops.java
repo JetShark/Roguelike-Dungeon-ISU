@@ -11,6 +11,9 @@ public class WorldDrops {
     private Cowabunga cb;
     private BufferedImage img;
     private WorldDropSpawnPoints wdsp;
+    private int gold;
+    private int goldTotal;
+    private boolean goldAdded = false;
 
     private int width = 0;
     private int height = 0;
@@ -89,7 +92,25 @@ public class WorldDrops {
     private void equipmentDrop(){
 
     }
+
+    public String getGoldTotal(){
+        return Integer.toString(goldTotal);
+    }
+    public void setGold(int gold){
+        this.gold = gold;
+        if(!goldAdded){
+            goldAdded = true;
+        }
+    }
+    public void gold(){
+        goldTotal = goldTotal + gold;
+        if(goldAdded) {
+            gold = 0;
+        }
+        //goldTotal = goldTotal + gold;
+    }
     public void paint(Graphics2D g2d){
+        gold();
         //System.out.println("x,y: " + x + ", " + y);
         g2d.drawImage(img, x, y, null);
     }

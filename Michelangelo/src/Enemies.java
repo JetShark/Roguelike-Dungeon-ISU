@@ -17,6 +17,7 @@ public class Enemies {
     private Weapons w;
     private Cowabunga cb;
     private WorldDrops wd;
+    private int gold;
 
     private int enemyNumber;
 
@@ -34,6 +35,7 @@ public class Enemies {
     private int secondMovment;
     private int firstMovment = 0;
     private int ranNum;
+    private boolean goldAdded;
 
     private BufferedImage[] ratrunning = {SpriteRetrival.getSprite(0, 0, 3), SpriteRetrival.getSprite(3,0,3), SpriteRetrival.getSprite(0,1, 3), SpriteRetrival.getSprite(3,1,3), SpriteRetrival.getSprite(0,2,3), SpriteRetrival.getSprite(1,2,3)};
     private Animation ratRunning = new Animation(ratrunning, 10);
@@ -85,37 +87,130 @@ public class Enemies {
         this.y = y;
         this.w = new Weapons(p);
         canMove = false;
+        goldAdded = false;
         if (enemyNumber == 0) {
             enemyDamage = 1;
             health = 4;
+            int ranGold = (int) (6 * Math.random() - 1);
+            if(ranGold == 1){
+                gold = 0;
+            }
+            if(ranGold == 2 || ranGold == 3){
+                gold = 1;
+            }
+            if(ranGold == 4 || ranGold == 5){
+                gold = 2;
+            }
+            if(ranGold == 6){
+                gold = 3;
+            }
         }
         if (enemyNumber == 1) {
             health = 8;
             enemyDamage = 2;
+            int ranGold = (int) (6 * Math.random() - 1);
+            if(ranGold == 1){
+                gold = 0;
+            }
+            if(ranGold == 2 || ranGold == 3){
+                gold = 1;
+            }
+            if(ranGold == 4 || ranGold == 5){
+                gold = 2;
+            }
+            if(ranGold == 6){
+                gold = 3;
+            }
         }
         if (enemyNumber == 2) {
             health = 10;
             enemyDamage = 2;
+            int ranGold = (int) (6 * Math.random() - 1);
+            if(ranGold == 1){
+                gold = 0;
+            }
+            if(ranGold == 2 || ranGold == 3){
+                gold = 1;
+            }
+            if(ranGold == 4 || ranGold == 5){
+                gold = 2;
+            }
+            if(ranGold == 6){
+                gold = 3;
+            }
         }
         if (enemyNumber == 3) {
             health = 12;
             enemyDamage = 4;
+            int ranGold = (int) (6 * Math.random() - 1);
+            if(ranGold == 1){
+                gold = 0;
+            }
+            if(ranGold == 2 || ranGold == 3){
+                gold = 1;
+            }
+            if(ranGold == 4 || ranGold == 5){
+                gold = 2;
+            }
+            if(ranGold == 6){
+                gold = 3;
+            }
         }
         if (enemyNumber == 4) {
             health = 12;
             enemyDamage = 2;
+            int ranGold = (int) (6 * Math.random() - 1);
+            if(ranGold == 1){
+                gold = 0;
+            }
+            if(ranGold == 2 || ranGold == 3){
+                gold = 1;
+            }
+            if(ranGold == 4 || ranGold == 5){
+                gold = 2;
+            }
+            if(ranGold == 6){
+                gold = 3;
+            }
         }
         if (enemyNumber == 5) {
             health = 12;
             enemyDamage = 4;
+            int ranGold = (int) (6 * Math.random() - 1);
+            if(ranGold == 1){
+                gold = 0;
+            }
+            if(ranGold == 2 || ranGold == 3){
+                gold = 1;
+            }
+            if(ranGold == 4 || ranGold == 5){
+                gold = 2;
+            }
+            if(ranGold == 6){
+                gold = 3;
+            }
         }
         if (enemyNumber == 6){
             health = 12;
             enemyDamage = 2;
+            int ranGold = (int) (6 * Math.random() - 1);
+            if(ranGold == 1){
+                gold = 0;
+            }
+            if(ranGold == 2 || ranGold == 3){
+                gold = 1;
+            }
+            if(ranGold == 4 || ranGold == 5){
+                gold = 2;
+            }
+            if(ranGold == 6){
+                gold = 3;
+            }
         }
     }
 
     public void move(){
+        wd = cb.getWd();
         animation.start();
         animation.update();
         xt = x;
@@ -381,6 +476,11 @@ public class Enemies {
         }
         if(health == 0){
             alive = false;
+            if(!goldAdded) {
+                System.out.println("gold: " + gold);
+                wd.setGold(gold);
+                goldAdded = true;
+            }
         }
     }
     public int getHitboxX() {

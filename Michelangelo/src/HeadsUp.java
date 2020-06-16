@@ -6,6 +6,7 @@ public class HeadsUp {
     private Cowabunga cb;
     private Player p;
     private Weapons w;
+    private WorldDrops wd;
     private int numOfHearts;
 
     private BufferedImage[] fullHeart = {SpriteRetrival.getSprite(0,0,6)};
@@ -96,7 +97,7 @@ public class HeadsUp {
         kGBAnimation = idleGold;
         kGBAnimation.start();
         g2d.drawImage(kGBAnimation.getSprite(), x + 85, y + 63, null);
-        g2d.drawString("1", x + 120, y + 88);
+        g2d.drawString(cb.getWd().getGoldTotal() + "$", x + 120, y + 88);
 
         kGBAnimation = idleBombs;
         kGBAnimation.start();
