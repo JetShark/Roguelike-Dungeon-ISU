@@ -20,6 +20,7 @@ public class Cowabunga extends JPanel{
     private UserInterface ui;
     private WorldDrops wd;
     private Room playerRoom;
+    private Equipment equip;
     private int enemiesInRoom = 0;
     //private WeaponProjectile wp = new WeaponProjectile(p);
 
@@ -54,6 +55,8 @@ public class Cowabunga extends JPanel{
         collision = new Collision(p, w, this);
         boss = new Bosses(this);
         wd = new WorldDrops(this);
+        equip = new Equipment(this);
+        equip.setEquipment(13);
 
         //w = new Weapons(p.getX(), p.getY());
         //collision = new Collision("Map System/Level 1 Var 1_Wall.csv");
@@ -246,6 +249,7 @@ public class Cowabunga extends JPanel{
             tt.paint(g2d);
             hud.paint(g2d);
             boss.paint(g2d);
+            equip.paint(g2d);
             //wp.paint(g2d);
         }
         ui.paint(g2d);

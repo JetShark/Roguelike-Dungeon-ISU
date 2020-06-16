@@ -28,6 +28,9 @@ public class Bosses {
     public void move(){
 
     }
+    public void necromancerMovement(){
+
+    }
     public void paint(Graphics2D g2d){
         bossAnimation = necroIdle;
         bossAnimation.start();
