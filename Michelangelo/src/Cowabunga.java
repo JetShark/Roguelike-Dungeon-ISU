@@ -179,8 +179,10 @@ public class Cowabunga extends JPanel{
                     getMapLevel().closeAllDoors();
                 }
                 if (enemiesInRoom == 0) {
-                    if(playerRoom != null) playerRoom.openDoors(getMapLevel());
-                    playerRoom.setFirstCleared();
+                    if(playerRoom != null) {
+                        playerRoom.openDoors(getMapLevel());
+                        playerRoom.setFirstCleared();
+                    }
                 }
 
                 w.move();
