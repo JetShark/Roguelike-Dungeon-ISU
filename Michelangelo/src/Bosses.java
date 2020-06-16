@@ -8,6 +8,9 @@ public class Bosses {
 
     private BufferedImage[] neromancerIdle = {SpriteRetrival.getSprite(0,0, 7), SpriteRetrival.getSprite(3,0,7), SpriteRetrival.getSprite(0,1,7), SpriteRetrival.getSprite(3,1,7)};
     private Animation necroIdle = new Animation(neromancerIdle, 50);
+    private BufferedImage[] neromancerWalk = {SpriteRetrival.getSprite(0,2, 7), SpriteRetrival.getSprite(3,2,7), SpriteRetrival.getSprite(0,3,7), SpriteRetrival.getSprite(3,3,7)};
+    private Animation necroWalking = new Animation(neromancerWalk, 50);
+
 
     private Animation bossAnimation = necroIdle;
     public Bosses(Cowabunga cb){
