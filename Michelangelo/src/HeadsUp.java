@@ -107,6 +107,8 @@ public class HeadsUp {
 
         g2d.drawString("y" + (p.getY()/64), x + 320, y + 89);
 
+        g2d.drawString("e" + (cb.getEnemiesInRoom()), x + 380, y + 89);
+
         animationHearts.update();
         kGBAnimation.update();
     }
