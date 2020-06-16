@@ -84,7 +84,7 @@ public class Enemies {
         this.x = x;
         this.y = y;
         this.w = new Weapons(p);
-        wd = new WorldDrops(this.x , this.y, cb);
+        wd = new WorldDrops(cb);
         canMove = false;
         if (enemyNumber == 0) {
             enemyDamage = 1;
@@ -358,9 +358,6 @@ public class Enemies {
                 y = (int) yd;
                 g2d.drawImage(animation.getSprite(), x, y, animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2, null);
             }
-        }
-        if(!alive){
-            wd.paint(g2d);
         }
     }
     public void damage(int damage){
