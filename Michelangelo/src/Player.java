@@ -509,7 +509,6 @@ public class Player {
     public int passY(){
         return (int) passY;
     }
-
     public void setProjetile(boolean projetile){
         this.projetile = projetile;
     }

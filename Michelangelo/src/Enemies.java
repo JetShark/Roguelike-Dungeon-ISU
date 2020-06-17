@@ -481,8 +481,10 @@ public class Enemies {
             if(!goldAdded) {
                 System.out.println("gold: " + gold);
                 wd.setGold(gold);
-                wd.setSpawn();
-                wd.setItemDrop((int) (3 * Math.random() - 0));
+                if(cb.getEnemiesInRoom() == 0) {
+                    wd.setSpawn();
+                    wd.setItemDrop(/*(int) (4 * Math.random() - 0)*/);
+                }
                 goldAdded = true;
             }
         }

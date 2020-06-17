@@ -92,7 +92,7 @@ public class HeadsUp {
         Font currentFont = g2d.getFont();
         Font newFont = currentFont.deriveFont(currentFont.getSize() * 2f);
         g2d.setFont(newFont);
-        g2d.drawString("0", x + 30, y + 89);
+        g2d.drawString(cb.getWd().getKeyTotal(), x + 30, y + 89);
 
         kGBAnimation = idleGold;
         kGBAnimation.start();
@@ -102,7 +102,7 @@ public class HeadsUp {
         kGBAnimation = idleBombs;
         kGBAnimation.start();
         g2d.drawImage(kGBAnimation.getSprite(), x + 165, y + 63, null);
-        g2d.drawString("55", x + 200, y + 89);
+        g2d.drawString(cb.getWd().getBombTotal(), x + 200, y + 89);
 
         g2d.drawString("x" + (int)(p.getX()/64), x + 260, y + 89);
 

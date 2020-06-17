@@ -56,7 +56,7 @@ public class Cowabunga extends JPanel{
         boss = new Bosses(this);
         wd = new WorldDrops(this);
         equip = new Equipment(this);
-        equip.setEquipment(13);
+        equip.setEquipment(2);
 
         //w = new Weapons(p.getX(), p.getY());
         //collision = new Collision("Map System/Level 1 Var 1_Wall.csv");
@@ -137,6 +137,7 @@ public class Cowabunga extends JPanel{
                 p.keyReleased(e);
                 ui.keyReleased(e);
                 c.keyReleased(e);
+                equip.keyReleased(e);
             }
 
             @Override
@@ -146,6 +147,7 @@ public class Cowabunga extends JPanel{
                 p.keyPressed(e);
                 ui.keyPressed(e);
                 c.keyPressed(e);
+                equip.keyPressed(e);
             }
         }); //NOTE THE SEMI-COLON!!!!
 
@@ -172,6 +174,9 @@ public class Cowabunga extends JPanel{
 
     public ToolTip getTt() {
         return tt;
+    }
+    public Equipment getEquipment(){
+        return equip;
     }
 
     public int getEnemiesInRoom() {
@@ -205,6 +210,7 @@ public class Cowabunga extends JPanel{
                 //w.collision();
                 p.move();
                 boss.move();
+                equip.move();
                 //collision.playerCollision();
             }
             pc.move();

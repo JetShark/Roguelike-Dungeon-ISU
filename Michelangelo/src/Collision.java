@@ -7,6 +7,7 @@ public class Collision {
     private Player p;
     private Enemies e;
     private Weapons w;
+    private WorldDrops wd;
 
     private int hitboxX, hitboxY, hitboxXT, hitboxYT;
     private int enemyDamage;
@@ -17,6 +18,7 @@ public class Collision {
         this.p = p;
         this.cb = cb;
         this.w = w;
+
     }
     /*public void setClasses(Player p, Enemies e, Weapons w){
         this.p = p;
@@ -69,6 +71,20 @@ public class Collision {
         this.hitboxY = hitboxY;
         this.hitboxXT = hitboxXT;
         this.hitboxYT = hitboxYT;
+    }
+    public boolean worldDropCollision(){
+        wd = cb.getWd();
+        boolean x_overlaps;
+        boolean y_overlaps;
+        x_overlaps = (p.getHitboxX() < wd.getX() + (16 * 4)) && (p.getHitboxXT() > wd.getX());
+        y_overlaps = (p.getHitboxY() < wd.getY() + (16 * 4)) && (p.getHitboxYT() > wd.getY());
+        boolean collision = x_overlaps && y_overlaps;
+        if(collision){
+            //System.out.println("x,y: " + wd.getX() + ", " + wd.getY());
+            return true;
+        } else {
+            return false;
+        }
     }
     public void setEnemyDamage(int enemyDamage){
         this.enemyDamage = enemyDamage;
