@@ -35,7 +35,7 @@ public class Room {
     }
 
     public boolean isPlayerInRoom(int x, int y) {
-        if (x < leftMostTile*TILE_SIZE || x > rightMostTile*TILE_SIZE || y < topMostTile*TILE_SIZE || y  > bottomMostTile*TILE_SIZE) {
+        if (x < leftMostTile*TILE_SIZE || x >= (rightMostTile+1)*TILE_SIZE-16 || y < topMostTile*TILE_SIZE || y  >= (bottomMostTile+1)*TILE_SIZE-32) {
             return false;
         }
         return true;
@@ -43,6 +43,13 @@ public class Room {
 
     public boolean getFirstCleared() {
         return firstCleared;
+    }
+    public int getMidHorizontalTile() {
+        return (int)((rightMostTile-leftMostTile)/2);
+    }
+
+    public int getMidVerticalTile() {
+        return (int)((bottomMostTile-topMostTile)/2);
     }
 
 //Mutators
