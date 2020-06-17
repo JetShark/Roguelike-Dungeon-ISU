@@ -45,11 +45,11 @@ public class Room {
         return firstCleared;
     }
     public int getMidHorizontalTile() {
-        return (int)((rightMostTile-leftMostTile)/2);
+        return (int)(((rightMostTile+leftMostTile)/2)*1);
     }
 
     public int getMidVerticalTile() {
-        return (int)((bottomMostTile-topMostTile)/2);
+        return (int)(((bottomMostTile+topMostTile)/2)*1);
     }
 
 //Mutators
