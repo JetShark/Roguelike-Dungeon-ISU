@@ -19,6 +19,7 @@ public class Player {
     private PlayerCursor pc;
     private Cowabunga cb;
     private MapLevel ml;
+    private Bomb b;
 
     private boolean dodgeRoll = false;
     private int xRollDistance = 0;
@@ -235,6 +236,9 @@ public class Player {
             dodgeRoll();
             dodgeRoll = true;
         }
+        if(e.getKeyCode() == KeyEvent.VK_F){
+            b.placeBomb();
+        }
     }
     public void mouseDragged(MouseEvent e){
 
@@ -248,6 +252,7 @@ public class Player {
     public void mouseReleased(MouseEvent e){};
     public void move(){
         playerHealth();
+        b = cb.getBomb();
         if(alive) {
             int xt = x, yt = y;
             if (right && !dodgeRoll) {

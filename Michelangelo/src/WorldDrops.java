@@ -148,7 +148,9 @@ public class WorldDrops {
             }
         }
     }
-
+    public int getBombsTotal(){
+        return bombsTotal;
+    }
     public String getBombTotal(){
         return Integer.toString(bombsTotal);
     }
@@ -157,6 +159,9 @@ public class WorldDrops {
         if(!bombsAdded){
             bombsAdded = true;
         }
+    }
+    public void minusBombs(int minus){
+        bombsTotal = bombsTotal - minus;
     }
     public void bombs(){
         //System.out.println("wdc: " + cb.getCollision().worldDropCollision());

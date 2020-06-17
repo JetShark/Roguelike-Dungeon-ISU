@@ -335,12 +335,10 @@ public class Enemies {
                 hitboxYT = y + animation.getSprite().getHeight() - 5;
                 xa = (px - xd);
                 ya = (py - yd);
-                speedX = 2;
-                speedY = 2;
                 magnitude = Math.sqrt(xa * xa + ya * ya);
                 if(magnitude > 0){
-                    xa = xa / magnitude * 1.25;
-                    ya = ya / magnitude * 1.25;
+                    xa = xa / magnitude * 2;
+                    ya = ya / magnitude * 2;
                 }
             }
             if (enemyNumber == 5) {
@@ -354,12 +352,10 @@ public class Enemies {
                 hitboxYT = y + animation.getSprite().getHeight() - 5;
                 xa = (px - xd);
                 ya = (py - yd);
-                speedX = 2;
-                speedY = 2;
                 magnitude = Math.sqrt(xa * xa + ya * ya);
                 if(magnitude > 0){
-                    xa = xa / magnitude * speedX;
-                    ya = ya / magnitude * speedY;
+                    xa = xa / magnitude * 2;
+                    ya = ya / magnitude * 2;
                 }
             }
             if (enemyNumber == 6){
@@ -373,12 +369,10 @@ public class Enemies {
                 hitboxYT = y + animation.getSprite().getHeight() - 5;
                 xa = (px - xd);
                 ya = (py - yd);
-                speedX = 2;
-                speedY = 2;
                 magnitude = Math.sqrt(xa * xa + ya * ya);
                 if(magnitude > 0){
-                    xa = xa / magnitude * speedX;
-                    ya = ya / magnitude * speedY;
+                    xa = xa / magnitude * 2;
+                    ya = ya / magnitude * 2;
                 }
             }
             if (enemyNumber == 7) {
@@ -389,42 +383,44 @@ public class Enemies {
             }
         }
         if(canMove) {
-            if (speedX != 0 || speedY != 0 && enemyNumber != 3 || enemyNumber != 4) {
-                xt += speedX;
-                yt += speedY;
-                if (cb.getMapLevel().checkCollision(xt, y)) {
-                    speedX = 0;
-                } else {
-                    x += speedX;
-                }
-                if (cb.getMapLevel().checkCollision(x, yt)) {
-                    speedY = 0;
-                } else {
-                    y += speedY;
+            if (speedX != 0 || speedY != 0){
+                if(enemyNumber != 3 && enemyNumber != 4 && enemyNumber != 5 && enemyNumber != 6) {
+                    xt += speedX;
+                    yt += speedY;
+                    if (cb.getMapLevel().checkCollision(xt, y)) {
+                        speedX = 0;
+                    } else {
+                        x += speedX;
+                    }
+                    if (cb.getMapLevel().checkCollision(x, yt)) {
+                        speedY = 0;
+                    } else {
+                        y += speedY;
+                    }
                 }
             }
-            if (enemyNumber == 3 || enemyNumber == 5 || enemyNumber == 6 || enemyNumber == 4) {
+            if (enemyNumber == 3 || enemyNumber == 4 || enemyNumber == 5 || enemyNumber == 6) {
                 xt += (int) xa;
                 yt += (int) ya;
                 if (cb.getMapLevel().checkCollision(xt, (int) yd)) {
-                    xa += 0;
+                    xa = 0;
                 } else {
                     if(enemyNumber != 4) {
                         xd = xd + xa;
                     }
                     if(enemyNumber == 4){
-                        xd = xd - xa;
+                       xd = xd - xa;
                     }
                 }
                 if (cb.getMapLevel().checkCollision((int) xd, yt)) {
-                    ya += 0;
+                    ya = 0;
                 } else {
                     if(enemyNumber != 4) {
                         yd = yd + ya;
                     }
                     if(enemyNumber == 4){
-                       yd = yd - ya;
-                    }
+                        yd = yd - ya;
+                   }
                 }
             }
         }
@@ -461,14 +457,16 @@ public class Enemies {
         boolean in_Range = x_Overlaps && y_overlaps;
         if(in_Range){
             canMove = true;
+        } else {
+            canMove = false;
         }
     }
     public void paint(Graphics2D g2d){
         if(alive) {
-            if(enemyNumber != 3 || enemyNumber != 5 || enemyNumber != 6) {
+            if(enemyNumber != 3 && enemyNumber != 5 && enemyNumber != 6 && enemyNumber != 4) {
                 g2d.drawImage(animation.getSprite(), x, y, animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2, null);
             }
-            if(enemyNumber == 3 || enemyNumber == 5 || enemyNumber == 6) {
+            if(enemyNumber == 3 || enemyNumber == 5 || enemyNumber == 6 || enemyNumber == 4) {
                 x = (int) xd;
                 y = (int) yd;
                 g2d.drawImage(animation.getSprite(), x, y, animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2, null);
