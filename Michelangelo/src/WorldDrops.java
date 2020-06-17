@@ -6,11 +6,11 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class WorldDrops {
-    private int x[] = new int[23];
-    private int y[] = new int[23];
+    private int x[] = new int[30];
+    private int y[] = new int[30];
     private int xp = 0,yp = 0;
     private Cowabunga cb;
-    private BufferedImage[] img = new BufferedImage[23];
+    private BufferedImage[] img = new BufferedImage[30];
     private WorldDropSpawnPoints wdsp;
     private Equipment equipment;
     private int gold;

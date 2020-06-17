@@ -333,6 +333,15 @@ public class Enemies {
                 hitboxXT = x + animation.getSprite().getWidth() - 6;
                 hitboxY = y + 5;
                 hitboxYT = y + animation.getSprite().getHeight() - 5;
+                xa = (px - xd);
+                ya = (py - yd);
+                speedX = 2;
+                speedY = 2;
+                magnitude = Math.sqrt(xa * xa + ya * ya);
+                if(magnitude > 0){
+                    xa = xa / magnitude * 1.25;
+                    ya = ya / magnitude * 1.25;
+                }
             }
             if (enemyNumber == 5) {
                 //knight spear
@@ -380,7 +389,7 @@ public class Enemies {
             }
         }
         if(canMove) {
-            if (speedX != 0 || speedY != 0 && enemyNumber != 3) {
+            if (speedX != 0 || speedY != 0 && enemyNumber != 3 || enemyNumber != 4) {
                 xt += speedX;
                 yt += speedY;
                 if (cb.getMapLevel().checkCollision(xt, y)) {
@@ -394,18 +403,28 @@ public class Enemies {
                     y += speedY;
                 }
             }
-            if (enemyNumber == 3 || enemyNumber == 5 || enemyNumber == 6) {
+            if (enemyNumber == 3 || enemyNumber == 5 || enemyNumber == 6 || enemyNumber == 4) {
                 xt += (int) xa;
                 yt += (int) ya;
                 if (cb.getMapLevel().checkCollision(xt, (int) yd)) {
                     xa += 0;
                 } else {
-                    xd = xd + xa;
+                    if(enemyNumber != 4) {
+                        xd = xd + xa;
+                    }
+                    if(enemyNumber == 4){
+                        xd = xd - xa;
+                    }
                 }
                 if (cb.getMapLevel().checkCollision((int) xd, yt)) {
                     ya += 0;
                 } else {
-                    yd = yd + ya;
+                    if(enemyNumber != 4) {
+                        yd = yd + ya;
+                    }
+                    if(enemyNumber == 4){
+                       yd = yd - ya;
+                    }
                 }
             }
         }

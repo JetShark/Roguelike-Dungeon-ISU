@@ -116,11 +116,11 @@ public class MapLevel {
             level[y].paint(g);
         }
 
-        for (Room room:roomList) {
+        /*for (Room room:roomList) {
             g.setColor(new Color(255*((i/4)&1),255*(((i>>1)&1)),255*(i&1),128));
             room.paint(g);
             i++;
-        }
+        }*/
 
         //level[1].paint(g);
     }

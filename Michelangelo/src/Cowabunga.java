@@ -205,7 +205,6 @@ public class Cowabunga extends JPanel{
                         playerRoom.setFirstCleared();
                     }
                 }
-
                 w.move();
                 //w.collision();
                 p.move();
@@ -234,12 +233,12 @@ public class Cowabunga extends JPanel{
             g.translate(-p.getCamX(), -p.getCamY());
             level1.paint(g2d);
 
-            Room playerRoom = getMapLevel().getPlayerRoom(p);
-            int i = (int) Math.random()*7;
+           playerRoom = getMapLevel().getPlayerRoom(p);
+            /*int i = (int) Math.random()*7;
             g.setColor(new Color(255*((i/4)&1),255*(((i>>1)&1)),255*(i&1),128));
             if (playerRoom != null) {
                 playerRoom.paint(g2d);
-            }
+            }*/
             if (enemiesInRoom == 0) {
                 wd.paint(g2d);
             }
