@@ -58,7 +58,8 @@ public class Player {
     private boolean alive;
 
     private int hitboxX, hitboxY, hitboxXT, hitboxYT;
-
+    private double passX;
+    private double passY;
     private BufferedImage[] walking = {SpriteRetrival.getSprite(0,0,5), SpriteRetrival.getSprite(2,0, 5), SpriteRetrival.getSprite(0,1,5), SpriteRetrival.getSprite(1,1, 5)};
     private Animation Walking = new Animation(walking,25);
     private Animation animation = Walking;
@@ -496,6 +497,17 @@ public class Player {
     }
     public MapLevel getML(){
         return ml;
+    }
+    public Cowabunga getCb(){return cb;}
+    public void passXY(double x, double y){
+        passX = x;
+        passY = y;
+    }
+    public int passX(){
+        return (int) passX;
+    }
+    public int passY(){
+        return (int) passY;
     }
 
     public void setProjetile(boolean projetile){

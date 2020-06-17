@@ -17,6 +17,7 @@ public class WeaponProjectile {
     private int mX = 1;
     private int mY = 1;
     private Player p;
+    private Cowabunga cb;
     boolean active = false;
     private boolean clicked = false;
     private boolean collision = false;
@@ -29,9 +30,9 @@ public class WeaponProjectile {
 
     public WeaponProjectile(Player p, double mX, double mY) {
         // FIXME: 2020-05-26 suck an egg
-
         if (p != null) {
             this.p = p;
+            this.cb = p.getCb();
             int pX = p.getX();
             int pY = p.getY();
             //System.out.println("xa:"+xa+" ya:"+ya+" px:"+pX+" pY:"+pY+" mX:"+mX+" camX:"+p.getCamX()+" camY:"+p.getCamY());
@@ -107,7 +108,7 @@ public class WeaponProjectile {
         int height = animation.getSprite().getHeight() * 1;
         int sX=(int)(x - width/2);
         int sY=(int)(y - height/2);
-
+        p.passXY(sX,sY);
         if(p.getAlive()) {
             g2d.drawImage(animation.getSprite(), sX, sY, width, height, null);
         }

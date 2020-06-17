@@ -37,20 +37,32 @@ public class Collision {
         }
         //System.out.println("px, ex: " + p.getHitboxX() + ", " + e.getHitboxX());
     }
-    public void weaponCollision(){
+    public boolean weaponCollision(){
         boolean x_overlaps;
         boolean y_overlaps;
         x_overlaps = (w.getHitboxX() < hitboxXT) && (w.getHitboxXT() > hitboxX);
         y_overlaps = (w.getHitboxY() < hitboxYT) && (w.getHitboxYT() > hitboxY);
         boolean collision = x_overlaps && y_overlaps;
         if(collision){
-            hit = true;
+            return true;
         } else {
-            hit = false;
+            return false;
         }
     }
     public void enemyCollision(){
 
+    }
+    public boolean weaponProjectileCollision(){
+        boolean x_overlaps;
+        boolean y_overlaps;
+        x_overlaps = (p.passX() < hitboxXT) && (p.passX() > hitboxX);
+        y_overlaps = (p.passY() < hitboxYT) && (p.passY() > hitboxY);
+        boolean collision = x_overlaps && y_overlaps;
+        if(collision){
+           return true;
+        } else {
+            return false;
+        }
     }
     public void setEnemiesHitboxs(int hitboxX, int hitboxY, int hitboxXT, int hitboxYT){
         this.hitboxX = hitboxX;

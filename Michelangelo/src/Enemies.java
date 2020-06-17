@@ -27,7 +27,7 @@ public class Enemies {
     private int enemyDamage;
     private int damage;
     private int health;
-    private int hitInvincibility = 100;
+    private int hitInvincibility = 50;
     private boolean invulnerable = false;
     private boolean hit = false;
     private boolean alive = true;
@@ -414,10 +414,12 @@ public class Enemies {
         cb.getCollision().setEnemyDamage(enemyDamage);
         cb.getCollision().setAlive(alive);
         cb.getCollision().playerCollision();
-        cb.getCollision().weaponCollision();
         if(alive) {
-            if (cb.getCollision().getHit() && !invulnerable) {
+            if (cb.getCollision().weaponCollision() && !invulnerable && !hit) {
                 damage(cb.getWeapons().getDamage());
+            }
+            if(cb.getCollision().weaponProjectileCollision()){
+                damage(2);
             }
         }
         enemyHealth();
@@ -469,7 +471,7 @@ public class Enemies {
             invulnerable = true;
             if(hitInvincibility == 0){
                 invulnerable = false;
-                hitInvincibility = 100;
+                hitInvincibility = 50;
                 damage = 0;
                 hit = false;
             }

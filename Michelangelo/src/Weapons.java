@@ -228,7 +228,7 @@ public class Weapons {
             //System.out.println("direction: " + direction);
             if(direction == 1) {
                 hitboxX = imagePosition.x + 14 + 25;
-                hitboxXT = imagePosition.x + 14 + 32;
+                hitboxXT = imagePosition.x + 39 + 14 + 32;
                 hitboxY = imagePosition.y;
                 hitboxYT = imagePosition.y + 13 + 20 + 32;
                 g2d.fillRect(hitboxX, hitboxY, 46, 65);
@@ -237,8 +237,8 @@ public class Weapons {
                 hitboxX = imagePosition.x - 37;
                 hitboxXT = imagePosition.x - 5;
                 hitboxY = imagePosition.y;
-                hitboxYT = imagePosition.y + 45;
-                g2d.fillRect(hitboxX, hitboxY, 37, 45);
+                hitboxYT = imagePosition.y + 13 + 20 + 32;
+                g2d.fillRect(hitboxX, hitboxY, 37, 65);
             }
             modifier = 0;
             damage = 2 + modifier;
