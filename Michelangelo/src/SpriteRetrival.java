@@ -13,6 +13,7 @@ public class SpriteRetrival {
     private static BufferedImage hudSprites;
     private static BufferedImage bossesSprites;
     private static BufferedImage equipmentSprites;
+    private static BufferedImage enemyProjectileSprites;
 
     private static java.util.Map<Integer, BufferedImage> cachedImage = new java.util.HashMap<Integer, BufferedImage>();
 
@@ -57,6 +58,9 @@ public class SpriteRetrival {
         }
         if(spriteNumber == 8){
             return getEquipmentSpriteSheet(xGrid, yGrid);
+        }
+        if(spriteNumber == 9){
+            return getEnemyProjectileSpriteSheet(xGrid, yGrid);
         }
         return null;
     }
@@ -186,6 +190,22 @@ public class SpriteRetrival {
             subimage = cachedImage.get(key);
         } else {
             subimage = equipmentSprites.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE); // returns the sub images based on the x,y values given.
+            cachedImage.put(key, subimage);
+        }
+
+        return subimage;
+    }
+    private static BufferedImage getEnemyProjectileSpriteSheet(int xGrid, int yGrid){
+        if(enemyProjectileSprites == null){
+            enemyProjectileSprites = loadSprite("Enemy-Projectiles-SpriteSheet");
+        }
+
+        int key=xGrid+yGrid*TILES_ACROSS+9*TILES_ACROSS*TILES_DOWN;
+        BufferedImage subimage;
+        if (cachedImage.containsKey(key)) {
+            subimage = cachedImage.get(key);
+        } else {
+            subimage = enemyProjectileSprites.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE); // returns the sub images based on the x,y values given.
             cachedImage.put(key, subimage);
         }
 

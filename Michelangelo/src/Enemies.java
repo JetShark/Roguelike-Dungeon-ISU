@@ -17,6 +17,7 @@ public class Enemies {
     private Weapons w;
     private Cowabunga cb;
     private WorldDrops wd;
+    private EnemyProjectile ep;
     private int gold;
 
     private int enemyNumber;
@@ -86,6 +87,10 @@ public class Enemies {
         this.x = x;
         this.y = y;
         this.w = new Weapons(p);
+        if(enemyNumber == 1 || enemyNumber == 2 || enemyNumber == 4) {
+            ep = new EnemyProjectile(cb);
+            ep.setSpawn(x,y);
+        }
         canMove = false;
         goldAdded = false;
         if (enemyNumber == 0) {
@@ -244,6 +249,7 @@ public class Enemies {
                 //health = 4;
             }
             if (enemyNumber == 1) {
+                ep.setProjectile(1);
                 animation = flyingBookMoving;
                 //health = 8;
                 //enemyDamage = 2;
@@ -295,6 +301,7 @@ public class Enemies {
                 }
         }
             if (enemyNumber == 2) {
+                ep.setProjectile(3);
                 animation = courtWizardIdle;
                 //health = 10;
                 //enemyDamage = 2;
@@ -327,6 +334,7 @@ public class Enemies {
             if (enemyNumber == 4) {
                 //knight bow
                 animation = bowKnightIdle;
+                ep.setProjectile(2);
                 //health = 12;
                 //enemyDamage = 2;
                 hitboxX = x + 10;
@@ -422,6 +430,9 @@ public class Enemies {
                         yd = yd - ya;
                    }
                 }
+                if(enemyNumber == 1 || enemyNumber == 2 || enemyNumber == 4) {
+                    ep.move();
+                }
             }
         }
         //System.out.println("canMove: " + canMove);
@@ -470,6 +481,9 @@ public class Enemies {
                 x = (int) xd;
                 y = (int) yd;
                 g2d.drawImage(animation.getSprite(), x, y, animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2, null);
+            }
+            if(enemyNumber == 4 || enemyNumber == 1 || enemyNumber == 2) {
+                ep.paint(g2d);
             }
         }
     }

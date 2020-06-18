@@ -13,6 +13,7 @@ public class Player {
     private int speedx = 0, speedy = 0;
     private boolean right = false, left = false;
     private Boolean up = false, down = false;
+    private boolean placeBomb = false;
 
     private boolean projetile = false;
     private int newmX, newmY;
@@ -197,6 +198,9 @@ public class Player {
         if(e.getKeyCode() == KeyEvent.VK_C){
             //dodgeRoll = true;
         }
+        if(e.getKeyCode() == KeyEvent.VK_F){
+            placeBomb = true;
+        }
     }
     public void keyReleased(KeyEvent e){
         if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A){
@@ -237,7 +241,9 @@ public class Player {
             dodgeRoll = true;
         }
         if(e.getKeyCode() == KeyEvent.VK_F){
-            b.placeBomb();
+            if(placeBomb) {
+                b.placeBomb();
+            }
         }
     }
     public void mouseDragged(MouseEvent e){
