@@ -17,7 +17,7 @@ public class Enemies {
     private Weapons w;
     private Cowabunga cb;
     private WorldDrops wd;
-    private EnemyProjectile ep;
+    private EnemyProjectile[] enemyProjectileList = new EnemyProjectile[20];
     private int gold;
 
     private int enemyNumber;
@@ -32,6 +32,9 @@ public class Enemies {
     private boolean invulnerable = false;
     private boolean hit = false;
     private boolean alive = true;
+    private boolean fireProjectile = false;
+    private int projectileCount = 0;
+    private int shotCooldown = 20;
 
     private int secondMovment;
     private int firstMovment = 0;
@@ -87,10 +90,6 @@ public class Enemies {
         this.x = x;
         this.y = y;
         this.w = new Weapons(p);
-        if(enemyNumber == 1 || enemyNumber == 2 || enemyNumber == 4) {
-            ep = new EnemyProjectile(cb);
-            ep.setSpawn(x,y);
-        }
         canMove = false;
         goldAdded = false;
         if (enemyNumber == 0) {
@@ -213,9 +212,39 @@ public class Enemies {
             }
         }
     }
-
+    public void fireProjectile(){
+        if(enemyNumber == 1 || enemyNumber == 2 || enemyNumber == 4) {
+            if(fireProjectile) {
+                enemyProjectileList[projectileCount++] = new EnemyProjectile(cb, x, y);
+                if(projectileCount >= enemyProjectileList.length) { projectileCount = 0; }
+            }
+            //ep.setSpawn(x,y);
+        }
+        if(fireProjectile) {
+            for(EnemyProjectile ep: enemyProjectileList) {
+                if(ep != null) {
+                    if(enemyNumber == 1) {
+                        ep.setProjectile(1);
+                    }
+                    if(enemyNumber == 2) {
+                        ep.setProjectile(3);
+                    }
+                    if(enemyNumber == 4) {
+                        ep.setProjectile(2);
+                    }
+                }
+            }
+        }
+    }
     public void move(){
         wd = cb.getWd();
+        if(fireProjectile){
+            if(shotCooldown <= 0) {
+                fireProjectile();
+                shotCooldown = 20;
+            }
+            shotCooldown--;
+        }
         animation.start();
         animation.update();
         xt = x;
@@ -245,14 +274,9 @@ public class Enemies {
                 hitboxXT = x + animation.getSprite().getWidth() - 11;
                 hitboxY = y + 9;
                 hitboxYT = y + animation.getSprite().getHeight() - 9;
-                //enemyDamage = 1;
-                //health = 4;
             }
             if (enemyNumber == 1) {
-                ep.setProjectile(1);
                 animation = flyingBookMoving;
-                //health = 8;
-                //enemyDamage = 2;
                 hitboxX = x + 6;
                 hitboxXT = x + animation.getSprite().getWidth() - 7;
                 hitboxY = y + 8;
@@ -301,10 +325,7 @@ public class Enemies {
                 }
         }
             if (enemyNumber == 2) {
-                ep.setProjectile(3);
                 animation = courtWizardIdle;
-                //health = 10;
-                //enemyDamage = 2;
                 hitboxX = x + 9;
                 hitboxXT = x + animation.getSprite().getWidth() - 9;
                 hitboxY = y + 8;
@@ -314,8 +335,6 @@ public class Enemies {
             if (enemyNumber == 3) {
                 //kinght sheild
                 animation = shieldKnightIdle;
-                //health = 12;
-                //enemyDamage = 4;
                 hitboxX = x + 5;
                 hitboxXT = x + animation.getSprite().getWidth() - 6;
                 hitboxY = y + 5;
@@ -334,9 +353,6 @@ public class Enemies {
             if (enemyNumber == 4) {
                 //knight bow
                 animation = bowKnightIdle;
-                ep.setProjectile(2);
-                //health = 12;
-                //enemyDamage = 2;
                 hitboxX = x + 10;
                 hitboxXT = x + animation.getSprite().getWidth() - 6;
                 hitboxY = y + 5;
@@ -352,8 +368,6 @@ public class Enemies {
             if (enemyNumber == 5) {
                 //knight spear
                 animation = spearKnightIdle;
-                //health = 12;
-                //enemyDamage = 4;
                 hitboxX = x + 10;
                 hitboxXT = x + animation.getSprite().getWidth() - 6;
                 hitboxY = y + 5;
@@ -369,8 +383,6 @@ public class Enemies {
             if (enemyNumber == 6){
                 //knight sword
                 animation = swordKnightIdle;
-                //health = 12;
-                //enemyDamage = 2;
                 hitboxX = x + 10;
                 hitboxXT = x + animation.getSprite().getWidth() - 6;
                 hitboxY = y + 5;
@@ -430,7 +442,14 @@ public class Enemies {
                         yd = yd - ya;
                    }
                 }
-                if(enemyNumber == 1 || enemyNumber == 2 || enemyNumber == 4) {
+            }
+            if(enemyNumber == 1 || enemyNumber == 2 || enemyNumber == 4) {
+                fireProjectile = true;
+            }
+        }
+        if(enemyNumber == 1 || enemyNumber == 2 || enemyNumber == 4) {
+            for(EnemyProjectile ep: enemyProjectileList) {
+                if(ep != null) {
                     ep.move();
                 }
             }
@@ -483,7 +502,13 @@ public class Enemies {
                 g2d.drawImage(animation.getSprite(), x, y, animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2, null);
             }
             if(enemyNumber == 4 || enemyNumber == 1 || enemyNumber == 2) {
-                ep.paint(g2d);
+                //if(fireProjectile) {
+                    for(EnemyProjectile ep: enemyProjectileList) {
+                        if(ep != null) {
+                            ep.paint(g2d);
+                        }
+                    }
+                //}
             }
         }
     }

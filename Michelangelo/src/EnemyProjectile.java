@@ -17,25 +17,26 @@ public class EnemyProjectile {
     boolean active = false;
     private boolean clicked = false;
     private boolean collision = false;
-    public EnemyProjectile(Cowabunga cb){
+    public EnemyProjectile(Cowabunga cb, int x, int y){
         if (cb != null) {
             this.p = cb.getP();
+            pX = p.getX();
+            pY = p.getY();
+            ya = (pY - y);
+            xa = (pX - x);
+            /*xa = (x - pX);
+            ya = (y - pY);*/
+            double magnitude = Math.sqrt(xa * xa + ya * ya);
+            if (magnitude > 0) {
+                xa = xa / magnitude * 1;
+                ya = ya / magnitude * 1;
+            }
+            this.x = x;
+            this.y = y;
         }
     }
     public void setSpawn(int x, int y){
-        pX = p.getX();
-        pY = p.getY();
-        /*ya = (pY - x);
-        xa = (pX - y);*/
-        ya = (x - pX);
-        xa = (y - pY);
-        double magnitude = Math.sqrt(xa * xa + ya * ya);
-        if (magnitude > 0) {
-            xa = xa / magnitude * 1;
-            ya = ya / magnitude * 1;
-        }
-        this.x = x;
-        this.y = y;
+
     }
     public void setProjectile(int i){
         if(i == 1){

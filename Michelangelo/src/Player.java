@@ -8,7 +8,8 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Player {
-    private int x, y, xA, yA;
+    private int x, y, xA, yA, cX, cY;
+    private int aWidth, aHeight;
     private int oldX, oldY;
     private int speedx = 0, speedy = 0;
     private boolean right = false, left = false;
@@ -141,7 +142,7 @@ public class Player {
                 }
             }
         }
-        System.out.println("x and y = " + x + ", " + y);
+        //System.out.println("x and y = " + x + ", " + y);
         WORLD_HEIGHT = height * 4 * tileHeight;
         WORLD_WIDTH = width * 4 * tileWidth;
         offsetMaxX = WORLD_WIDTH - VIEWPORT_SIZE_X;
@@ -151,7 +152,8 @@ public class Player {
         camX = this.x - VIEWPORT_SIZE_X/2;
         camY = this.y - VIEWPORT_SIZE_Y/2;
         lastIdleButton = IdleFront;
-
+        aWidth = (int)(animation.getSprite().getWidth()/2);
+        aHeight = (int)(animation.getSprite().getHeight()/2);
         health = 12;
         numOfHearts = 3;
         alive = true;
@@ -454,6 +456,8 @@ public class Player {
     public void paint(Graphics2D g2d){
         //System.out.println("health: " + health);
         if(alive) {
+            cX = (int)(this.x - aWidth);
+            cY = (int)(this.y - aHeight);
             animation = IdleFront;
             if(!moving){
                 animation = (lastIdleButton);
@@ -464,11 +468,11 @@ public class Player {
             if(animation != null) {
                 animation.start();
                 if (direction == 1) {
-                    g2d.drawImage(animation.getSprite(), x, y, animation.getSprite().getHeight(), animation.getSprite().getWidth() * 2, null);
+                    g2d.drawImage(animation.getSprite(), cX, cY, animation.getSprite().getHeight(), animation.getSprite().getWidth() * 2, null);
                 }
 
                 if (direction == -1) {
-                    g2d.drawImage(animation.getSprite(), x + (animation.getSprite().getWidth()), y, -animation.getSprite().getHeight(), animation.getSprite().getWidth() * 2, null);
+                    g2d.drawImage(animation.getSprite(), cX + (animation.getSprite().getWidth()), cY, -animation.getSprite().getHeight(), animation.getSprite().getWidth() * 2, null);
                 }
                 animation.update();
             }
