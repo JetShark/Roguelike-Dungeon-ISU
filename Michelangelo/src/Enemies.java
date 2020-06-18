@@ -105,13 +105,7 @@ public class Enemies {
         this.collisionClass = cb.getCollision();
         this.playerCursor = cb.getPlayerCursor();
         this.weaponProjectileList = playerCursor.getProjectileList();
-
-        if(enemyNumber == 1 || enemyNumber == 2 || enemyNumber == 4) {
-            ep = new EnemyProjectile(cb);
-            ep.setSpawn(x,y);
-        }
-
-
+        
         canMove = false;
         goldAdded = false;
         if (enemyNumber == 0) {
