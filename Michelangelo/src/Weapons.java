@@ -139,7 +139,7 @@ public class Weapons {
     }
     public Weapons(Player p){
         this.p = p;
-        imagePosition = new Point(p.getX(),p.getY());
+        imagePosition = new Point(p.getcX(),p.getcY());
     }
 
     public void mousePressed(MouseEvent e){
@@ -179,20 +179,12 @@ public class Weapons {
         //int cx = Animation.getSprite().getWidth() - 40;
         int cy = rangedAnimation.getSprite().getHeight() / 2 + 5;
         AffineTransform at = new AffineTransform();
-        /*AffineTransformOp op; = new AffineTransformOp(at, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);*/
-        /*at.translate(x + 60, y + 30);
-        at.rotate(Math.PI/-1.05);
-        at.scale(2.0,2.0);
-        at.translate(-Animation.getSprite().getWidth() / 2, -Animation.getSprite().getHeight() / 2);*/
 
         if(direction == 1) {
-            at.translate(cx + imagePosition.x + 25, cy + imagePosition.y + 15);
-            /*at.translate(0, rangedAnimation.getSprite().getHeight(null));
-            op = new AffineTransformOp(at, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
-            op.filter(rangedAnimation.getSprite(), null);*/
+            at.translate(cx + imagePosition.x + 19, cy + imagePosition.y);
         }
         if(direction == -1){
-            at.translate(cx + imagePosition.x, cy + imagePosition.y + 15);
+            at.translate(cx + imagePosition.x - 21, cy + imagePosition.y);
             AffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
             op.filter(rangedAnimation.getSprite(), null);
         }
@@ -227,27 +219,29 @@ public class Weapons {
         if(rightClick) {
             //System.out.println("direction: " + direction);
             if(direction == 1) {
-                hitboxX = imagePosition.x + 14 + 25;
-                hitboxXT = imagePosition.x + 39 + 14 + 32;
-                hitboxY = imagePosition.y;
-                hitboxYT = imagePosition.y + 13 + 20 + 32;
-                g2d.fillRect(hitboxX, hitboxY, 46, 65);
+                hitboxX = imagePosition.x + 20;
+                hitboxXT = imagePosition.x + 52;
+                hitboxY = imagePosition.y - 20;
+                hitboxYT = imagePosition.y + 75;
+                g2d.setColor(new Color(227,177,48, 100));
+                g2d.fillRect(hitboxX, hitboxY, 52, 75);
             }
             if(direction == -1) {
-                hitboxX = imagePosition.x - 37;
-                hitboxXT = imagePosition.x - 5;
-                hitboxY = imagePosition.y;
-                hitboxYT = imagePosition.y + 13 + 20 + 32;
-                g2d.fillRect(hitboxX, hitboxY, 37, 65);
+                hitboxX = imagePosition.x - 65;
+                hitboxXT = imagePosition.x - 20;
+                hitboxY = imagePosition.y - 20;
+                hitboxYT = imagePosition.y + 75;
+                g2d.setColor(new Color(227,177,48, 100));
+                g2d.fillRect(hitboxX, hitboxY, 52, 75);
             }
             modifier = 0;
             damage = 2 + modifier;
             AffineTransform newAt = new AffineTransform();
             if(direction == 1){
-                newAt.translate(cX + imagePosition.x + 25, cY + imagePosition.y + 20);
+                newAt.translate(cX + imagePosition.x + 20, cY + imagePosition.y + 5);
             }
             if(direction == -1){
-                newAt.translate(cX + imagePosition.x, cY + imagePosition.y + 20);
+                newAt.translate(cX + imagePosition.x - 20, cY + imagePosition.y + 5);
             }
             newAt.rotate(imageAngleRad);
             newAt.scale(3.0, 3.0);

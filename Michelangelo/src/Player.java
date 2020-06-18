@@ -441,6 +441,9 @@ public class Player {
 
     public void setPlayerHealth(int health){
         this.health = this.health + health;
+        if(this.health > 12){
+            this.health = 12;
+        }
         System.out.println("health: " + this.health);
     }
     public int getPlayerHealth(){
@@ -527,5 +530,11 @@ public class Player {
     }
     public void setProjetile(boolean projetile){
         this.projetile = projetile;
+    }
+    public int getcX(){
+        return cX;
+    }
+    public int getcY(){
+        return cY;
     }
 }
