@@ -37,7 +37,8 @@ public class Bosses {
         bossAnimation.update();
         if(cb.getPlayerRoom() != null){
             //System.out.println("midhor, vormid: " + cb.getPlayerRoom().getMidHorizontalTile() + ", " + cb.getPlayerRoom().getMidVerticalTile());
-            g2d.drawImage(bossAnimation.getSprite(), cb.getPlayerRoom().getMidHorizontalTile()*64, cb.getPlayerRoom().getMidVerticalTile()*64, bossAnimation.getSprite().getWidth() * 3, bossAnimation.getSprite().getHeight() * 3,null);
+            //g2d.drawImage(bossAnimation.getSprite(), cb.getPlayerRoom().getMidHorizontalTile()*64, cb.getPlayerRoom().getMidVerticalTile()*64, bossAnimation.getSprite().getWidth() * 3, bossAnimation.getSprite().getHeight() * 3,null);
+            g2d.drawImage(bossAnimation.getSprite(), x, y, bossAnimation.getSprite().getWidth() * 3, bossAnimation.getSprite().getHeight() * 3,null);
         }
 
         //g2d.setColor(Color.PINK);

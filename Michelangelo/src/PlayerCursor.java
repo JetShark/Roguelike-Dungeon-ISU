@@ -15,6 +15,7 @@ public class PlayerCursor {
     private boolean projetile = false;
     private int speed = 0;
     private int nextProjectile = 0;
+    private int shotDamage = 2;
     private double shotCooldown = 0;
     private double shotCooldownInit = 17.5;
     private double magazineCooldown = 0;
@@ -24,6 +25,7 @@ public class PlayerCursor {
     //private double shotCooldownInit = currentWeapon.getShotDelay();
     //private double magazineCooldownInit = currentWeapon.getShotDelay();
     //private double magazineShotsInit = currentWeapon.getShotDelay();
+    //private double shotDamage = currentWeapon.getShotDamage();
 
     private WeaponProjectile[] projectileList = new WeaponProjectile[16];
 
@@ -72,7 +74,7 @@ public class PlayerCursor {
         }
         */
             if (shotCooldown <= 0 && magazineCooldown <=0) {
-                projectileList[nextProjectile++] = new WeaponProjectile(p, mX, mY);
+                projectileList[nextProjectile++] = new WeaponProjectile(p, mX, mY, shotDamage);
                 if (nextProjectile >= projectileList.length) nextProjectile = 0;
 
                 shotCooldown = shotCooldownInit;
@@ -106,6 +108,14 @@ public class PlayerCursor {
         }
 
     }
+    public void setPlayer(Player p) {
+        this.p = p;
+    }
+
+
+    public WeaponProjectile[] getProjectileList(){
+        return projectileList;
+    }
     public Cursor getCustomCursor(){
         return customCursor;
     }
@@ -114,10 +124,6 @@ public class PlayerCursor {
     }
     public int getmY(){
         return mY;
-    }
-
-    public void setPlayer(Player p) {
-        this.p = p;
     }
 
 }

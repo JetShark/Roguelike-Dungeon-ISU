@@ -164,16 +164,28 @@ public class Cowabunga extends JPanel{
     public Collision getCollision(){
         return collision;
     }
+    public Player getP(){
+        return p;
+    }
+    public PlayerCursor getPlayerCursor(){
+        return pc;
+    }
+    public Room getPlayerRoom(){
+        return playerRoom;
+    }
+    public int getEnemiesInRoom() {
+        return enemiesInRoom;
+    }
     public Weapons getWeapons(){
         return w;
     }
     public WorldDrops getWd(){
         return wd;
     }
+
     public ShopItemsSpawn getSis(){
         return sis;
     }
-
     public ToolTip getTt() {
         return tt;
     }
@@ -183,9 +195,7 @@ public class Cowabunga extends JPanel{
     public Bomb getBomb(){
         return bomb;
     }
-    public int getEnemiesInRoom() {
-        return enemiesInRoom;
-    }
+
     private void move() throws InterruptedException {
         // FIXME: 2020-05-05 need to have the player move function
         if(!ui.getEsc()){
@@ -221,12 +231,6 @@ public class Cowabunga extends JPanel{
             hud.move();
             //wp.move();
         }
-    }
-    public Room getPlayerRoom(){
-        return playerRoom;
-    }
-    public Player getP(){
-        return p;
     }
     public void paint(Graphics g) {
         super.paint(g);

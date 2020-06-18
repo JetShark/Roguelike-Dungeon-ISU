@@ -1,13 +1,10 @@
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.*;
 public class Collision {
     private Cowabunga cb;
     private Player p;
     private Enemies e;
     private Weapons w;
     private WorldDrops wd;
+
 
     private int hitboxX, hitboxY, hitboxXT, hitboxYT;
     private int enemyDamage;
@@ -54,11 +51,11 @@ public class Collision {
     public void enemyCollision(){
 
     }
-    public boolean weaponProjectileCollision(){
+    public boolean weaponProjectileCollision(WeaponProjectile weaponProjectile){
         boolean x_overlaps;
         boolean y_overlaps;
-        x_overlaps = (p.passX() < hitboxXT) && (p.passX() > hitboxX);
-        y_overlaps = (p.passY() < hitboxYT) && (p.passY() > hitboxY);
+        x_overlaps = (weaponProjectile.getX() < hitboxXT) && (weaponProjectile.getX() > hitboxX);
+        y_overlaps = (weaponProjectile.getY()< hitboxYT) && (weaponProjectile.getY() > hitboxY);
         boolean collision = x_overlaps && y_overlaps;
         if(collision){
            return true;
