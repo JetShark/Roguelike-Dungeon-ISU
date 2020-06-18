@@ -101,14 +101,14 @@ public class WorldDrops {
 
                 }
             }
-            if(ranKeyOrBomb >= 4){
+            if(ranKeyOrBomb > 3){
                 if(worldDropCount >= 1) {
                     img[worldDropCount - 1] = SpriteRetrival.getSprite(1, 6, 6);
                     pickedUp = false;
                 }
             }
         }
-        if(ranNum == 6){
+        if(ranNum >= 5){
             int ranEquip = (int) (26 * Math.random() - 0);
             if(worldDropCount >= 1) {
                 img[worldDropCount - 1] = SpriteRetrival.getSprite(4,6,6);
@@ -138,8 +138,8 @@ public class WorldDrops {
     }
     public void keys(){
         if(!pickedUp) {
-            if (cb.getCollision().worldDropCollision() && ranNum >= 3 || ranNum < 5) {
-                if(ranKeyOrBomb >= 4) {
+            if (cb.getCollision().worldDropCollision() && ranNum >= 3 && ranNum < 5) {
+                if(ranKeyOrBomb > 3) {
                     if (!keysAdded) {
                         setKeys(1);
                         keysTotal = keysTotal + keys;
@@ -165,12 +165,14 @@ public class WorldDrops {
         }
     }
     public void minusBombs(int minus){
-        bombsTotal = bombsTotal - minus;
+        if(bombsTotal > 0) {
+            bombsTotal = bombsTotal - minus;
+        }
     }
     public void bombs(){
         //System.out.println("wdc: " + cb.getCollision().worldDropCollision());
         if(!pickedUp) {
-            if (cb.getCollision().worldDropCollision() && ranNum >= 3 || ranNum < 5) {
+            if (cb.getCollision().worldDropCollision() && ranNum >= 3 && ranNum < 5) {
                 if(ranKeyOrBomb <= 3) {
                     if (!bombsAdded) {
                         setBombs(1);

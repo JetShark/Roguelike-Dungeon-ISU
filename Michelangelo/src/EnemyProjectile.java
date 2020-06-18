@@ -2,59 +2,50 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class EnemyProjectile {
+    private BufferedImage page = SpriteRetrival.getSprite(0,0,9);
+    private BufferedImage arrow = SpriteRetrival.getSprite(3,0,9);
+    private BufferedImage fireBall = SpriteRetrival.getSprite(1,0,9);
     private BufferedImage img;
-    private double x = 10;
-    private double y = 10;
+    private double x;
+    private double y;
     private int direction = 0;
-    private double xa = 1;
-    private double ya = 1;
-    private int mX = 1;
-    private int mY = 1;
+    private double xa;
+    private double ya;
+    private int pX,pY;
     private Player p;
     private Cowabunga cb;
     boolean active = false;
     private boolean clicked = false;
     private boolean collision = false;
-    public EnemyProjectile(){
-        if (p != null) {
-            this.p = p;
-            this.cb = p.getCb();
-            int pX = p.getX();
-            int pY = p.getY();
-            //System.out.println("xa:"+xa+" ya:"+ya+" px:"+pX+" pY:"+pY+" mX:"+mX+" camX:"+p.getCamX()+" camY:"+p.getCamY());
-            ya = (mY + p.getCamY() - pY);
-            xa = (mX + p.getCamX() - pX);
-            double magnitude = Math.sqrt(xa * xa + ya * ya);
-            if (magnitude > 0) {
-                xa = xa / magnitude * 3;
-                ya = ya / magnitude * 3;
-            }
-            x = pX;
-            y = pY;
+    public EnemyProjectile(Cowabunga cb){
+        if (cb != null) {
+            this.p = cb.getP();
         }
+    }
+    public void setSpawn(int x, int y){
+        pX = p.getX();
+        pY = p.getY();
+        /*ya = (pY - x);
+        xa = (pX - y);*/
+        ya = (x - pX);
+        xa = (y - pY);
+        double magnitude = Math.sqrt(xa * xa + ya * ya);
+        if (magnitude > 0) {
+            xa = xa / magnitude * 1;
+            ya = ya / magnitude * 1;
+        }
+        this.x = x;
+        this.y = y;
     }
     public void setProjectile(int i){
         if(i == 1){
-
+           img = page;
         }
         if(i == 2){
-
+            img = arrow;
         }
         if(i == 3){
-
-        }
-        if(i == 4){
-
-        }
-    }
-    public void paint(Graphics2D g2d){
-        int width = img.getWidth() * 1;
-        int height = img.getHeight() * 1;
-        int sX=(int)(x - width/2);
-        int sY=(int)(y - height/2);
-        p.passXY(sX,sY);
-        if(p.getAlive()) {
-            g2d.drawImage(img, sX, sY, width, height, null);
+            img = fireBall;
         }
     }
     public void move(){
@@ -65,15 +56,25 @@ public class EnemyProjectile {
         yt += (int) ya;
         if (p.getML().checkCollision(xt, (int)y)) {
             x += 0;
-            collision = true;
         } else {
             x = x + xa;
         }
         if (p.getML().checkCollision((int)x, yt)) {
             y += 0;
-            collision = true;
         } else {
             y = y + ya;
         }
+    }
+    public void paint(Graphics2D g2d){
+        if(img != null) {
+            int width = img.getWidth();
+            int height = img.getHeight();
+            int sX = (int) (x - width / 2);
+            int sY = (int) (y - height / 2);
+            g2d.drawImage(img, sX, sY, width, height, null);
+        }
+    }
+    public void courtWizardAttacks(Graphics2D g2d){
+
     }
 }
