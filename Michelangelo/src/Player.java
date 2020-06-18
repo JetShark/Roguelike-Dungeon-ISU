@@ -432,7 +432,8 @@ public class Player {
     }
 
     public void setPlayerHealth(int health){
-        this.health = health;
+        this.health = this.health + health;
+        System.out.println("health: " + this.health);
     }
     public int getPlayerHealth(){
         return health;
