@@ -17,6 +17,10 @@ public class Enemies {
     private Weapons w;
     private Cowabunga cb;
     private WorldDrops wd;
+    private Collision collisionClass;
+    private PlayerCursor playerCursor;
+    private WeaponProjectile[] weaponProjectileList;
+
     private int gold;
 
     private int enemyNumber;
@@ -86,6 +90,10 @@ public class Enemies {
         this.x = x;
         this.y = y;
         this.w = new Weapons(p);
+        this.collisionClass = cb.getCollision();
+        this.playerCursor = cb.getPlayerCursor();
+        this.weaponProjectileList = playerCursor.getProjectileList();
+
         canMove = false;
         goldAdded = false;
         if (enemyNumber == 0) {
@@ -425,6 +433,7 @@ public class Enemies {
             }
         }
         //System.out.println("canMove: " + canMove);
+
         cb.getCollision().setEnemiesHitboxs(hitboxX, hitboxY, hitboxXT, hitboxYT);
         cb.getCollision().setEnemyDamage(enemyDamage);
         cb.getCollision().setAlive(alive);
@@ -433,8 +442,13 @@ public class Enemies {
             if (cb.getCollision().weaponCollision() && !invulnerable && !hit) {
                 damage(cb.getWeapons().getDamage());
             }
-            if(cb.getCollision().weaponProjectileCollision()){
-                damage(2);
+            for (WeaponProjectile weaponProjectile:weaponProjectileList) {
+                if (weaponProjectile!=null) {
+                    if (cb.getCollision().weaponProjectileCollision(weaponProjectile)) {
+                        //damage(2); probably unnecessary now
+                        damage(weaponProjectile.getDamage());
+                    }
+                }
             }
         }
         enemyHealth();
