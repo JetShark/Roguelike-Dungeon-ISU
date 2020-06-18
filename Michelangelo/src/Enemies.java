@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 public class Enemies {
     private int xt,yt;
     private int px, py;
+    private int cX,cY;
     private double xa, ya;
     private double xd, yd;
     private double magnitude;
@@ -18,6 +19,7 @@ public class Enemies {
     private Cowabunga cb;
     private WorldDrops wd;
     private EnemyProjectile[] enemyProjectileList = new EnemyProjectile[20];
+    private int width, height;
 
 
     private Collision collisionClass;
@@ -43,7 +45,8 @@ public class Enemies {
     private boolean alive = true;
     private boolean fireProjectile = false;
     private int projectileCount = 0;
-    private int shotCooldown = 20;
+    private int shotCooldownInit = 50;
+    private int shotCooldown = shotCooldownInit;
 
     private int secondMovment;
     private int firstMovment = 0;
@@ -105,7 +108,9 @@ public class Enemies {
         this.collisionClass = cb.getCollision();
         this.playerCursor = cb.getPlayerCursor();
         this.weaponProjectileList = playerCursor.getProjectileList();
-        
+
+        width = (int)(animation.getSprite().getWidth() / 2);
+        height = (int)(animation.getSprite().getHeight() / 2);
         canMove = false;
         goldAdded = false;
         if (enemyNumber == 0) {
@@ -128,6 +133,7 @@ public class Enemies {
         if (enemyNumber == 1) {
             health = 8;
             enemyDamage = 2;
+            shotCooldownInit = 75;
             int ranGold = (int) (6 * Math.random() - 1);
             if(ranGold == 1){
                 gold = 0;
@@ -143,6 +149,7 @@ public class Enemies {
             }
         }
         if (enemyNumber == 2) {
+            shotCooldownInit = 150;
             health = 10;
             enemyDamage = 2;
             int ranGold = (int) (6 * Math.random() - 1);
@@ -177,6 +184,7 @@ public class Enemies {
             }
         }
         if (enemyNumber == 4) {
+            shotCooldownInit = 60;
             health = 12;
             enemyDamage = 2;
             int ranGold = (int) (6 * Math.random() - 1);
@@ -228,36 +236,12 @@ public class Enemies {
             }
         }
     }
-    public void fireProjectile(){
-        if(enemyNumber == 1 || enemyNumber == 2 || enemyNumber == 4) {
-            if(fireProjectile) {
-                enemyProjectileList[projectileCount++] = new EnemyProjectile(cb, x, y);
-                if(projectileCount >= enemyProjectileList.length) { projectileCount = 0; }
-            }
-            //ep.setSpawn(x,y);
-        }
-        if(fireProjectile) {
-            for(EnemyProjectile ep: enemyProjectileList) {
-                if(ep != null) {
-                    if(enemyNumber == 1) {
-                        ep.setProjectile(1);
-                    }
-                    if(enemyNumber == 2) {
-                        ep.setProjectile(3);
-                    }
-                    if(enemyNumber == 4) {
-                        ep.setProjectile(2);
-                    }
-                }
-            }
-        }
-    }
     public void move(){
         wd = cb.getWd();
         if(fireProjectile){
             if(shotCooldown <= 0) {
                 fireProjectile();
-                shotCooldown = 20;
+                shotCooldown = shotCooldownInit;
             }
             shotCooldown--;
         }
@@ -476,6 +460,11 @@ public class Enemies {
         cb.getCollision().setEnemyDamage(enemyDamage);
         cb.getCollision().setAlive(alive);
         cb.getCollision().playerCollision();
+        for(EnemyProjectile ep: enemyProjectileList){
+            if(ep != null){
+                cb.getCollision().enemyProjectileCollision(ep);
+            }
+        }
         if(alive) {
             if (cb.getCollision().weaponCollision() && !invulnerable && !hit) {
                 damage(cb.getWeapons().getDamage());
@@ -515,13 +504,15 @@ public class Enemies {
     }
     public void paint(Graphics2D g2d){
         if(alive) {
+            cX = (int)(x - width);
+            cY = (int)(y - height);
             if(enemyNumber != 3 && enemyNumber != 5 && enemyNumber != 6 && enemyNumber != 4) {
-                g2d.drawImage(animation.getSprite(), x, y, animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2, null);
+                g2d.drawImage(animation.getSprite(), cX, cY, animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2, null);
             }
             if(enemyNumber == 3 || enemyNumber == 5 || enemyNumber == 6 || enemyNumber == 4) {
                 x = (int) xd;
                 y = (int) yd;
-                g2d.drawImage(animation.getSprite(), x, y, animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2, null);
+                g2d.drawImage(animation.getSprite(), cX, cY, animation.getSprite().getHeight() * 2, animation.getSprite().getWidth() * 2, null);
             }
             if(enemyNumber == 4 || enemyNumber == 1 || enemyNumber == 2) {
                 //if(fireProjectile) {
@@ -531,6 +522,52 @@ public class Enemies {
                         }
                     }
                 //}
+            }
+        }
+    }
+    public void fireProjectile(){
+        if(enemyNumber == 1 || enemyNumber == 4) {
+            if(fireProjectile) {
+                enemyProjectileList[projectileCount++] = new EnemyProjectile(cb, x - width, y - height);
+                if(projectileCount >= enemyProjectileList.length) { projectileCount = 0; }
+            }
+            //ep.setSpawn(x,y);
+        }
+        if(enemyNumber == 2){
+            if(fireProjectile) {
+                int ranNum = (int)(2 * Math.random() - 0);
+                if(ranNum == 0) {
+                    for (int i = 0; i < 5; i++) {
+                        enemyProjectileList[projectileCount++] = new EnemyProjectile(cb, x - width, y - height + (i * 32));
+                    }
+                    for (int i = 0; i < 5; i++) {
+                        enemyProjectileList[projectileCount++] = new EnemyProjectile(cb, x - width + (i * 32) - 64, y - height + 64);
+                    }
+                }
+                if(ranNum == 1) {
+                    for (int i = 0; i < 5; i++) {
+                        enemyProjectileList[projectileCount++] = new EnemyProjectile(cb, x - width + (i * 16), y - height + (i * 16));
+                    }
+                    for (int i = 0; i < 5; i++) {
+                        enemyProjectileList[projectileCount++] = new EnemyProjectile(cb, x - width - (i * 16) + 64, y - height + (i * 16));
+                    }
+                }
+                if(projectileCount >= enemyProjectileList.length) { projectileCount = 0; }
+            }
+        }
+        if(fireProjectile) {
+            for(EnemyProjectile ep: enemyProjectileList) {
+                if(ep != null) {
+                    if(enemyNumber == 1) {
+                        ep.setProjectile(1);
+                    }
+                    if(enemyNumber == 2) {
+                        ep.setProjectile(3);
+                    }
+                    if(enemyNumber == 4) {
+                        ep.setProjectile(2);
+                    }
+                }
             }
         }
     }

@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 public class EnemyProjectile {
@@ -17,13 +18,20 @@ public class EnemyProjectile {
     boolean active = false;
     private boolean clicked = false;
     private boolean collision = false;
+    private int damage;
+    private int projectileType;
+    private double imageAngleRad;
+
     public EnemyProjectile(Cowabunga cb, int x, int y){
         if (cb != null) {
             this.p = cb.getP();
-            pX = p.getX();
-            pY = p.getY();
+            pX = p.getcX();
+            pY = p.getcY();
             ya = (pY - y);
             xa = (pX - x);
+            double dX = x - pX;
+            double dY = y - pY;
+            imageAngleRad = Math.atan2(dY,dX);
             /*xa = (x - pX);
             ya = (y - pY);*/
             double magnitude = Math.sqrt(xa * xa + ya * ya);
@@ -39,14 +47,18 @@ public class EnemyProjectile {
 
     }
     public void setProjectile(int i){
+        this.projectileType = i;
         if(i == 1){
            img = page;
+           damage = 2;
         }
         if(i == 2){
             img = arrow;
+            damage = 2;
         }
         if(i == 3){
             img = fireBall;
+            damage = 2;
         }
     }
     public void move(){
@@ -70,12 +82,48 @@ public class EnemyProjectile {
         if(img != null) {
             int width = img.getWidth();
             int height = img.getHeight();
-            int sX = (int) (x - width / 2);
-            int sY = (int) (y - height / 2);
-            g2d.drawImage(img, sX, sY, width, height, null);
+            int sX = (int) (x + img.getWidth() / 2);
+            int sY = (int) (y + img.getHeight() / 2);
+            if(projectileType == 2) {
+                int cx = img.getWidth() / 2;
+                int cy = img.getHeight() / 2;
+                AffineTransform at = new AffineTransform();
+                at.translate(cx + sX, cy + sY);
+                at.rotate(imageAngleRad);
+                at.scale(1.5,1.5);
+                at.translate(-cx, -cy);
+                g2d.drawImage(img, at, null);
+            }
+            if(projectileType == 1) {
+                g2d.drawImage(img, sX, sY, width, height, null);
+            }
+            if(projectileType == 3){
+                //courtWizardAttacks(g2d);
+                g2d.drawImage(img, sX, sY, width, height, null);
+            }
         }
     }
     public void courtWizardAttacks(Graphics2D g2d){
+        int width = img.getWidth();
+        int height = img.getHeight();
+        int sX = (int) (x + img.getWidth() / 2);
+        int sY = (int) (y + img.getHeight() / 2 - 160);
+        int xX = sX - 64;
+        for(int i = 0; i < 5; i++){
+            g2d.drawImage(img, sX, sY + i * 32, width, height, null);
+        }
+        for(int i = 0; i < 5; i++){
+            g2d.drawImage(img, xX + i * 32, sY + 64, width, height, null);
+        }
 
+    }
+    public int getX(){
+        return (int) x + img.getWidth() / 2;
+    }
+    public int getY(){
+        return (int) y + img.getHeight() / 2;
+    }
+    public int getDamage(){
+        return damage;
     }
 }

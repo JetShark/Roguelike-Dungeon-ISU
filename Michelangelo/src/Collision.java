@@ -48,14 +48,25 @@ public class Collision {
             return false;
         }
     }
-    public void enemyCollision(){
-
+    public void enemyProjectileCollision(EnemyProjectile enemyProjectile){
+        boolean x_overlaps;
+        boolean y_overlaps;
+        x_overlaps = (enemyProjectile.getX() < p.getHitboxXT()) && (enemyProjectile.getX() > p.getHitboxX());
+        y_overlaps = (enemyProjectile.getY() < p.getHitboxYT()) && (enemyProjectile.getY() > p.getHitboxY());
+        boolean collision = x_overlaps && y_overlaps;
+        //if(alive) {
+            if (collision) {
+                //System.out.println("collision: " + collision);
+                //System.out.println("damage: " + enemyProjectile.getDamage());
+                p.damage(enemyProjectile.getDamage());
+            }
+        //}
     }
     public boolean weaponProjectileCollision(WeaponProjectile weaponProjectile){
         boolean x_overlaps;
         boolean y_overlaps;
         x_overlaps = (weaponProjectile.getX() < hitboxXT) && (weaponProjectile.getX() > hitboxX);
-        y_overlaps = (weaponProjectile.getY()< hitboxYT) && (weaponProjectile.getY() > hitboxY);
+        y_overlaps = (weaponProjectile.getY() < hitboxYT) && (weaponProjectile.getY() > hitboxY);
         boolean collision = x_overlaps && y_overlaps;
         if(collision){
            return true;
