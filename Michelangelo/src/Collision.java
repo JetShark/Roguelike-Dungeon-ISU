@@ -74,6 +74,11 @@ public class Collision {
             return false;
         }
     }
+
+    public void bossCollision(){
+        //}
+    }
+
     public void setEnemiesHitboxs(int hitboxX, int hitboxY, int hitboxXT, int hitboxYT){
         this.hitboxX = hitboxX;
         this.hitboxY = hitboxY;
