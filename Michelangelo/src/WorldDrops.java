@@ -1,9 +1,5 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 
 public class WorldDrops {
     private int x[] = new int[30];
@@ -25,6 +21,7 @@ public class WorldDrops {
     private int ranNum;
     private int ranKeyOrBomb;
     private boolean pickedUp;
+    private boolean[] pickedUpList = new boolean[30];
     int ranHeart;
 
     private int width = 0;
@@ -230,8 +227,8 @@ public class WorldDrops {
         pickUpHealth();
         //System.out.println("x,y: " + x[worldDropCount] + ", " + y[worldDropCount]);
         //System.out.println("x, y, wdc: " + x[0] + ", " + x[0] + ", " + worldDropCount);
-        if(!pickedUp) {
-            for (int i = 0; i < worldDropCount; i++) {
+        for (int i = 0; i < worldDropCount; i++) {
+            if(!pickedUp) {
                 g2d.drawImage(img[i], x[i], y[i], null);
                 //equipment.setX(x[i]);
                 //equipment.setY(y[i]);

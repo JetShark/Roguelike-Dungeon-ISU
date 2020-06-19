@@ -54,6 +54,7 @@ public class Player {
     private int health;
     private int numOfHearts;
     private int damage;
+    private int defense = 0;
     private int damageCount = 0;
     private int hitInvincibility = 100;
     private boolean invulnerable = false;
@@ -373,7 +374,12 @@ public class Player {
         */
     }
     public void damage(int damage){
-        this.damage = damage;
+        if ((damage - defense)>1) {
+            this.damage = damage- defense;
+        } else {
+            this.damage = 1;
+        }
+
         if(!invulnerable){
             health = health - damage;
             System.out.println("health: " + health);

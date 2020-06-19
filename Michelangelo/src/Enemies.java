@@ -149,7 +149,7 @@ public class Enemies {
             }
         }
         if (enemyNumber == 2) {
-            shotCooldownInit = 150;
+            shotCooldownInit = 200;
             health = 10;
             enemyDamage = 2;
             int ranGold = (int) (6 * Math.random() - 1);
@@ -184,7 +184,7 @@ public class Enemies {
             }
         }
         if (enemyNumber == 4) {
-            shotCooldownInit = 60;
+            shotCooldownInit = 75;
             health = 12;
             enemyDamage = 2;
             int ranGold = (int) (6 * Math.random() - 1);
@@ -254,6 +254,10 @@ public class Enemies {
         py = p.getY();
         xd = x;
         yd = y;
+
+        if (!alive) {
+            enemyProjectileList = new EnemyProjectile[20];
+        }
 
         if(alive) {
             if (enemyNumber == 0) {
