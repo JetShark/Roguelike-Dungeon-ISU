@@ -329,11 +329,11 @@ public class Player {
         mY = et.getY() + getCamX();
         rpX = x + getCamX();
         rpY = y + getCamY();
-        /*Old Function Here
+        //Old Function Here
         y = mY - 35;
         x = mX - 45 ;
-        */
 
+        /*
         int playerMouseXDiff = (int)(x - mX);
         int playerMouseYDiff = (int)(y - mY);
 
@@ -358,6 +358,7 @@ public class Player {
         }
         xRollSpeed = 0.005 * xRollDistance;
         yRollSpeed = 0.005 * yRollDistance;
+        */
         /*
         while (dodgeRoll) { // FIXME: 2020-05-27 not formatted correctly, should possibly be changed to do something in move instead
             if (xRollDistance > xDistanceRolled) {

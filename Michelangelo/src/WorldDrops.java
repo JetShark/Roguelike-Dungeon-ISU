@@ -149,6 +149,18 @@ public class WorldDrops {
             }
         }
     }
+    public void equipment(){
+        if(!pickedUp) {
+            if (cb.getCollision().worldDropCollision() && ranNum == 6) {
+                if(ranKeyOrBomb > 3) {
+                    pickedUp = true;
+                }
+            }
+            if (!cb.getCollision().worldDropCollision()) {
+                keysAdded = false;
+            }
+        }
+    }
     public int getBombsTotal(){
         return bombsTotal;
     }
@@ -224,6 +236,7 @@ public class WorldDrops {
         gold();
         bombs();
         keys();
+        equipment();
         pickUpHealth();
         //System.out.println("x,y: " + x[worldDropCount] + ", " + y[worldDropCount]);
         //System.out.println("x, y, wdc: " + x[0] + ", " + x[0] + ", " + worldDropCount);

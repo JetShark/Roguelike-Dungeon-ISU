@@ -1,5 +1,3 @@
-import org.w3c.dom.css.Rect;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -179,7 +177,7 @@ public class UserInterface {
             g2d.fillRect(x + 486, y + 251, 147, 47);
             g2d.fillRect(x + 486, y + 301, 147, 47);
             g2d.fillRect(x + 486, y + 361, 147, 47);
-            g2d.fillRect(x + 451, y + 431, 97, 27);
+            //g2d.fillRect(x + 451, y + 431, 97, 27);
             g2d.fillRect(x + 561, y + 431, 97, 27);
 
             g2d.setColor(Color.BLACK);
@@ -188,7 +186,7 @@ public class UserInterface {
             g2d.drawRect(x + 485, y + 250, 150, 50);
             g2d.drawRect(x + 485, y + 300, 150, 50);
             g2d.drawRect(x + 485, y + 360, 150, 50);
-            g2d.drawRect(x + 450, y + 430, 100, 30);
+            //g2d.drawRect(x + 450, y + 430, 100, 30);
             g2d.drawRect(x + 560, y + 430, 100, 30);
             g2d.setStroke(oldStroke);
 
@@ -199,7 +197,7 @@ public class UserInterface {
             g2d.setFont(newFont);
             g2d.drawString("You've Died", x + 382, y + 210);
             g2d.setFont(smallTextFont);
-            g2d.drawString("Quick Restart", x + 463, y + 449);
+            //g2d.drawString("Quick Restart", x + 463, y + 449);
             g2d.drawString("Main Menu", x + 580, y + 449);
         }
     }
