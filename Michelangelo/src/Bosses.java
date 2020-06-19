@@ -111,6 +111,12 @@ public class Bosses {
 
             }
         }
+        if(!alive){
+            Font currentFont = g2d.getFont();
+            Font newFont = currentFont.deriveFont(currentFont.getSize() * 12f);
+            g2d.setFont(newFont);
+            g2d.drawString("You Won", cb.getP().getCamX() + 225, cb.getP().getCamY() + 160);
+        }
         //g2d.fillRect(sX,sY, 10,10);
         //g2d.drawLine(4640,480,sX,sY);
         //System.out.println("sx, sy: " + sX + ", " + sY);
