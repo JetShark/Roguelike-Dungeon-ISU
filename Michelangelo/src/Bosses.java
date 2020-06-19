@@ -4,7 +4,19 @@ import java.awt.image.BufferedImage;
 public class Bosses {
     private Cowabunga cb;
     private EnemySpawnPoints eps;
+    private Player p;
+    private MapLevel ml;
     private int x,y;
+    private int sX, sY;
+    private int speedX, speedY;
+    private int width, height;
+    private int direction = 1;
+    private Boolean canMove = false;
+    private boolean firstMove = false;
+    private Point point1 = new Point(4416,256);
+    private Point point2 = new Point(4864,256);
+    private Point point3 = new Point(4352,768);
+    private Point point4 = new Point(4864,768);
 
     private BufferedImage[] neromancerIdle = {SpriteRetrival.getSprite(0,0, 7), SpriteRetrival.getSprite(3,0,7), SpriteRetrival.getSprite(0,1,7), SpriteRetrival.getSprite(3,1,7)};
     private Animation necroIdle = new Animation(neromancerIdle, 50);
@@ -15,6 +27,7 @@ public class Bosses {
     private Animation bossAnimation = necroIdle;
     public Bosses(Cowabunga cb){
         this.cb = cb;
+        this.p = cb.getP();
         eps = new EnemySpawnPoints("Map System/Level 1 Var 1_Entity.csv");
         for(int i = 0; i < eps.getWidth(); i++ ){
             for(int j = 0; j < eps.getHeight(); j++){
@@ -24,24 +37,92 @@ public class Bosses {
                 }
             }
         }
+        width = bossAnimation.getSprite().getWidth() * 3 / 2;
+        height = bossAnimation.getSprite().getHeight() * 3 / 2;
     }
-    public void move(){
 
-    }
     public void necromancerMovement(){
-
+        if(!firstMove) {
+            speedY = -1;
+            speedX = -1;
+            firstMove = true;
+        }
+        if(sX < point1.x + 64 && sY < point1.y + 128 && sX > point1.x && sY > point1.y){
+            speedX = 1;
+            speedY = 0;
+            direction = -1;
+        }
+        if(sX  < point2.x + 64 && sY < point2.y + 128 && sX  > point2.x && sY > point2.y){
+            speedX = - 1;
+            speedY = 1;
+            direction = 1;
+        }
+        if(sX < point3.x + 128 && sY < point3.y + 64 && sX  > point3.x && sY > point3.y){
+            speedX = 1;
+            speedY = 0;
+            direction = -1;
+        }
+        if(sX  < point4.x + 64 && sY < point4.y + 64 && sX  > point4.x && sY > point4.y){
+            speedX = - 1;
+            speedY = 1;
+            direction = 1;
+            firstMove = false;
+        }
     }
+
     public void paint(Graphics2D g2d){
         bossAnimation = necroIdle;
         bossAnimation.start();
         bossAnimation.update();
-        if(cb.getPlayerRoom() != null){
-            //System.out.println("midhor, vormid: " + cb.getPlayerRoom().getMidHorizontalTile() + ", " + cb.getPlayerRoom().getMidVerticalTile());
-            //g2d.drawImage(bossAnimation.getSprite(), cb.getPlayerRoom().getMidHorizontalTile()*64, cb.getPlayerRoom().getMidVerticalTile()*64, bossAnimation.getSprite().getWidth() * 3, bossAnimation.getSprite().getHeight() * 3,null);
-            g2d.drawImage(bossAnimation.getSprite(), x, y, bossAnimation.getSprite().getWidth() * 3, bossAnimation.getSprite().getHeight() * 3,null);
+        if(direction == 1){
+            g2d.drawImage(bossAnimation.getSprite(), x, y, direction * bossAnimation.getSprite().getWidth() * 3, bossAnimation.getSprite().getHeight() * 3, null);
+        }
+        if(direction == -1){
+            g2d.drawImage(bossAnimation.getSprite(), x + bossAnimation.getSprite().getWidth(), y, direction * bossAnimation.getSprite().getWidth() * 3, bossAnimation.getSprite().getHeight() * 3, null);
         }
 
+        //g2d.fillRect(sX,sY, 10,10);
+        //g2d.drawLine(4640,480,sX,sY);
+        //System.out.println("sx, sy: " + sX + ", " + sY);
+        //System.out.println("x, y: " + x + ", " + y);
         //g2d.setColor(Color.PINK);
         //g2d.fillRect(1000, 1000,200,200);
+    }
+    public void move(){
+        int xt = x;
+        int yt = y;
+        sX = (int) (x + width);
+        sY = (int) (y + height);
+        if(canMove) {
+            necromancerMovement();
+            x += speedX;
+            y += speedY;
+        }
+
+        /*if (speedX != 0 || speedY != 0) {
+            xt += speedX;
+            yt += speedY;
+            if (p.getML().checkCollision(xt, y)) {
+                speedX = 0;
+            } else {
+                x += speedX;
+            }
+            if (p.getML().checkCollision(x, yt)) {
+                speedY = 0;
+            } else {
+                y += speedY;
+            }
+            //System.out.println("x,y = " + speedx + ", " + speedy);
+        }*/
+    }
+    public void inRange(){
+        boolean x_Overlaps = (p.getHitboxX() < x + 192 + 200) && (p.getHitboxXT() > x - 200);
+        boolean y_overlaps = (p.getHitboxY() < y + 192 + 200) && (p.getHitboxYT() > y - 200);
+        boolean in_Range = x_Overlaps && y_overlaps;
+        if(in_Range){
+            canMove = true;
+        } else {
+            canMove = false;
+        }
     }
 }

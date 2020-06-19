@@ -223,6 +223,7 @@ public class Cowabunga extends JPanel{
                 //w.collision();
                 p.move();
                 boss.move();
+                boss.inRange();
                 equip.move();
                 bomb.move();
                 //collision.playerCollision();
@@ -261,10 +262,12 @@ public class Cowabunga extends JPanel{
             pc.paint(g2d);
             w.paint(g2d);
             tt.paint(g2d);
-            hud.paint(g2d);
-            boss.paint(g2d);
-            equip.paint(g2d);
             bomb.paint(g2d);
+            boss.paint(g2d);
+            hud.paint(g2d);
+
+            equip.paint(g2d);
+
             //wp.paint(g2d);
         }
         ui.paint(g2d);
