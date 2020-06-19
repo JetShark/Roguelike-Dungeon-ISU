@@ -197,6 +197,9 @@ public class Cowabunga extends JPanel{
     public Bomb getBomb(){
         return bomb;
     }
+    public Bosses getBoss(){
+        return boss;
+    }
 
     private void move() throws InterruptedException {
         // FIXME: 2020-05-05 need to have the player move function
