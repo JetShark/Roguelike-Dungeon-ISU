@@ -47,7 +47,7 @@ public class WorldDrops {
                 if(wdsp.getLevel(i,j) == 7) {
                     //System.out.println("level, i , j: " + wdsp.getLevel(i,j) + ", " + i +  ", " + j);
                     //System.out.println("isinroom: " + cb.getMapLevel().getPlayerRoom(cb.getP()).isTileInRoom(i,j));
-                    if (cb.getMapLevel().getPlayerRoom(cb.getP()).isTileInRoom(i, j)) {
+                    if (cb.getMapLevel().getPlayerRoom(cb.getP())!=null && cb.getMapLevel().getPlayerRoom(cb.getP()).isTileInRoom(i, j)) {
                         x[worldDropCount] = i * tileWidth * 4;
                         y[worldDropCount] = j * tileHeight * 4;
                         System.out.println("x, y, wdc: " + x[worldDropCount] + ", " + y[worldDropCount] + ", " + worldDropCount);
