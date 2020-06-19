@@ -459,7 +459,8 @@ public class Player {
         this.numOfHearts = numOfHearts;
     }
     public int getNumOfHearts(){
-        return numOfHearts;
+        //return numOfHearts;
+        return (health+3)/4;
     }
 
     public void paint(Graphics2D g2d){

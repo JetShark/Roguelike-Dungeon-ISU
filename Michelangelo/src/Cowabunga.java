@@ -43,6 +43,8 @@ public class Cowabunga extends JPanel{
         c = new Collection(ui);
         a.setVolume(0.1f);
         for (int q = 0; q < et.length; q++) {
+            //Rat Mode
+            //et[q] = new Enemies(this, (int) (1 * Math.random() - 0), eps.getX(q), eps.getY(q), p);
             et[q] = new Enemies(this, (int) (7 * Math.random() - 0), eps.getX(q), eps.getY(q), p);
             //collision = new Collision(p, et[q], w);
             //collision.setClasses(p,et[q],w);
